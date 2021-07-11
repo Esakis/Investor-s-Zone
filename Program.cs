@@ -15,9 +15,12 @@ namespace InvestorZone
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .CreateLogger();
+            .MinimumLevel.Information()
+            .WriteTo.Console()
+            .WriteTo.File("log.txt",
+                rollingInterval: RollingInterval.Day,
+                rollOnFileSizeLimit: true)
+            .CreateLogger();
 
             try
             {

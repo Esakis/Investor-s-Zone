@@ -24,6 +24,7 @@ Bin/
 obj/
 Obj/
 Migrations
+log20210711.txt
 
 # Visual Studio 2015 cache/options directory
 .vs/

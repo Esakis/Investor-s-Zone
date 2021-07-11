@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InvestorZone.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace InvestorZone
 {
@@ -18,13 +19,41 @@ namespace InvestorZone
         {
             if (_dbContext.Database.CanConnect())
             {
-                if (!_dbContext.Users.Any())
+                var pendingMigrations = _dbContext.Database.GetPendingMigrations();
+                if (pendingMigrations != null && pendingMigrations.Any())
+                {
+                    _dbContext.Database.Migrate();
+                }
+
+                if (!_dbContext.Roles.Any())
+                {
+                    var roles = GetRoles();
+                    _dbContext.Roles.AddRange(roles);
+                    _dbContext.SaveChanges();
+                }
+                if (!_dbContext.Roles.Any())
                 {
                     var users = GetUsers();
                     _dbContext.Users.AddRange(users);
                     _dbContext.SaveChanges();
                 }
             }
+        }
+
+        private IEnumerable<Role> GetRoles()
+        {
+            var roles = new List<Role>()
+            {
+                new Role()
+                {
+                    Name="User"
+                },
+                 new Role()
+                {
+                    Name="Admin"
+                },
+            };
+            return roles;
         }
 
         private IEnumerable<User> GetUsers()

@@ -12,25 +12,29 @@ namespace InvestorZone.Entities
             "Server=DESKTOP-ANMM7DC\\SQLEXPRESS;Database=StrefaInwestora;Trusted_Connection =True;";
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
                 .Property(u => u.Email)
-                .IsRequired()
+               // .IsRequired()
                 .HasMaxLength(25);
 
             modelBuilder.Entity<User>()
                 .Property(u => u.FirstName)
-                .IsRequired()
+              //  .IsRequired()
                 .HasMaxLength(25);
 
             modelBuilder.Entity<User>()
                 .Property(u => u.LastName)
-                .IsRequired()
+             //   .IsRequired()
                 .HasMaxLength(25);
 
-            
+            modelBuilder.Entity<Role>()
+                .Property(u => u.Name)
+            //    .IsRequired()
+                .HasMaxLength(25);
 
         }
 
