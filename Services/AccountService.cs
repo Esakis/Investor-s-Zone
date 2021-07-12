@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using InvestorZone.Entities;
 using InvestorZone.Exceptions;
 using InvestorZone.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InvestorZone.Services
 {
@@ -22,7 +23,7 @@ namespace InvestorZone.Services
     }
     public class AccountService : IAccountService
     {
-        private readonly UserDbContext _context;
+        public readonly UserDbContext _context;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
 
@@ -36,6 +37,8 @@ namespace InvestorZone.Services
         {
             var newUser = new User()
             {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 Email = dto.Email,
                 DateOfBirth = dto.DateOfBirth,
                 Nationality = dto.Nationality,
@@ -95,5 +98,10 @@ namespace InvestorZone.Services
             return tokenHandler.WriteToken(token);
 
         }
+
+        
+
+            
+        
     }
 }

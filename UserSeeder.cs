@@ -31,7 +31,7 @@ namespace InvestorZone
                     _dbContext.Roles.AddRange(roles);
                     _dbContext.SaveChanges();
                 }
-                if (!_dbContext.Roles.Any())
+                if (!_dbContext.Users.Any())
                 {
                     var users = GetUsers();
                     _dbContext.Users.AddRange(users);
