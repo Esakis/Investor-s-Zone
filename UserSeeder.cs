@@ -27,16 +27,17 @@ namespace InvestorZone
 
                 if (!_dbContext.Roles.Any())
                 {
+                    
                     var roles = GetRoles();
                     _dbContext.Roles.AddRange(roles);
                     _dbContext.SaveChanges();
                 }
-                if (!_dbContext.Users.Any())
-                {
-                    var users = GetUsers();
-                    _dbContext.Users.AddRange(users);
-                    _dbContext.SaveChanges();
-                }
+                // if (!_dbContext.Users.Any())
+                // {
+                //     var users = GetUsers();
+                //     _dbContext.Users.AddRange(users);
+                //     _dbContext.SaveChanges();
+                // }
             }
         }
 
