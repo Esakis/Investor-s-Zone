@@ -7,7 +7,7 @@ const Home = () => (
         <h1>Strefa Inwestora</h1>
         <p>Witamy na naszej stronie poswieconej inwestowaniu</p>
         <ul>
-   
+  
     </ul>
     </div>
 );
