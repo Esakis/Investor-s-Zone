@@ -2,36 +2,72 @@ import * as React from 'react';
 import axios, {AxiosResponse} from "axios"
 import {SimpleStockChart} from "./StockChart";
 import {currencies, timeFrames, valueTypes} from "../constants/ConstantLocalValues"
-import {Component} from "react";
+import {Component, PureComponent} from "react";
+import {responseList} from "../constants/ConstantLocalValues";
+import ReactDOM from 'react-dom'
 
 type props = {
     currency: string,
     container: HTMLElement,
 }
 
-export class StockChartFactory extends Component<props, any> {
+// export class StockChartFactory extends Component {
+//     private data: any;
+//     private chart: SimpleStockChart;
+//     private currentCurrency: string;
+//     private currentValueType: string;
+//     private container: HTMLElement;
+//     // for now there is only currency to be picked and 
+//     constructor({ currency, container }: props) {
+//         super({ currency, container });
+//         // console.log("currency tests", responseList, responseList["USD"])
+//         this.container = container;
+//         let valuesType = 'avg' //temporary solution
+//         this.changeChart(currency, valuesType)
+//     }
+
+export class StockChartFactory extends PureComponent {
     private data: any;
     private chart: SimpleStockChart;
     private currentCurrency: string;
     private currentValueType: string;
-    private container: HTMLElement;
+    private container: HTMLElement | null;
     // for now there is only currency to be picked and 
-    constructor({ currency, container }: props) {
-        super({ currency, container });
-        this.container = container;
-        let valuesType = 'avg' //temporary solution
-        this.changeChart(currency, valuesType)
-    }
-    private async getData(currency: string, typeOfValues: string) {
-        try {
-            let timestamp = Date.now();
-            let url = `https://internetowykantor.pl/cms/currency_chart/${currency}/1year/${typeOfValues}/?t=${timestamp-5}`;
-            console.log("url", url)
-            const {data:response} = await axios.get(url)
-            return response
-        } catch(error) {
-            console.log("Error:", error)
-        }
+
+    private getData(currency: string, typeOfValues: string) {
+        return responseList[currency];
+        
+        // let data = {};
+        // let timestamp = Date.now();
+        // let url = `https://internetowykantor.pl/cms/currency_chart/${currency}/1year/${typeOfValues}/?t=${timestamp-5}`;
+        // console.log("url", url)
+        // const response = await fetch(url,{    
+        //         method: 'GET',
+        //         mode: 'no-cors',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        // })  //oh lord forgive for what i have created here
+        // console.log(typeof response)
+        // let data = response.text();
+        // console.log(typeof response)
+        // return data
+        //
+        // console.log(data)
+        // return response.text().then(function(text) {
+        //     return text ? JSON.parse(text) : {}
+        // })
+            // .then((response) => response.json())
+            // .then((data) => {
+            //     return data[0];
+            // });
+        // const retrieveData = () => {
+        //     promise.then((retrievedData) => {
+        //         return retrievedData
+        //     });
+        // };
+        //
+        // retrieveData();
     }
     
     public changeChart(currency: string, typeOfValues: string) {
@@ -39,9 +75,9 @@ export class StockChartFactory extends Component<props, any> {
             this.currentCurrency = currency;
             this.currentValueType = typeOfValues;
             this.data = this.getData(currency, typeOfValues);
-            console.log(this.data);
+            // console.log(this.data);
             this.chart = this.createChart(this.data);
-
+            console.log(this.chart)
         } else {
             console.log("Requested currency", currency,"and / or value type", typeOfValues, "does not exist / is incorrect")
         }
@@ -50,10 +86,13 @@ export class StockChartFactory extends Component<props, any> {
         console.log("data retrieved", data)
 
         let dataPoints = this.getDataPoints(data);
+        console.log(     this.currentCurrency + " Stock Chart",
+           dataPoints,
+            dataPoints[dataPoints.length-1].x)
         let chart = new SimpleStockChart({
             title: this.currentCurrency + " Stock Chart",
             dataPoints: dataPoints,
-            startData: dataPoints[dataPoints.length].window_closed
+            startData: dataPoints[dataPoints.length-1].x
         });
         return chart;
     }
@@ -63,10 +102,15 @@ export class StockChartFactory extends Component<props, any> {
         for(let element of data){
             filtered.push({x: element.window_closed, y: element.avg})
         }
+        console.log("datapoints", filtered)
         return filtered;
     }
-    
     render() {
-        return <div></div>
+        this.currentCurrency = "EUR"
+        // console.log("currency tests", responseList, responseList["USD"])
+        this.container = document.getElementById('chartContainer');
+        let valuesType = 'avg' //temporary solution
+        this.changeChart(this.currentCurrency, valuesType)
+        return this.chart
     }
 }

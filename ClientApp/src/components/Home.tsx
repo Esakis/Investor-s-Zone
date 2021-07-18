@@ -14,10 +14,11 @@ const Home = () => (
     <ul>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit,
     </ul>
-      <div id={"chartContainer"}>
+      <div id="chartContainer">
           
       </div>
-      <StockChartFactory currency="EUR" container="chartContainer"/>
+      
+      <StockChartFactory/>
     </div>
 );
 
