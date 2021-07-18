@@ -6,11 +6,15 @@ import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 
 import './custom.css'
+import Clock from './components/Clock';
 
 export default () => (
     <Layout>
-        <Route exact path='/' component={Home} />
+       
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
+        <Route path='/' component={Clock} />
+
+
     </Layout>
 );
