@@ -1,0 +1,43 @@
+BUDOWA LINKU DO ŚCIĄGANIA DANYCH DO WYKRESU.
+
+https://internetowykantor.pl/cms/currency_chart/<waluta>/<przedziałCzasowy>/<typWartości>/?t={obecny_czas_w_formacie_unix}
+
+przedziałCzasowy:
+1day
+1week
+1month
+3months
+6months
+1year
+(2years)
+
+waluta:
+EUR
+USD
+CHF
+GBP
+AUD
+BGN
+CAD
+CZK
+DKK
+HDK
+HRK
+MXN
+NOK
+NZD
+RON
+RUB
+SEK
+SGD
+TRY
+ZAR
+
+typWartości:
+avg
+buy
+sell
+
+() - OPCJE DZIAŁAJĄCE NIE DLA WSZYSTKICH PRZYPADKÓW
+<> - MIEJSCE NA ZMIENNĄ OD KLIENTA
+{} - MIEJSCE NA ZMIENNĄ OD SERWERA
