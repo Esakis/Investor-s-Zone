@@ -1,0 +1,483 @@
+2021-07-12 19:41:15.958 +02:00 [INF] Starting up
+2021-07-12 19:41:24.370 +02:00 [INF] User profile is available. Using 'C:\Users\Łukasz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 19:41:35.297 +02:00 [INF] Starting create-react-app server on port 1041...
+2021-07-12 19:41:36.839 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-07-12 19:41:36.840 +02:00 [INF] Hosting environment: Development
+2021-07-12 19:41:36.840 +02:00 [INF] Content root path: C:\Users\Łukasz\Desktop\StrefaInwestora\Investor-s-Zone
+2021-07-12 19:41:37.019 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/ - -
+2021-07-12 19:41:43.115 +02:00 [INF] > investorzone@0.1.0 start C:\Users\┼üukasz\Desktop\StrefaInwestora\Investor-s-Zone\ClientApp
+
+2021-07-12 19:41:43.115 +02:00 [INF] > react-scripts start
+
+2021-07-12 19:43:41.761 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.TimeoutException: The create-react-app server did not start listening for requests within the timeout period of 0 seconds. Check the log output for error information.
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-07-12 19:43:52.474 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/ - - - 500 - text/html;+charset=utf-8 135284.5122ms
+2021-07-12 19:44:38.127 +02:00 [INF] Starting up
+2021-07-12 19:44:41.165 +02:00 [INF] User profile is available. Using 'C:\Users\Łukasz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 19:44:54.440 +02:00 [INF] Starting create-react-app server on port 28433...
+2021-07-12 19:44:56.084 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-07-12 19:44:56.084 +02:00 [INF] Hosting environment: Development
+2021-07-12 19:44:56.085 +02:00 [INF] Content root path: C:\Users\Łukasz\Desktop\StrefaInwestora\Investor-s-Zone
+2021-07-12 19:44:56.138 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/ - -
+2021-07-12 19:45:01.767 +02:00 [INF] > investorzone@0.1.0 start C:\Users\┼üukasz\Desktop\StrefaInwestora\Investor-s-Zone\ClientApp
+
+2021-07-12 19:45:01.767 +02:00 [INF] > react-scripts start
+
+2021-07-12 19:45:08.256 +02:00 [INF] i ´Żówds´Żú: Project is running at http://192.168.1.18/
+
+2021-07-12 19:45:08.259 +02:00 [INF] i ´Żówds´Żú: webpack output is served from 
+
+2021-07-12 19:45:08.259 +02:00 [INF] i ´Żówds´Żú: Content not from webpack is served from C:\Users\┼üukasz\Desktop\StrefaInwestora\Investor-s-Zone\ClientApp\public
+
+2021-07-12 19:45:08.259 +02:00 [INF] i ´Żówds´Żú: 404s will fallback to /
+
+2021-07-12 19:45:08.259 +02:00 [INF] Starting the development server...
+
+2021-07-12 19:47:45.010 +02:00 [INF] Files successfully emitted, waiting for typecheck results...
+
+2021-07-12 19:47:45.448 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/ - - - 200 700 text/html;+charset=utf-8 169313.5854ms
+2021-07-12 19:47:45.502 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/static/js/bundle.js - -
+2021-07-12 19:47:45.517 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/static/js/main.chunk.js - -
+2021-07-12 19:47:45.621 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/static/js/0.chunk.js - -
+2021-07-12 19:47:45.677 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/static/js/bundle.js - - - 304 - - 174.5443ms
+2021-07-12 19:47:47.684 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/static/js/main.chunk.js - - - 304 - - 2166.9175ms
+2021-07-12 19:47:47.684 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/static/js/0.chunk.js - - - 304 - - 2068.6439ms
+2021-07-12 19:47:49.218 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:44349/sockjs-node - -
+2021-07-12 19:54:11.319 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/swagger/index.html - -
+2021-07-12 19:54:11.652 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/swagger/index.html - - - 200 - text/html;charset=utf-8 332.4212ms
+2021-07-12 19:54:11.773 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:44349/sockjs-node - - - 101 - - 382559.1400ms
+2021-07-12 19:54:12.299 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/swagger/v1/swagger.json - -
+2021-07-12 19:54:13.119 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 819.5157ms
+2021-07-12 19:58:49.184 +02:00 [INF] Starting up
+2021-07-12 19:58:50.936 +02:00 [INF] User profile is available. Using 'C:\Users\Łukasz\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 19:58:54.345 +02:00 [INF] Starting create-react-app server on port 12739...
+2021-07-12 19:58:54.502 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-07-12 19:58:54.502 +02:00 [INF] Hosting environment: Development
+2021-07-12 19:58:54.502 +02:00 [INF] Content root path: C:\Users\Łukasz\Desktop\StrefaInwestora\Investor-s-Zone
+2021-07-12 19:58:54.563 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/ - -
+2021-07-12 19:58:57.655 +02:00 [INF] > investorzone@0.1.0 start C:\Users\┼üukasz\Desktop\StrefaInwestora\Investor-s-Zone\ClientApp
+
+2021-07-12 19:58:57.656 +02:00 [INF] > react-scripts start
+
+2021-07-12 19:59:04.908 +02:00 [INF] i ´Żówds´Żú: Project is running at http://192.168.1.18/
+
+2021-07-12 19:59:04.909 +02:00 [INF] i ´Żówds´Żú: webpack output is served from 
+
+2021-07-12 19:59:04.910 +02:00 [INF] i ´Żówds´Żú: Content not from webpack is served from C:\Users\┼üukasz\Desktop\StrefaInwestora\Investor-s-Zone\ClientApp\public
+
+2021-07-12 19:59:04.910 +02:00 [INF] i ´Żówds´Żú: 404s will fallback to /
+
+2021-07-12 19:59:04.910 +02:00 [INF] Starting the development server...
+
+2021-07-12 19:59:21.123 +02:00 [INF] Files successfully emitted, waiting for typecheck results...
+
+2021-07-12 19:59:21.195 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/ - - - 304 - - 26633.2113ms
+2021-07-12 19:59:21.223 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/static/js/bundle.js - -
+2021-07-12 19:59:21.249 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/static/js/main.chunk.js - -
+2021-07-12 19:59:21.258 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/static/js/0.chunk.js - -
+2021-07-12 19:59:21.331 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/static/js/bundle.js - - - 304 - - 108.3394ms
+2021-07-12 19:59:23.314 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/static/js/main.chunk.js - - - 304 - - 2064.9075ms
+2021-07-12 19:59:23.323 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/static/js/0.chunk.js - - - 304 - - 2068.8533ms
+2021-07-12 19:59:23.534 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:44349/sockjs-node - -
+2021-07-12 19:59:31.691 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/swagger/index.html - -
+2021-07-12 19:59:31.788 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/swagger/index.html - - - 200 - text/html;charset=utf-8 96.1791ms
+2021-07-12 19:59:31.854 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:44349/sockjs-node - - - 101 - - 8321.3418ms
+2021-07-12 19:59:31.967 +02:00 [INF] Request starting HTTP/2 GET https://localhost:44349/swagger/v1/swagger.json - -
+2021-07-12 19:59:32.062 +02:00 [INF] Request finished HTTP/2 GET https://localhost:44349/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 94.2731ms
+2021-07-12 20:53:59.853 +02:00 [INF] Starting up
+2021-07-12 20:54:01.857 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 20:54:06.360 +02:00 [FTL] Application startup exception
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Roles'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(DbContext _, Boolean result)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.Any[TSource](IQueryable`1 source)
+   at InvestorZone.UserSeeder.Seed() in C:\Users\User\github\Kantor\Investor-s-Zone\UserSeeder.cs:line 28
+   at InvestorZone.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, UserSeeder seeder) in C:\Users\User\github\Kantor\Investor-s-Zone\Startup.cs:line 85
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+ClientConnectionId:aa9a496b-ec56-443e-9b72-0879d3281e8c
+Error Number:208,State:1,Class:16
+2021-07-12 20:54:06.588 +02:00 [FTL] Application start-up failed
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Roles'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(DbContext _, Boolean result)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.Any[TSource](IQueryable`1 source)
+   at InvestorZone.UserSeeder.Seed() in C:\Users\User\github\Kantor\Investor-s-Zone\UserSeeder.cs:line 28
+   at InvestorZone.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, UserSeeder seeder) in C:\Users\User\github\Kantor\Investor-s-Zone\Startup.cs:line 85
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at InvestorZone.Program.Main(String[] args) in C:\Users\User\github\Kantor\Investor-s-Zone\Program.cs:line 28
+ClientConnectionId:aa9a496b-ec56-443e-9b72-0879d3281e8c
+Error Number:208,State:1,Class:16
+2021-07-12 20:58:05.011 +02:00 [INF] Starting up
+2021-07-12 20:58:05.899 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 20:58:10.816 +02:00 [FTL] Application startup exception
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Roles'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(DbContext _, Boolean result)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.Any[TSource](IQueryable`1 source)
+   at InvestorZone.UserSeeder.Seed() in C:\Users\User\github\Kantor\Investor-s-Zone\UserSeeder.cs:line 28
+   at InvestorZone.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, UserSeeder seeder) in C:\Users\User\github\Kantor\Investor-s-Zone\Startup.cs:line 85
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+ClientConnectionId:86465ceb-6f84-4f0d-b038-14c86078e92c
+Error Number:208,State:1,Class:16
+2021-07-12 20:58:10.910 +02:00 [FTL] Application start-up failed
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'Roles'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(DbContext _, Boolean result)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.Execute[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.Any[TSource](IQueryable`1 source)
+   at InvestorZone.UserSeeder.Seed() in C:\Users\User\github\Kantor\Investor-s-Zone\UserSeeder.cs:line 28
+   at InvestorZone.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, UserSeeder seeder) in C:\Users\User\github\Kantor\Investor-s-Zone\Startup.cs:line 85
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at InvestorZone.Program.Main(String[] args) in C:\Users\User\github\Kantor\Investor-s-Zone\Program.cs:line 28
+ClientConnectionId:86465ceb-6f84-4f0d-b038-14c86078e92c
+Error Number:208,State:1,Class:16
+2021-07-12 21:07:24.763 +02:00 [INF] Starting up
+2021-07-12 21:07:26.377 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 21:07:30.846 +02:00 [FTL] Application startup exception
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The MERGE statement conflicted with the FOREIGN KEY constraint "FK_Users_Roles_RoleId". The conflict occurred in database "StrefaInwestowania", table "dbo.Roles", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+ClientConnectionId:4e6215fc-16e2-442e-bf55-a58ade2400a1
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at InvestorZone.UserSeeder.Seed() in C:\Users\User\github\Kantor\Investor-s-Zone\UserSeeder.cs:line 38
+   at InvestorZone.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, UserSeeder seeder) in C:\Users\User\github\Kantor\Investor-s-Zone\Startup.cs:line 85
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+2021-07-12 21:07:31.062 +02:00 [FTL] Application start-up failed
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The MERGE statement conflicted with the FOREIGN KEY constraint "FK_Users_Roles_RoleId". The conflict occurred in database "StrefaInwestowania", table "dbo.Roles", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+ClientConnectionId:4e6215fc-16e2-442e-bf55-a58ade2400a1
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at InvestorZone.UserSeeder.Seed() in C:\Users\User\github\Kantor\Investor-s-Zone\UserSeeder.cs:line 38
+   at InvestorZone.Startup.Configure(IApplicationBuilder app, IWebHostEnvironment env, UserSeeder seeder) in C:\Users\User\github\Kantor\Investor-s-Zone\Startup.cs:line 85
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at InvestorZone.Program.Main(String[] args) in C:\Users\User\github\Kantor\Investor-s-Zone\Program.cs:line 28
+2021-07-12 21:08:52.594 +02:00 [INF] Starting up
+2021-07-12 21:08:53.348 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 21:08:57.812 +02:00 [INF] Starting create-react-app server on port 51447...
+2021-07-12 21:08:58.335 +02:00 [INF] Now listening on: https://localhost:5001
+2021-07-12 21:08:58.343 +02:00 [INF] Now listening on: http://localhost:5000
+2021-07-12 21:08:58.346 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-07-12 21:08:58.357 +02:00 [INF] Hosting environment: Development
+2021-07-12 21:08:58.359 +02:00 [INF] Content root path: C:\Users\User\github\Kantor\Investor-s-Zone
+2021-07-12 21:08:59.746 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/ - -
+2021-07-12 21:09:02.441 +02:00 [INF] > investorzone@0.1.0 start C:\Users\User\github\Kantor\Investor-s-Zone\ClientApp
+
+2021-07-12 21:09:02.448 +02:00 [INF] > react-scripts start
+
+2021-07-12 21:09:14.527 +02:00 [INF] i ´Żówds´Żú: Project is running at http://192.168.1.191/
+
+2021-07-12 21:09:14.564 +02:00 [INF] i ´Żówds´Żú: webpack output is served from 
+
+2021-07-12 21:09:14.573 +02:00 [INF] i ´Żówds´Żú: Content not from webpack is served from C:\Users\User\github\Kantor\Investor-s-Zone\ClientApp\public
+
+2021-07-12 21:09:14.576 +02:00 [INF] i ´Żówds´Żú: 404s will fallback to /
+
+2021-07-12 21:09:14.578 +02:00 [INF] Starting the development server...
+
+2021-07-12 21:09:38.375 +02:00 [INF] Files successfully emitted, waiting for typecheck results...
+
+2021-07-12 21:09:38.424 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/ - - - 304 - - 38682.7941ms
+2021-07-12 21:09:38.635 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/0.chunk.js - -
+2021-07-12 21:09:38.639 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/main.chunk.js - -
+2021-07-12 21:09:39.015 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/bundle.js - -
+2021-07-12 21:09:39.278 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/0.chunk.js - - - 200 - application/javascript;+charset=UTF-8 642.9886ms
+2021-07-12 21:09:41.419 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/main.chunk.js - - - 200 - application/javascript;+charset=UTF-8 2780.5129ms
+2021-07-12 21:09:41.420 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/bundle.js - - - 200 - application/javascript;+charset=UTF-8 2404.5860ms
+2021-07-12 21:09:41.576 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/sockjs-node - -
+2021-07-12 21:29:33.365 +02:00 [INF] Starting up
+2021-07-12 21:29:33.946 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 21:29:36.529 +02:00 [INF] Starting create-react-app server on port 62058...
+2021-07-12 21:29:36.807 +02:00 [INF] Now listening on: https://localhost:5001
+2021-07-12 21:29:36.809 +02:00 [INF] Now listening on: http://localhost:5000
+2021-07-12 21:29:36.816 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-07-12 21:29:36.818 +02:00 [INF] Hosting environment: Development
+2021-07-12 21:29:36.819 +02:00 [INF] Content root path: C:\Users\User\github\Kantor\Investor-s-Zone
+2021-07-12 21:29:37.535 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/ - -
+2021-07-12 21:29:38.957 +02:00 [INF] > investorzone@0.1.0 start C:\Users\User\github\Kantor\Investor-s-Zone\ClientApp
+
+2021-07-12 21:29:38.962 +02:00 [INF] > react-scripts start
+
+2021-07-12 21:29:46.506 +02:00 [INF] i ´Żówds´Żú: Project is running at http://192.168.1.191/
+
+2021-07-12 21:29:46.510 +02:00 [INF] i ´Żówds´Żú: webpack output is served from 
+
+2021-07-12 21:29:46.513 +02:00 [INF] i ´Żówds´Żú: Content not from webpack is served from C:\Users\User\github\Kantor\Investor-s-Zone\ClientApp\public
+
+2021-07-12 21:29:46.515 +02:00 [INF] i ´Żówds´Żú: 404s will fallback to /
+
+2021-07-12 21:29:46.519 +02:00 [INF] Starting the development server...
+
+2021-07-12 21:30:01.892 +02:00 [INF] Files successfully emitted, waiting for typecheck results...
+
+2021-07-12 21:30:01.931 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/ - - - 304 - - 24399.2636ms
+2021-07-12 21:30:02.040 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/bundle.js - -
+2021-07-12 21:30:02.041 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/0.chunk.js - -
+2021-07-12 21:30:02.041 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/main.chunk.js - -
+2021-07-12 21:30:02.248 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/bundle.js - - - 304 - - 207.6022ms
+2021-07-12 21:30:04.453 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/main.chunk.js - - - 304 - - 2411.4800ms
+2021-07-12 21:30:04.461 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/0.chunk.js - - - 304 - - 2420.5813ms
+2021-07-12 21:30:04.708 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/sockjs-node - -
+2021-07-12 21:31:25.085 +02:00 [INF] Starting up
+2021-07-12 21:31:25.760 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 21:31:28.823 +02:00 [INF] Starting create-react-app server on port 63560...
+2021-07-12 21:31:29.127 +02:00 [INF] Now listening on: https://localhost:5001
+2021-07-12 21:31:29.136 +02:00 [INF] Now listening on: http://localhost:5000
+2021-07-12 21:31:29.139 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-07-12 21:31:29.142 +02:00 [INF] Hosting environment: Development
+2021-07-12 21:31:29.145 +02:00 [INF] Content root path: C:\Users\User\github\Kantor\Investor-s-Zone
+2021-07-12 21:31:30.195 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/ - -
+2021-07-12 21:31:31.253 +02:00 [INF] > investorzone@0.1.0 start C:\Users\User\github\Kantor\Investor-s-Zone\ClientApp
+
+2021-07-12 21:31:31.255 +02:00 [INF] > react-scripts start
+
+2021-07-12 21:31:38.744 +02:00 [INF] i ´Żówds´Żú: Project is running at http://192.168.1.191/
+
+2021-07-12 21:31:38.808 +02:00 [INF] i ´Żówds´Żú: webpack output is served from 
+
+2021-07-12 21:31:38.823 +02:00 [INF] i ´Żówds´Żú: Content not from webpack is served from C:\Users\User\github\Kantor\Investor-s-Zone\ClientApp\public
+
+2021-07-12 21:31:38.829 +02:00 [INF] i ´Żówds´Żú: 404s will fallback to /
+
+2021-07-12 21:31:38.869 +02:00 [INF] Starting the development server...
+
+2021-07-12 21:31:53.996 +02:00 [INF] Files successfully emitted, waiting for typecheck results...
+
+2021-07-12 21:31:54.032 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/ - - - 304 - - 23844.6874ms
+2021-07-12 21:31:54.083 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/bundle.js - -
+2021-07-12 21:31:54.085 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/0.chunk.js - -
+2021-07-12 21:31:54.086 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/main.chunk.js - -
+2021-07-12 21:31:54.369 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/bundle.js - - - 304 - - 286.2519ms
+2021-07-12 21:31:56.538 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/main.chunk.js - - - 304 - - 2452.3125ms
+2021-07-12 21:31:56.546 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/0.chunk.js - - - 304 - - 2461.0176ms
+2021-07-12 21:31:56.758 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/sockjs-node - -
+2021-07-12 21:41:17.395 +02:00 [INF] Starting up
+2021-07-12 21:41:18.145 +02:00 [INF] User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-07-12 21:41:23.026 +02:00 [INF] Starting create-react-app server on port 50181...
+2021-07-12 21:41:23.306 +02:00 [INF] Now listening on: https://localhost:5001
+2021-07-12 21:41:23.315 +02:00 [INF] Now listening on: http://localhost:5000
+2021-07-12 21:41:23.317 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-07-12 21:41:23.319 +02:00 [INF] Hosting environment: Development
+2021-07-12 21:41:23.320 +02:00 [INF] Content root path: C:\Users\User\github\Kantor\Investor-s-Zone
+2021-07-12 21:41:24.502 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/ - -
+2021-07-12 21:41:26.198 +02:00 [INF] > investorzone@0.1.0 start C:\Users\User\github\Kantor\Investor-s-Zone\ClientApp
+
+2021-07-12 21:41:26.281 +02:00 [INF] > react-scripts start
+
+2021-07-12 21:41:36.808 +02:00 [INF] i ´Żówds´Żú: Project is running at http://192.168.1.191/
+
+2021-07-12 21:41:36.834 +02:00 [INF] i ´Żówds´Żú: webpack output is served from 
+
+2021-07-12 21:41:36.837 +02:00 [INF] i ´Żówds´Żú: Content not from webpack is served from C:\Users\User\github\Kantor\Investor-s-Zone\ClientApp\public
+
+2021-07-12 21:41:36.841 +02:00 [INF] i ´Żówds´Żú: 404s will fallback to /
+
+2021-07-12 21:41:36.843 +02:00 [INF] Starting the development server...
+
+2021-07-12 21:41:57.826 +02:00 [INF] Files successfully emitted, waiting for typecheck results...
+
+2021-07-12 21:41:57.862 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/ - - - 304 - - 33365.9806ms
+2021-07-12 21:41:58.136 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/0.chunk.js - -
+2021-07-12 21:41:58.136 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/bundle.js - -
+2021-07-12 21:41:58.156 +02:00 [INF] Request starting HTTP/2 GET https://localhost:5001/static/js/main.chunk.js - -
+2021-07-12 21:41:58.199 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/0.chunk.js - - - 304 - - 63.4873ms
+2021-07-12 21:42:00.627 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/bundle.js - - - 304 - - 2490.9974ms
+2021-07-12 21:42:00.629 +02:00 [INF] Request finished HTTP/2 GET https://localhost:5001/static/js/main.chunk.js - - - 304 - - 2472.7490ms
+2021-07-12 21:42:00.940 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/sockjs-node - -
+2021-07-12 21:46:23.961 +02:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/register - 0
+2021-07-12 21:46:26.055 +02:00 [INF] Request finished HTTP/1.1 POST https://localhost:5001/api/register - 0 - 404 152 text/html;+charset=utf-8 2093.5258ms
+2021-07-12 21:46:40.627 +02:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/api/register - -
+2021-07-12 21:46:42.688 +02:00 [INF] Request finished HTTP/1.1 GET https://localhost:5001/api/register - - - 200 700 text/html;+charset=utf-8 2060.6225ms
+2021-07-12 21:47:30.973 +02:00 [INF] Request starting HTTP/1.1 POST https://localhost:5001/api/account/register - 0
+2021-07-12 21:47:31.134 +02:00 [INF] Executing endpoint 'InvestorZone.Controllers.AccountController.RegisterUser (InvestorZone)'
+2021-07-12 21:47:31.320 +02:00 [INF] Route matched with {action = "RegisterUser", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult RegisterUser(InvestorZone.Models.RegisterUserDto) on controller InvestorZone.Controllers.AccountController (InvestorZone).
+2021-07-12 21:47:31.916 +02:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2021-07-12 21:47:32.185 +02:00 [INF] Executed action InvestorZone.Controllers.AccountController.RegisterUser (InvestorZone) in 373.7335ms
+2021-07-12 21:47:32.208 +02:00 [INF] Executed endpoint 'InvestorZone.Controllers.AccountController.RegisterUser (InvestorZone)'
+2021-07-12 21:47:32.218 +02:00 [INF] Request finished HTTP/1.1 POST https://localhost:5001/api/account/register - 0 - 415 - application/problem+json;+charset=utf-8 1253.7504ms

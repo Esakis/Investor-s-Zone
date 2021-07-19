@@ -43,12 +43,22 @@ function App() {
                 <Route path="/register" component={Register} />
                 <Route path="/logout" component={Logout} />
 
+<<<<<<< HEAD
            
             
         </main>
         </BrowserRouter>
     </div>
     
+=======
+export default () => (
+    <Layout>
+        <Route exact path='/' component={Home} />
+        <Route path='/counter' component={Counter} />
+        <Route path='/fetch-data/:startDateIndex?' component={FetchData} /> 
+        <Route path='/counter' component={Counter} />
+    </Layout>
+>>>>>>> origin/Front
 );
 }
 export default App;

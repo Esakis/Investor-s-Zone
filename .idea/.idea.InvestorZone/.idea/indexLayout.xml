@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ContentModelUserStore">
     <attachedFolders>
       <Path>../../StINweatowania</Path>
     </attachedFolders>
+=======
+  <component name="UserContentModel">
+    <attachedFolders />
+>>>>>>> origin/Front
     <explicitIncludes />
     <explicitExcludes />
   </component>

@@ -12,7 +12,6 @@ using InvestorZone.Entities;
 using InvestorZone.Exceptions;
 using InvestorZone.Models;
 
-
 namespace InvestorZone.Services
 {
 
@@ -96,11 +95,5 @@ namespace InvestorZone.Services
             return tokenHandler.WriteToken(token);
 
         }
-
-
-
-
-
-
     }
 }

@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { SimpleStockChart } from './StockChart'
+import {StockChartFactory} from "./StockChartFactory";
 
 
 const Home = () => (

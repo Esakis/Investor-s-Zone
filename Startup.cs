@@ -59,7 +59,6 @@ namespace InvestorZone
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)),
                 };
             });
-
             services.AddControllers().AddFluentValidation();
             services.AddControllersWithViews();
             services.AddSpaStaticFiles(configuration =>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿# Default ignored files
 /shelf/
 /workspace.xml
@@ -8,6 +9,18 @@
 /contentModel.xml
 # Datasource local storage ignored files
 /../../../../../../../../../:\Users\domin\Desktop\StINweatowania\Investor-s-Zone\.idea\.idea.InvestorZone\.idea/dataSources/
+=======
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.InvestorZone.iml
+# Datasource local storage ignored files
+/dataSources/
+>>>>>>> origin/Front
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
