@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import './custom.css'
 import {BrowserRouter, Route} from "react-router-dom";
+import {Connection} from "./utilities/Connection";
 
 
 function App() {
@@ -26,7 +27,10 @@ function App() {
 
             }
         )();
-
+        //
+        let connection = Connection.getInstance();
+        let currencyTableData = connection.getCurrencyDisplay();
+        console.log("DATA IN CLASS", currencyTableData)
     });
 
 
@@ -42,7 +46,7 @@ function App() {
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register} />
                 <Route path="/logout" component={Logout} />
-
+                
             
         </main>
         </BrowserRouter>

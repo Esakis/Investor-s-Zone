@@ -34,20 +34,11 @@ export class StockChartFactory extends PureComponent {
     private container: HTMLElement | null;
     // for now there is only currency to be picked and 
 
-    private getData(currency: string, typeOfValues: string) {
+    private getData() {
         return responseList[currency];
         
         // let data = {};
-        // let timestamp = Date.now();
-        // let url = `https://internetowykantor.pl/cms/currency_chart/${currency}/1year/${typeOfValues}/?t=${timestamp-5}`;
-        // console.log("url", url)
-        // const response = await fetch(url,{    
-        //         method: 'GET',
-        //         mode: 'no-cors',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        // })  //oh lord forgive for what i have created here
+
         // console.log(typeof response)
         // let data = response.text();
         // console.log(typeof response)
