@@ -43,6 +43,12 @@ export class Connection {
         
         promise().then(data => {
             this.currencyData = data;
+            dispatchEvent(new CustomEvent("currenciesDataUpdated", {
+                detail: {
+                    data: data
+                }
+            }));
+        
             console.log('DATA FROM GET CURRENCY DISPLAY', data)
             return data;
         })
@@ -70,10 +76,15 @@ export class Connection {
         promise().then(data => {
             this.currentStockChartData = data;
             console.log('DATA FROM GET CHART DATA', data)
+            
+            let dataPoints = this.getChartDataPoints(data);
 
             dispatchEvent(new CustomEvent("stockDataUpdated", {
                 detail: {
-                    data: data
+                    title: this.currencyCredentials.currency + " Stock Chart",
+                    dataPoints: dataPoints,
+                    startData: dataPoints[0].x,
+                    endData: dataPoints[dataPoints.length-1].x,
                 }
             }));
             this.currencyCredentials.currency = currency;
@@ -84,12 +95,21 @@ export class Connection {
     
     private setDataIntervals() {
         this.chartUpdateInterval = window.setInterval(() => {
-            this.getCurrencyChartData()
+            this.getCurrencyChartData();
         }, 10000);
 
         this.currenciesUpdateInterval = window.setInterval(() => {
             this.getCurrencyDisplay();
-        }, 10000)
+        }, 5000)
+    }
+
+    private getChartDataPoints(data: any) {
+        let filtered: any = [];
+        for(let element of data){
+            filtered.push({x: element.window_closed, y: element[this.currencyCredentials.typeOfData]})
+        }
+        console.log("datapoints", filtered)
+        return filtered;
     }
 }
 
