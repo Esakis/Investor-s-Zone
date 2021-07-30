@@ -4,7 +4,7 @@ import { SimpleStockChart } from './StockChart'
 import {StockChartFactory} from "./StockChartFactory";
 import CurrencyPanel from "./CurrencyPanel";
 import AsyncCurrencyPanelElement from "./asyncVariants/AsyncCurrencyPanel";
-
+import './componentsCss/NavMenu.css'
 
 const Home = () => (
     <div>
@@ -13,7 +13,9 @@ const Home = () => (
         <ul>
   
     </ul>
-        <CurrencyPanel/>
+        <nav className="currencyPanelNavbar">
+            <CurrencyPanel/>
+        </nav>
     </div>
 );
 

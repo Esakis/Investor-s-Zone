@@ -31,7 +31,8 @@ class CurrencyPanel extends Component<any, any> {
     }
     
     componentDidMount() {
-        let connection = Connection.getInstance();
+        this.setEventListeners();
+        // let connection = Connection.getInstance();
         console.log('aprops data', this.props.data)
 
         let array: any[] = [];
@@ -83,6 +84,13 @@ class CurrencyPanel extends Component<any, any> {
         }
         console.log("RATES AFTER LOOP", this.state.rows)
     }
+    
+    setEventListeners() {
+        window.addEventListener("currenciesDataUpdated", (event: CustomEvent) => {
+            console.log("detail", event.detail, "rates", event.detail.data)
+            this.setTable(event.detail.data)
+        });
+    }
         
     render() {
         console.log("kappa", this.state.response)
@@ -92,8 +100,15 @@ class CurrencyPanel extends Component<any, any> {
             console.log("ROWS BEFORE RENDER", this.state.rows)
             return (
                 <table>
+                    <tr>
+                        <th>Currency</th>
+                        <th>Average rate</th>
+                        <th>Selling rate</th>
+                        <th>Buying rate</th>
+                    </tr>
                     {this.state.rows.map((row: tableCurrencyRow) => (
-                        <tr>
+                        
+                        <tr key={row.currency}>
                             <td>{row.currency}</td>
                             <td>{row.average_rate}</td>
                             <td>{row.selling_rate}</td>

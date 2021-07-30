@@ -24,10 +24,6 @@ export class Connection {
         return Connection.instance;
     }
     
-    // private setEventListeners() {
-    //   
-    // }
-    
       public getCurrencyDisplay() {  //using proxy to bypass server-side no-cors
         const promise = async () => {
             let response = await fetch(`https://serene-sierra-46576.herokuapp.com/https://internetowykantor.pl/cms/currency_money/?last-update=${Date.now()-1}`, {
@@ -53,7 +49,9 @@ export class Connection {
             return data;
         })
     }
-    
+
+    // // FUNC ABOVE MOVED TO CURRENCY TABLE COMPONENT
+
     public getCurrencyChartData(currency: string = this.currencyCredentials.currency, 
                                 timePeriod: string = this.currencyCredentials.timePeriod,
                                 typeOfValues: string = this.currencyCredentials.typeOfData) {  //get data on request / on interval refresh
