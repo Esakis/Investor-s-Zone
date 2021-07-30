@@ -34,7 +34,7 @@ render() {
         }],
         navigator: {
             slider: {
-                minimum: new Date(this.state.startData - 86400),  //86400 seconds is 24h so we start with showing a day
+                minimum: new Date(this.state.endData),
                 maximum: new Date(this.state.startData)
             }
         }
@@ -48,7 +48,6 @@ render() {
         <div>
             <CanvasJSStockChart
                 options={options}
-                containerProps = {containerProps}
             />
         </div>
     );

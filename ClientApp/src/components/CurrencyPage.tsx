@@ -25,7 +25,9 @@ type currencyPageState = {
     currency: string,
     dataPoints: [],
     startData: number,
-    stockChartData: stockDataTypes;
+    stockChartData: stockDataTypes,
+    chartDataReady: boolean,
+    chart: any
 }
 
 type stockDataTypes = {
@@ -41,16 +43,18 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
     
     constructor(props: currencyPageProps, state: currencyPageState) {
         super(props);
-        const { routeCurrency } = useParams()
+        // const { routeCurrency } = useParams()
 
-        console.log("brobps", props, "and params", routeCurrency);
+        console.log("brobps", props, "and params"); //routeCurrency
         this.state = {
             stockChartData: undefined,
             currency: props.location.currency,
             title: props.location.currency + "/PLN",
             dataPoints: [],
             startData: Date.now(),
-            responseData: []
+            responseData: [],
+            chartDataReady: false,
+            chart: undefined
         }
     }
 
@@ -70,7 +74,7 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
     private getChartDataPoints(data: any) {
         let filtered: any = [];
         for(let element of data){
-            filtered.push({x: element.window_closed, y: element[this.baseCurrencyCredentials.typeOfData]})
+            filtered.push({x: parseInt(element.window_closed), y: parseInt(element[this.baseCurrencyCredentials.typeOfData])})
         }
         return filtered;
     }
@@ -110,19 +114,30 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
             startData: this.state.dataPoints[0].x, 
             endData: this.state.dataPoints[this.state.dataPoints.length-1].x
         };
-        this.setState({stockChartData: stockChartData})
+        this.setState({chart: new SimpleStockChart(stockChartData, {})})
+        this.setState({stockChartData: stockChartData, chartDataReady: true})
+        console.log("state CHARRT DATA ", this.state.stockChartData, this.state.chartDataReady)
     }
 
     render() {
+        console.log("stockchartData", this.state.stockChartData)
+        // let renderedChart = this.state.chartDataReady ? this.state.chart : null;
+        // console.log("renderedChart", renderedChart)
         return (
             <div>
                 <div className="currencyChart">
-                    {/*{this.state.stockChartData}*/}
-                    {this.state.stockChartData && <SimpleStockChart 
+                    
+                    {this.state.chartDataReady == true && <SimpleStockChart 
                         title={this.state.stockChartData.title} 
                         dataPoints={this.state.stockChartData.dataPoints} 
                         startData={this.state.stockChartData.startData} 
                         endData={this.state.stockChartData.endData}/>}
+                    
+                    {/*{renderedChart !== null && renderedChart.map((chart: any) => (*/}
+                    {/*        {chart}*/}
+                    {/*    )*/}
+                    {/*)}*/}
+                    
                 </div>
                 <nav className="currencyPanelNavbar">
                     <CurrencyPanel/>

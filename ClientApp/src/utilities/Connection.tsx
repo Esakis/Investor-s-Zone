@@ -113,9 +113,9 @@ export class Connection {
     public setCurrencyFetchData(currency: string = this.currencyCredentials.currency,
                                 timePeriod: string = this.currencyCredentials.timePeriod,
                                 typeOfData: string = this.currencyCredentials.typeOfData) {
-        this.currencyCredentials.currency = currency;
-            this.currencyCredentials.timePeriod = timePeriod;
-            this.currencyCredentials.typeOfData = typeOfData;
+        this.currencyCredentials.currency = currency || this.currencyCredentials.currency;
+            this.currencyCredentials.timePeriod = timePeriod || this.currencyCredentials.timePeriod;
+            this.currencyCredentials.typeOfData = typeOfData || this.currencyCredentials.timePeriod;
     }
 }
 
