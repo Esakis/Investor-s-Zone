@@ -2,9 +2,8 @@ import * as React from 'react';
 import axios, {AxiosResponse} from "axios"
 import {SimpleStockChart} from "./StockChart";
 import {currencies, timeFrames, valueTypes} from "../constants/ConstantLocalValues"
-import {Component, PureComponent} from "react";
+import {PureComponent} from "react";
 import {responseList} from "../constants/ConstantLocalValues";
-import ReactDOM from 'react-dom'
 
 type props = {
     currency: string,

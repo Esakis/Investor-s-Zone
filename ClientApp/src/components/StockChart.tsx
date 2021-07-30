@@ -3,25 +3,39 @@ import { Component } from "react"
 import CanvasJSReact from '../libs/canvasjs.stock.react';
 let CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 
+type chartProps = {title: string, dataPoints: any, startData: number, endData: number}
+type chartState = {title: string, dataPoints: any, startData: number, endData: number}
+
 export class SimpleStockChart extends Component
-    <{title: string, dataPoints: any, startData: number}, {}> {
+    <chartProps, chartState> {
+    constructor(props: chartProps, state: chartState) {
+        super(props);
+
+        console.log("CHART PROPS", props);
+        this.state = {
+            title: this.props.title, 
+            dataPoints: this.props.dataPoints,
+            startData: this.props.startData,
+            endData: this.props.endData
+        }
+    }
     
 render() {
     console.log(this.state)
     const options = {
         title: {
-            text: this.props.title,
+            text: this.state.title,
         },
         charts: [{
             data: [{
                 type: "line",
-                dataPoints: this.props.dataPoints,
+                dataPoints: this.state.dataPoints,
             }]
         }],
         navigator: {
             slider: {
-                minimum: new Date(this.props.startData - 86400),  //86400 seconds is 24h so we start with showing a day
-                maximum: new Date(this.props.startData)
+                minimum: new Date(this.state.startData - 86400),  //86400 seconds is 24h so we start with showing a day
+                maximum: new Date(this.state.startData)
             }
         }
     };

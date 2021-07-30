@@ -7,7 +7,8 @@ import Register from "./components/Register";
 import './custom.css'
 import {BrowserRouter, Route} from "react-router-dom";
 import {Connection} from "./utilities/Connection";
-
+import {SimpleStockChart} from "./components/StockChart"
+import { CurrencyPage } from "./components/CurrencyPage";
 
 function App() {
 
@@ -29,8 +30,6 @@ function App() {
         )();
         //
         let connection = Connection.getInstance();
-        let currencyTableData = connection.getCurrencyDisplay();
-        console.log("DATA IN CLASS", currencyTableData)
     });
 
 
@@ -46,6 +45,8 @@ function App() {
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register} />
                 <Route path="/logout" component={Logout} />
+                    
+                <Route path="/currency/:currency" component={CurrencyPage} />
                 
             
         </main>

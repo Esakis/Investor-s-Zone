@@ -5,7 +5,7 @@ export class Connection {
     private static instance: Connection;
     public currencyData;
     public currentStockChartData;
-    private currencyCredentials: {currency: string, timePeriod: string, typeOfData: string} = currencyCredentialsStartValues;
+    public currencyCredentials: {currency: string, timePeriod: string, typeOfData: string} = currencyCredentialsStartValues;
     private chartUpdateInterval: number;
     private currenciesUpdateInterval: number;
     
@@ -45,7 +45,7 @@ export class Connection {
                 }
             }));
         
-            console.log('DATA FROM GET CURRENCY DISPLAY', data)
+            // console.log('DATA FROM GET CURRENCY DISPLAY', data)
             return data;
         })
     }
@@ -55,7 +55,7 @@ export class Connection {
     public getCurrencyChartData(currency: string = this.currencyCredentials.currency, 
                                 timePeriod: string = this.currencyCredentials.timePeriod,
                                 typeOfValues: string = this.currencyCredentials.typeOfData) {  //get data on request / on interval refresh
-        console.log('currency', currency, "timePeriod", timePeriod, "typeOfValues", typeOfValues)
+        // console.log('currency', currency, "timePeriod", timePeriod, "typeOfValues", typeOfValues)
         let timestamp = Date.now();
         let url = `https://serene-sierra-46576.herokuapp.com/https://internetowykantor.pl/cms/currency_chart/${currency}/${timePeriod}/${typeOfValues}/?t=${timestamp-1}`;
         console.log("url", url)
@@ -77,9 +77,9 @@ export class Connection {
             
             let dataPoints = this.getChartDataPoints(data);
 
-            dispatchEvent(new CustomEvent("stockDataUpdated", {
+            dispatchEvent(new CustomEvent("stockChartDataUpdated", {
                 detail: {
-                    title: this.currencyCredentials.currency + " Stock Chart",
+                    title: this.currencyCredentials.currency + "/PLN",
                     dataPoints: dataPoints,
                     startData: dataPoints[0].x,
                     endData: dataPoints[dataPoints.length-1].x,
@@ -108,6 +108,14 @@ export class Connection {
         }
         console.log("datapoints", filtered)
         return filtered;
+    }
+    
+    public setCurrencyFetchData(currency: string = this.currencyCredentials.currency,
+                                timePeriod: string = this.currencyCredentials.timePeriod,
+                                typeOfData: string = this.currencyCredentials.typeOfData) {
+        this.currencyCredentials.currency = currency;
+            this.currencyCredentials.timePeriod = timePeriod;
+            this.currencyCredentials.typeOfData = typeOfData;
     }
 }
 
