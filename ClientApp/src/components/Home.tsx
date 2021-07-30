@@ -2,6 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { SimpleStockChart } from './StockChart'
 import {StockChartFactory} from "./StockChartFactory";
+import CurrencyPanel from "./CurrencyPanel";
+import AsyncCurrencyPanelElement from "./asyncVariants/AsyncCurrencyPanel";
 
 
 const Home = () => (
@@ -11,6 +13,7 @@ const Home = () => (
         <ul>
   
     </ul>
+        <CurrencyPanel/>
     </div>
 );
 
