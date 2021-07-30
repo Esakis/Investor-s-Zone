@@ -62,6 +62,10 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
         this.setEventListeners();
         this.getCurrencyChartData(this.state.currency);
     }
+    
+    // componentDidUpdate(prevProps: Readonly<currencyPageProps>, prevState: Readonly<currencyPageState>, snapshot?: any) {
+    //     this.getCurrencyChartData(this.state.currency);
+    // }
 
     private setEventListeners() {
         // @ts-ignore
@@ -74,7 +78,7 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
     private getChartDataPoints(data: any) {
         let filtered: any = [];
         for(let element of data){
-            filtered.push({x: parseInt(element.window_closed), y: parseInt(element[this.baseCurrencyCredentials.typeOfData])})
+            filtered.push({x: parseInt(element.window_closed), y: parseFloat(element[this.baseCurrencyCredentials.typeOfData])})
         }
         return filtered;
     }

@@ -19,7 +19,7 @@ export class SimpleStockChart extends Component
             endData: this.props.endData
         }
     }
-    
+    //TODO: fix
 render() {
     console.log(this.state)
     const options = {
