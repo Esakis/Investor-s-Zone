@@ -21,7 +21,7 @@ export class SimpleStockChart extends Component
     }
     //TODO: fix
 render() {
-    console.log(this.state)
+    console.log("CHART STATE", this.state)
     const options = {
         title: {
             text: this.state.title,
@@ -38,11 +38,6 @@ render() {
                 maximum: new Date(this.state.startData)
             }
         }
-    };
-    const containerProps = {
-        width: "80%",
-        height: "450px",
-        margin: "auto"
     };
     return (
         <div>

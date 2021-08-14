@@ -77,8 +77,10 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
     
     private getChartDataPoints(data: any) {
         let filtered: any = [];
-        for(let element of data){
-            filtered.push({x: parseInt(element.window_closed), y: parseFloat(element[this.baseCurrencyCredentials.typeOfData])})
+        for(let element of data) {
+            console.log(data)
+            let date = new Date(parseInt(element.window_closed))
+            filtered.push({x: date, y: parseFloat(element[this.baseCurrencyCredentials.typeOfData])})
         }
         return filtered;
     }
@@ -115,7 +117,7 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
         let stockChartData = {
             title: this.state.title, 
             dataPoints: this.state.dataPoints,
-            startData: this.state.dataPoints[0].x, 
+            startData: this.state.dataPoints[0].x,
             endData: this.state.dataPoints[this.state.dataPoints.length-1].x
         };
         this.setState({chart: new SimpleStockChart(stockChartData, {})})
@@ -137,10 +139,6 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
                         startData={this.state.stockChartData.startData} 
                         endData={this.state.stockChartData.endData}/>}
                     
-                    {/*{renderedChart !== null && renderedChart.map((chart: any) => (*/}
-                    {/*        {chart}*/}
-                    {/*    )*/}
-                    {/*)}*/}
                     
                 </div>
                 <nav className="currencyPanelNavbar">
