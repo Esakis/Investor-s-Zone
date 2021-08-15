@@ -1,6 +1,7 @@
 import React from "react";
 import './NavMenu.css';
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 
 
 
@@ -56,7 +57,7 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
 
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
                 <li className="nav-item">
-                    <Link to="/{id}" className="nav-link active" onClick={user}>{props.email}</Link>
+                    <Link to="/edit" className="nav-link active" onClick={user}>{props.email}</Link>
                 </li>
                 
                 <li className="nav-item">

@@ -35,6 +35,9 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\components\Clock.ts" />
+    <None Remove="ClientApp\src\components\Edit.js" />
+    <None Remove="ClientApp\src\components\Edit.js.map" />
+    <None Remove="ClientApp\src\components\Edit.tsx" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

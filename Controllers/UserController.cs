@@ -28,7 +28,7 @@ namespace InvestorZone.Controllers
             _context = context;
         }
 
-       
+
         [HttpPost("register")]
         public ActionResult RegisterUser([FromBody] RegisterUserDto dto)
         {

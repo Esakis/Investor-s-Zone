@@ -3,6 +3,7 @@ import NavMenu from "./components/NavMenu";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Register from "./components/Register";
+import EditUser from "./components/Edit";
 import './custom.css'
 import { BrowserRouter, Route } from "react-router-dom";
 
@@ -39,6 +40,7 @@ function App() {
                     <Route path="/" component={Home}/>
                     <Route path="/login" component={() => <Login setEmail={setEmail} />} />
                     <Route path="/register" component={Register} />
+                    <Route path="/edit" component={EditUser} />
                 </main>
             </BrowserRouter>
         </div>
