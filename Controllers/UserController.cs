@@ -95,6 +95,7 @@ namespace InvestorZone.Controllers
         }
 
 
+
         [HttpDelete("{email}")]
 
         public void Delete(string email)
@@ -127,8 +128,20 @@ namespace InvestorZone.Controllers
                     existingUser.Email = data.Email;
                     existingUser.PasswordHash = existingUser.PasswordHash;
                     existingUser.Id = existingUser.Id;
-                    existingUser.FirstName = data.FirstName;
-                    existingUser.LastName = data.LastName;
+                    existingUser.DateOfBirth = data.DateOfBirth;
+                    if (data.FirstName != "")
+                    {
+                        existingUser.FirstName = data.FirstName;
+                    }
+                    if (data.LastName != "")
+                    {
+                        existingUser.LastName = data.LastName;
+                    }
+
+                    if (data.Nationality != "")
+                    {
+                        existingUser.Nationality = data.Nationality;
+                    }
                     ctx.SaveChanges();
                 }
                 else
@@ -138,6 +151,48 @@ namespace InvestorZone.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPut("topup/{email}")]
+        public ActionResult<LoginDto> UpdateBalance(User data)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Not a valid model");
+
+            using (var ctx = new UserDbContext())
+            {
+                var existingUser = ctx.Users.Where(p => p.Email == data.Email)
+                    .FirstOrDefault<User>();
+
+                if (existingUser != null)
+                {
+                    existingUser.Email = data.Email;
+                    existingUser.PasswordHash = existingUser.PasswordHash;
+                    existingUser.Id = existingUser.Id;
+                    existingUser.PLN = existingUser.PLN + data.PLN;
+                  //  existingUser.EUR = data.EUR;
+                  //  existingUser.PLN = data.USD;
+
+                    ctx.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+
+            return Ok();
+        }
+
+        [HttpGet("topup/{email}")]
+
+        public ActionResult<LoginDto> GetByBalance([FromRoute] string email)
+        {
+            var user = _context
+                .Users
+                .FirstOrDefault(r => r.Email == email);
+
+            return Ok(user);
         }
 
     }

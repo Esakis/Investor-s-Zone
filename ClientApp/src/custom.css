@@ -1,6 +1,6 @@
 .form-signin {
-    width: 100%;
-    max-width: 330px;
+    width: 80%;
+    max-width: 1680px;
     padding: 15px;
     margin: auto;
 }
@@ -24,3 +24,11 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
+
+#FormLogin {
+    width: 30%;
+    margin: 2%;
+    padding: 1%;
+    background-color: lightblue;
+    
+}

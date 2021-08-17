@@ -17,3 +17,56 @@ html {
 .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+#Main {
+    background-color: blue;
+    font-size: 1.4em;
+}
+
+#EditData {
+    float: left;
+    width: 45%;
+    margin: 2%;
+    padding: 1%;
+    background-color: lightblue;
+}
+
+#EditAccount {
+    float: left;
+    width: 20%;
+    margin: 2%;
+    padding: 1%;
+    background-color: lightskyblue;
+}
+
+#TopUp {
+    float: left;
+    width: 30%;
+    margin: 2%;
+    padding: 1%;
+    background-color: lightskyblue;
+}
+
+#Data1 {
+    float: left;
+    width: 45%;
+    margin: 2%;
+    padding: 1%;
+    background-color: lightskyblue;
+}
+
+#Data2 {
+    float: inherit;
+    width: 75%;
+    margin: 2%;
+    padding: 1%;
+    background-color: lightskyblue;
+}
+
+#Data3 {
+    float: inherit;
+    width: 30%;
+    margin: 2%;
+    padding: 2%;
+    background-color: lightskyblue;
+}

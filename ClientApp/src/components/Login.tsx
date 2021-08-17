@@ -42,21 +42,21 @@ const Login = (props: { setEmail: (email: string) => void }) => {
         
             <form onSubmit={submit}>
 
-            <h1 className="h3 mb-3 fw-normal">Strefa</h1>
-                <div className="form-floating">
+            <h3 className="h3 mb-3 fw-normal">Login:</h3>
+                <div id="FormLogin">
                     <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" required
                     onChange={e => setEmail(e.target.value)}
                     />
 
                     <label htmlFor="floatingInput">Email address</label>
-                </div><br/>
-                <div className="form-floating">
+                </div>
+               <div id="FormLogin">
                     <input type="password" className="form-control" id="floatingPassword" placeholder="Password" required
                            onChange={e => setPassword(e.target.value)}
                     />
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
-                <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button  id="FormLogin" type="submit">Sign in</button>
 
 
             </form>

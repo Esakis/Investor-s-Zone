@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import './custom.css'
 import { BrowserRouter, Route } from "react-router-dom";
 import EditUser from "./components/EditUser";
+import TopUp from "./components/TopUp";
 
 
 
@@ -41,7 +42,8 @@ function App() {
 
                 <main className="form-signin">
                     <Route path="/" component={Home} />
-                    <Route path={"/api/account/" + email} component={() => <EditUser email={ email } />} />
+                    <Route path={"/api/account/" + email} component={() => <EditUser email={email} />} />
+                    <Route path={"/api/account/topup/" + email} component={() => <TopUp email={email} />} />
                     <Route path="/login" component={() => <Login setEmail={setEmail} />} />
                     <Route path="/register" component={Register} />
                 </main>

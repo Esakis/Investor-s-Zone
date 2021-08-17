@@ -41,10 +41,13 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
         menu = (
 
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
+                
                 <li className="nav-item">
                     <Link to={"/api/account/" + props.email} className="nav-link active" >{props.email}</Link>
                 </li>
-                
+                <li className="nav-item">
+                    <Link to={"/api/account/topup/" + props.email} className="nav-link active" > Top Up </Link>
+                </li>
                 <li className="nav-item">
                 <Link to="/" className="nav-link active" onClick={ logout }>Logout</Link>
                 </li>            
