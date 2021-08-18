@@ -83,9 +83,9 @@ const EditUser = (props: { email: string }) => {
             <h5>Edit data</h5>
             <form onSubmit={submit}>
                     <div id="Data2">
-                    <input type="text" className="form-control" id="floatingInput" placeholder={props.email} required
+                        <input type="hidden" name="email" value={dataemail}
                         onChange={e => setEmail(e.target.value)}/>
-                        <label>Email</label>
+                      
                 </div> 
             <div id="Data1">
                     <input type="text" className="form-control" id="floatingInput" placeholder={datafirstname}

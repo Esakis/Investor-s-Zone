@@ -32,3 +32,11 @@
     background-color: lightblue;
     
 }
+
+#Panel {
+    float:right;
+    width: 35%;
+    margin: 2%;
+    padding: 1%;
+    background-color: lightyellow;
+}

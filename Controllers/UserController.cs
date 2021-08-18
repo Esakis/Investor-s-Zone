@@ -170,8 +170,7 @@ namespace InvestorZone.Controllers
                     existingUser.PasswordHash = existingUser.PasswordHash;
                     existingUser.Id = existingUser.Id;
                     existingUser.PLN = existingUser.PLN + data.PLN;
-                  //  existingUser.EUR = data.EUR;
-                  //  existingUser.PLN = data.USD;
+
 
                     ctx.SaveChanges();
                 }
@@ -184,6 +183,7 @@ namespace InvestorZone.Controllers
             return Ok();
         }
 
+
         [HttpGet("topup/{email}")]
 
         public ActionResult<LoginDto> GetByBalance([FromRoute] string email)
@@ -193,6 +193,37 @@ namespace InvestorZone.Controllers
                 .FirstOrDefault(r => r.Email == email);
 
             return Ok(user);
+        }
+
+
+        [HttpPut("exchange/{email}")]
+        public ActionResult<LoginDto> UpdateExchange(User data)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Not a valid model");
+
+            using (var ctx = new UserDbContext())
+            {
+                var existingUser = ctx.Users.Where(p => p.Email == data.Email)
+                    .FirstOrDefault<User>();
+
+                if (existingUser != null)
+                {
+                    existingUser.Email = data.Email;
+                    existingUser.PasswordHash = existingUser.PasswordHash;
+                    existingUser.Id = existingUser.Id;
+                    existingUser.EUR = existingUser.EUR + data.EUR;
+                    existingUser.PLN = existingUser.PLN + data.PLN;
+
+                    ctx.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+
+            return Ok();
         }
 
     }

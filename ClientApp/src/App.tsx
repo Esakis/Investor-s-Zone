@@ -7,7 +7,9 @@ import './custom.css'
 import { BrowserRouter, Route } from "react-router-dom";
 import EditUser from "./components/EditUser";
 import TopUp from "./components/TopUp";
-
+import Exchange from "./components/Exchange";
+import { Connection } from "./utilities/Connection";
+import { CurrencyPage } from "./components/CurrencyPage";
 
 
 function App() {
@@ -31,7 +33,7 @@ function App() {
 
             }
         )();
-
+        let connection = Connection.getInstance();
     });
 
 
@@ -46,6 +48,8 @@ function App() {
                     <Route path={"/api/account/topup/" + email} component={() => <TopUp email={email} />} />
                     <Route path="/login" component={() => <Login setEmail={setEmail} />} />
                     <Route path="/register" component={Register} />
+                    <Route path={"/api/account/exchange/" + email} component={() => <Exchange email={email} />} />
+                    <Route path="/currency/:currency" component={CurrencyPage} />
                 </main>
             </BrowserRouter>
         </div>
