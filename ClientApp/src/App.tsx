@@ -3,13 +3,18 @@ import NavMenu from "./components/NavMenu";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Register from "./components/Register";
-import './custom.css'
-import { BrowserRouter, Route } from "react-router-dom";
+import Profile from "./components/Profile";
+
+
 import EditUser from "./components/EditUser";
 import TopUp from "./components/TopUp";
 import Exchange from "./components/Exchange";
 import { Connection } from "./utilities/Connection";
 import { CurrencyPage } from "./components/CurrencyPage";
+import { Menu, Button, Header, Grid, Form, Segment, Message } from 'semantic-ui-react';
+import Layout from "./components/Layout";
+
+import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 
 
 function App() {
@@ -38,21 +43,33 @@ function App() {
 
 
     return (
-        <div >
-            <BrowserRouter>
-                <NavMenu email={email} setEmail={setEmail}/>
-
-                <main className="form-signin">
-                    <Route path="/" component={Home} />
+      
+             <React.Fragment>
+            <NavMenu email={email} setEmail={setEmail}/>
+            <Layout>
+                <BrowserRouter>
+                    <Switch>
+                       
+                            
+                    <Route exact path="/" component={Home} />
                     <Route path={"/api/account/" + email} component={() => <EditUser email={email} />} />
                     <Route path={"/api/account/topup/" + email} component={() => <TopUp email={email} />} />
                     <Route path="/login" component={() => <Login setEmail={setEmail} />} />
                     <Route path="/register" component={Register} />
                     <Route path={"/api/account/exchange/" + email} component={() => <Exchange email={email} />} />
-                    <Route path="/currency/:currency" component={CurrencyPage} />
-                </main>
-            </BrowserRouter>
-        </div>
+                        <Route path="/currency/:currency" component={CurrencyPage} />
+                        <Route path="/profile" component={Profile} />
+
+                        
+                    </Switch>
+                 
+
+                </BrowserRouter>
+
+
+            </Layout>
+           
+        </React.Fragment>
     );
 }
 export default App;

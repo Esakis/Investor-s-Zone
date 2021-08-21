@@ -21,6 +21,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.3.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
@@ -36,6 +40,15 @@
   <ItemGroup>
     <None Remove="ClientApp\src\components\Clock.ts" />
     <None Remove="ClientApp\src\components\EditUser.ts" />
+    <None Remove="ClientApp\src\components\file.tsx" />
+    <None Remove="ClientApp\src\components\hoc\Profile.tsx" />
+    <None Remove="ClientApp\src\components\UserProfile.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\components\Blog.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\ErrorPage.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\Profile.tsx" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -1,34 +1,36 @@
 ﻿import React, { SyntheticEvent, useState } from "react";
 import { Redirect } from "react-router-dom";
+import { Menu, Button, Header, Grid, Form, Segment, Message } from 'semantic-ui-react';
 
+import { Link } from "react-router-dom";
 
 const Login = (props: { setEmail: (email: string) => void }) => {
     const [email, setEmail] = useState('');
-   
+
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
 
-    const submit = async(e: SyntheticEvent) => {
+    const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
         const response = await fetch('https://localhost:44349/api/account/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            credentials: "include", 
+            credentials: "include",
             body: JSON.stringify({
                 email,
                 password,
-                
-               
+
+
             })
         });
 
-        
 
-            const content = await response.json();
-            setRedirect(true);
-            props.setEmail(content.email);
-            
+
+        const content = await response.json();
+        setRedirect(true);
+        props.setEmail(content.email);
+
 
     }
 
@@ -36,31 +38,44 @@ const Login = (props: { setEmail: (email: string) => void }) => {
         return <Redirect to="/" />;
     }
 
-    
-
-    return(
-        
-            <form onSubmit={submit}>
-
-            <h3 className="h3 mb-3 fw-normal">Login:</h3>
-                <div id="FormLogin">
-                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" required
-                    onChange={e => setEmail(e.target.value)}
-                    />
-
-                    <label htmlFor="floatingInput">Email address</label>
-                </div>
-               <div id="FormLogin">
-                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" required
-                           onChange={e => setPassword(e.target.value)}
-                    />
-                    <label htmlFor="floatingPassword">Password</label>
-                </div>
-            <button  id="FormLogin" type="submit">Sign in</button>
 
 
-            </form>
-        
+    return (
+
+        <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+            <Grid.Column style={{ maxWidth: 450 }}  >
+                <Header as='h2' color='teal' textAlign='center'>
+                    Log-in to your account
+                </Header>
+                <Form onSubmit={submit} size='large'>
+                    <Segment stacked>
+                        <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address'
+                            required
+                            onChange={e => setEmail(e.target.value)} />
+                        <Form.Input
+                            fluid
+                            icon='lock'
+                            iconPosition='left'
+                            placeholder='Password'
+                            type='password'
+                            quired
+                            onChange={e => setPassword(e.target.value)} />
+
+
+
+                        <Button color='teal' fluid size='large'>
+                            Login
+                        </Button>
+                    </Segment>
+                </Form>
+                <Message>
+                    New to us? <Link to="/register" href="#" >Register</Link>
+                </Message>
+            </Grid.Column>
+        </Grid>
+
+
+
     );
 };
 export default Login;
