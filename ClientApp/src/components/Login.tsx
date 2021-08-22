@@ -1,4 +1,6 @@
-﻿import React, { SyntheticEvent, useState } from "react";
+﻿import * as react from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
+import React = require("react");
 import { Redirect } from "react-router-dom";
 import { Menu, Button, Header, Grid, Form, Segment, Message } from 'semantic-ui-react';
 

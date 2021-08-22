@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import * as react from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
+import React = require("react");
+import { Redirect } from "react-router-dom";
 import NavMenu from "./components/NavMenu";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
-
-
 import EditUser from "./components/EditUser";
 import TopUp from "./components/TopUp";
 import Exchange from "./components/Exchange";
@@ -41,35 +42,22 @@ function App() {
         let connection = Connection.getInstance();
     });
 
-
     return (
-      
-             <React.Fragment>
-            <NavMenu email={email} setEmail={setEmail}/>
-            <Layout>
-                <BrowserRouter>
-                    <Switch>
-                       
-                            
-                    <Route exact path="/" component={Home} />
+        <div >
+            <BrowserRouter>
+                <NavMenu email={email} setEmail={setEmail} />
+
+                <main className="form-signin">
+                    <Route path="/" component={Home} />
                     <Route path={"/api/account/" + email} component={() => <EditUser email={email} />} />
                     <Route path={"/api/account/topup/" + email} component={() => <TopUp email={email} />} />
                     <Route path="/login" component={() => <Login setEmail={setEmail} />} />
                     <Route path="/register" component={Register} />
                     <Route path={"/api/account/exchange/" + email} component={() => <Exchange email={email} />} />
-                        <Route path="/currency/:currency" component={CurrencyPage} />
-                        <Route path="/profile" component={Profile} />
-
-                        
-                    </Switch>
-                 
-
-                </BrowserRouter>
-
-
-            </Layout>
-           
-        </React.Fragment>
+                    <Route path="/currency/:currency" component={CurrencyPage} />
+                </main>
+            </BrowserRouter>
+        </div>
     );
 }
 export default App;

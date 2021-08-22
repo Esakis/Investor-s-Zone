@@ -1,6 +1,7 @@
-import React  from 'react';
+
 import { Link,NavLink } from "react-router-dom";
-import {Menu, Button, Icon, Header, Grid, Dropdown} from 'semantic-ui-react';
+import {Menu, Button, Icon, Header, Grid, Divider,Dropdown } from 'semantic-ui-react';
+import React = require("react");
 
 
 
@@ -47,42 +48,38 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
 
     }
     else {
+        
+
         menu = (
-            <Menu.Item>
-               <Button as="a" to={"/profile"} basic>My Profile </Button>
-            </Menu.Item>
+
+            
+           
+          
             
 
-            // <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            //
-            //     <li className="nav-item">
-            //         <Menu.Item>
-            //             <Button as="a" to={"/api/account/" + props.email} basic>{props.email} </Button>
-            //         </Menu.Item>
-            //     </li>
-            //     <li>
-            //         <Menu.Item>
-            //             <Button as="a" to={"/api/account/topup/" + props.email} > Top Up </Button>
-            //         </Menu.Item>
-            //     </li>
-            //     <li className="nav-item">
-            //         <Menu.Item>
-            //             <Button as="a" to={"/api/account/exchange/" + props.email}>Exchange</Button>
-            //         </Menu.Item>
-            //     </li>
-            //
-            //     <li className="nav-item">
-            //         <Menu.Item>
-            //             <Button as="a" exact={true} path={'/'} basic onClick={logout}>Logout</Button>
-            //         </Menu.Item>
-            //
-            //     </li>
-            //
-            // </ul>
+            <ul className="navbar-nav me-auto mb-2 mb-md-0">
+                <ul className="navbar-nav me-auto mb-2 mb-md-0">
+
+                    <li className="nav-item">
+                        <Link to={"/api/account/" + props.email} className="nav-link active" >{props.email}</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to={"/api/account/topup/" + props.email} className="nav-link active" > Top Up </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to={"/api/account/exchange/" + props.email} className="nav-link active" > Exchange </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/" className="nav-link active" onClick={logout}>Logout</Link>
+                    </li>
+                </ul>
+            </ul>
+
+          
     )
         
 
-    };
+    }
 
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-light mb-4">
