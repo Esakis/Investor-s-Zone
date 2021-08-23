@@ -66,20 +66,22 @@ var NavMenu = function (props) {
                     React.createElement(semantic_ui_react_1.Button, { as: 'a', to: '/register', basic: true, href: "/register" }, "Sign up")))));
     }
     else {
-        menu = (React.createElement("ul", { className: "navbar-nav me-auto mb-2 mb-md-0" },
-            React.createElement("ul", { className: "navbar-nav me-auto mb-2 mb-md-0" },
-                React.createElement("li", { className: "nav-item" },
-                    React.createElement(react_router_dom_1.Link, { to: "/api/account/" + props.email, className: "nav-link active" }, props.email)),
-                React.createElement("li", { className: "nav-item" },
-                    React.createElement(react_router_dom_1.Link, { to: "/api/account/topup/" + props.email, className: "nav-link active" }, " Top Up ")),
-                React.createElement("li", { className: "nav-item" },
-                    React.createElement(react_router_dom_1.Link, { to: "/api/account/exchange/" + props.email, className: "nav-link active" }, " Exchange ")),
-                React.createElement("li", { className: "nav-item" },
-                    React.createElement(react_router_dom_1.Link, { to: "/", className: "nav-link active", onClick: logout }, "Logout")))));
+        menu = (React.createElement("nav", { className: "navbar navbar-expand-md navbar-light bg-light mb-4" },
+            React.createElement("div", { className: "container-fluid" },
+                React.createElement("div", { className: "ui compact menu" },
+                    React.createElement("div", { className: "ui simple dropdown item inverted teal basic button" },
+                        "My profile",
+                        React.createElement("i", { className: "dropdown icon" }),
+                        React.createElement("div", { className: "menu" },
+                            React.createElement(react_router_dom_1.NavLink, { to: "/api/account/" + props.email, className: "item edit icon" }, "Edit Profile"),
+                            React.createElement(react_router_dom_1.NavLink, { to: "/api/account/topup/" + props.email, className: "item" }, "Top Up Your Account"),
+                            React.createElement(react_router_dom_1.NavLink, { to: "/api/account/exchange/" + props.email, className: "item" }, "Exchange"),
+                            React.createElement(react_router_dom_1.NavLink, { exact: true, to: "/", onClick: logout, className: "item" }, "Logout"),
+                            React.createElement(react_router_dom_1.NavLink, { to: '/forum', className: "item" }, "Sign up")))))));
     }
     return (React.createElement("nav", { className: "navbar navbar-expand-md navbar-light bg-light mb-4" },
         React.createElement("div", { className: "container-fluid" },
-            React.createElement(semantic_ui_react_1.Header, { as: "a", color: 'teal', basic: true, exact: true, path: '/' }, "Inwestor's Zone"),
+            React.createElement(semantic_ui_react_1.Header, { as: "a", color: 'teal', to: '/home', basic: true, exact: true, href: "/" }, "Inwestor's Zone"),
             React.createElement("div", null, menu))));
 };
 exports.default = NavMenu;

@@ -2,7 +2,7 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 import React = require("react");
 import { Redirect } from "react-router-dom";
-import './NavMenu.css';
+import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu } from 'semantic-ui-react';
 
 
 const TopUp = (props: { email: string }) => {
@@ -75,47 +75,45 @@ const TopUp = (props: { email: string }) => {
     return (
 
 
-        <div id="Main">
+      <><div className="ui raised very padded text container segment">
+            <div className="ui right labeled input">
+                <h5>Your Account Balance:</h5>
+                <button className="money bill alternate outline icon ui basic label"> {dataPLN} PLN</button>
+                <button className="money bill alternate outline icon"> {dataEUR} EUR</button>
 
-            <div id="EditAccount">
-                <h5>Account balance:</h5><br />
-                <h4 >   {dataPLN} PLN</h4>
-                <h4 >   {dataEUR} EUR</h4>
-                
-    
+
             </div>
-
-
-
-
-
-
-            <div id="TopUp">
-                <h5>Top up account</h5>
+        </div><div className="ui form center aligned container">
+                <h1>Top up account</h1>
                 <form onSubmit={submitTopUp}>
-                    <div id="Data2">
-                        <input type="text" className="form-control" id="floatingInput" placeholder={props.email} required
+
+                    <div className="ui right labeled input">
+                        <label htmlFor="email" className="ui  teallabel"></label>
+                        <input type="text" placeholder={props.email} required
                             onChange={e => setEmail(e.target.value)} />
-                        <label>Email</label>
+                        <div className="ui basic label">@</div>
                     </div>
-                    <div id="Data2">
-                        <input type="number" className="form-control" id="floatingInput" placeholder="" required
+
+                    <div className="ui right labeled input">
+                        <label htmlFor="amount" className="ui label">$</label>
+                        <input type="text" placeholder="Amount" placeholder="amount" required
                             onChange={e => setPLN(e.target.value)} />
-                        <label>Top up account: {pln}  </label>
-                        <br />
+                        <div className="ui basic label">{pln}.00</div>
                     </div>
-
-                    <div id="Data2">
-
-                        <button type="submit"
-                            className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Top up
-                            </button>
+                    <div className="ui teal buttons">
+                        <div className="ui button">Save</div>
                     </div>
-
                 </form>
-            </div>
+            </div></>
+       
+            )
+    
 
-            </div>
-)
+
+
+
+
+
+           
 }
 export default TopUp;

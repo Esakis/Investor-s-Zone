@@ -83,7 +83,7 @@ var Login = function (props) {
                     React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'lock', iconPosition: 'left', placeholder: 'Password', type: 'password', quired: true, onChange: function (e) { return setPassword(e.target.value); } }),
                     React.createElement(semantic_ui_react_1.Button, { color: 'teal', fluid: true, size: 'large' }, "Login"))),
             React.createElement(semantic_ui_react_1.Message, null,
-                "New to us? ",
+                "New to us?",
                 React.createElement(react_router_dom_2.Link, { to: "/register", href: "#" }, "Register")))));
 };
 exports.default = Login;

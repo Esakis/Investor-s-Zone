@@ -55,6 +55,7 @@ function App() {
                     <Route path="/register" component={Register} />
                     <Route path={"/api/account/exchange/" + email} component={() => <Exchange email={email} />} />
                     <Route path="/currency/:currency" component={CurrencyPage} />
+                    
                 </main>
             </BrowserRouter>
         </div>

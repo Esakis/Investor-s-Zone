@@ -39,7 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = require("react");
 var React = require("react");
 var react_router_dom_1 = require("react-router-dom");
-require("./NavMenu.css");
 var EditUser = function (props) {
     var _a = react_1.useState(''), dataemail = _a[0], setDataemail = _a[1];
     var _b = react_1.useState(''), datafirstname = _b[0], setDatafirstname = _b[1];
@@ -108,38 +107,25 @@ var EditUser = function (props) {
     if (redirect) {
         return React.createElement(react_router_dom_1.Redirect, { to: "/" });
     }
-    return (React.createElement("div", { id: "Main" },
-        React.createElement("div", { id: "EditData" },
-            React.createElement("h5", null, "Edit data"),
-            React.createElement("form", { onSubmit: submit },
-                React.createElement("div", { id: "Data2" },
-                    React.createElement("input", { type: "hidden", name: "email", value: dataemail, onChange: function (e) { return setEmail(e.target.value); } })),
-                React.createElement("div", { id: "Data1" },
-                    React.createElement("input", { type: "text", className: "form-control", id: "floatingInput", placeholder: datafirstname, onChange: function (e) { return setFirstName(e.target.value); } }),
-                    React.createElement("label", null, "First Name")),
-                React.createElement("div", { id: "Data1" },
-                    React.createElement("input", { type: "text", className: "form-control", id: "floatingInput", placeholder: datalastname, onChange: function (e) { return setLastName(e.target.value); } }),
-                    React.createElement("label", null, "Last Name")),
-                React.createElement("div", { id: "Data1" },
-                    React.createElement("input", { type: "data", className: "form-control", id: "floatingInput", placeholder: datadateOfBirth, required: true, onChange: function (e) { return setDateOfBirth(e.target.value); } }),
-                    React.createElement("label", null, "Date of Birth")),
-                React.createElement("div", { id: "Data1" },
-                    React.createElement("input", { type: "text", className: "form-control", id: "floatingInput", placeholder: datanationality, onChange: function (e) { return setNationality(e.target.value); } }),
-                    React.createElement("label", null, "Nationality")),
-                React.createElement("br", null),
-                React.createElement("div", { id: "Data3", className: "d-flex justify-content-center" },
-                    React.createElement("button", { type: "submit", className: "btn btn-success btn-block btn-lg gradient-custom-4 text-body" }, "Edit Data")))),
-        React.createElement("div", { id: "EditAccount" },
-            React.createElement("h5", null, "Account balance:"),
-            React.createElement("br", null),
-            React.createElement("h4", null,
-                "   ",
-                dataPLN,
-                " PLN"),
-            React.createElement("h4", null,
-                "   ",
-                dataEUR,
-                " EUR"))));
+    return (React.createElement("div", { className: "ui raised very padded text container segment" },
+        React.createElement("form", { onSubmit: submit, className: "ui form" },
+            React.createElement("h4", { className: "ui dividing header" }, "User Account"),
+            React.createElement("div", { className: "field" },
+                React.createElement("label", null, "Email"),
+                React.createElement("input", { type: "text", name: "email", placeholder: "Email", value: dataemail, onChange: function (e) { return setEmail(e.target.value); } })),
+            React.createElement("div", { className: "field" },
+                React.createElement("label", null, "First Name"),
+                React.createElement("input", { type: "text", name: "first name", placeholder: "First Name", value: datafirstname, onChange: function (e) { return setFirstName(e.target.value); } })),
+            React.createElement("div", { className: "field" },
+                React.createElement("label", null, "Last Name"),
+                React.createElement("input", { type: "text", name: "last name", placeholder: "Last Name", value: datalastname, onChange: function (e) { return setLastName(e.target.value); } })),
+            React.createElement("div", { className: "field" },
+                React.createElement("label", null, "Date of Birthday"),
+                React.createElement("input", { type: "text", name: "date of birthday", placeholder: "Day of Birthday", value: datadateOfBirth, onChange: function (e) { return setDateOfBirth(e.target.value); } })),
+            React.createElement("div", { className: "field" },
+                React.createElement("label", null, "Nationality"),
+                React.createElement("input", { type: "text", name: "nationality", placeholder: "Nationality", value: datanationality, onChange: function (e) { return setNationality(e.target.value); } })),
+            React.createElement("button", { className: "ui button", type: "submit" }, "Submit"))));
 };
 exports.default = EditUser;
 //# sourceMappingURL=EditUser.js.map

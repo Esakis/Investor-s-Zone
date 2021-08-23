@@ -1,6 +1,6 @@
 
 import { Link,NavLink } from "react-router-dom";
-import {Menu, Button, Icon, Header, Grid, Divider,Dropdown } from 'semantic-ui-react';
+import {Menu, Button, Icon, Header, Grid, Divider, DropdownMenu } from 'semantic-ui-react';
 import React = require("react");
 
 
@@ -31,7 +31,7 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
               <li className="nav-item">
                     <Menu.Item>
-                        <Button as='a' to="/login" basic href="/login">Login</Button>
+                        <Button  as='a' to="/login" basic href="/login">Login</Button>
                     </Menu.Item>
                 </li>
              <li className="nav-item">
@@ -52,29 +52,36 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
 
         menu = (
 
+            <nav className="navbar navbar-expand-md navbar-light bg-light mb-4">
+                <div className="container-fluid">
+
+                    <div className="ui compact menu">
+                        <div className="ui simple dropdown item inverted teal basic button" >
+                            My profile
+                            <i className="dropdown icon"></i>
+                            <div className="menu">
+                                
+                                <NavLink to={"/api/account/" + props.email} className="item edit icon" >Edit Profile</NavLink>
+                                <NavLink to={"/api/account/topup/" + props.email} className="item" >Top Up Your Account</NavLink>
+                                <NavLink to={"/api/account/exchange/" + props.email} className="item" >Exchange</NavLink>
+                                <NavLink exact to="/" onClick={logout} className="item" >Logout</NavLink>
+                                <NavLink to='/forum' className="item" >Sign up</NavLink>
+                                
+                            
+                            </div>
+                        </div>
+                    </div>
+
+
+                
+            </div>
+        </nav>
             
            
           
             
 
-            <ul className="navbar-nav me-auto mb-2 mb-md-0">
-                <ul className="navbar-nav me-auto mb-2 mb-md-0">
-
-                    <li className="nav-item">
-                        <Link to={"/api/account/" + props.email} className="nav-link active" >{props.email}</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={"/api/account/topup/" + props.email} className="nav-link active" > Top Up </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={"/api/account/exchange/" + props.email} className="nav-link active" > Exchange </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to="/" className="nav-link active" onClick={logout}>Logout</Link>
-                    </li>
-                </ul>
-            </ul>
-
+        
           
     )
         
@@ -85,8 +92,8 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
         <nav className="navbar navbar-expand-md navbar-light bg-light mb-4">
             <div className="container-fluid">
 
-                <Header as="a" color='teal' basic exact={true} path={'/'} >Inwestor's Zone</Header>
-
+                <Header as="a" color='teal' to='/home'basic exact href="/" >Inwestor's Zone</Header>
+                
                 <div>
                     {menu}
                 </div>

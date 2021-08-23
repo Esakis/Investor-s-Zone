@@ -1,8 +1,8 @@
 ﻿import * as react from "react";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState,Component} from "react";
 import React = require("react");
 import { Redirect } from "react-router-dom";
-import './NavMenu.css';
+import { Button,Message,Form,Header,Container, Segment} from "semantic-ui-react";
 
 
 const EditUser = (props: { email: string }) => {
@@ -77,66 +77,51 @@ const EditUser = (props: { email: string }) => {
    
   
     return (
+        <div className="ui raised very padded text container segment"> 
+            <form onSubmit={submit} className="ui form">
+                <h4 className="ui dividing header">User Account</h4>
+            <div className="field">
+                <label>Email</label>
+                <input type="text"
+                    name="email"
+                    placeholder="Email"
+                    value={dataemail}
+                    onChange={e => setEmail(e.target.value)}/></div>
 
+                <div className="field">
+                    <label>First Name</label>
+                    <input type="text"
+                        name="first name"
+                        placeholder="First Name"
+                        value={datafirstname}
+                        onChange={e => setFirstName(e.target.value)} /></div>
 
-        <div id="Main">
-
-            <div id="EditData">
-            <h5>Edit data</h5>
-            <form onSubmit={submit}>
-                    <div id="Data2">
-                        <input type="hidden" name="email" value={dataemail}
-                        onChange={e => setEmail(e.target.value)}/>
-                      
-                </div> 
-            <div id="Data1">
-                    <input type="text" className="form-control" id="floatingInput" placeholder={datafirstname}
-                        onChange={e => setFirstName(e.target.value)} />
-                <label>First Name</label>
-                    </div>
-
-                <div id="Data1">
-                    <input type="text" className="form-control" id="floatingInput" placeholder={datalastname}
-                        onChange={e => setLastName(e.target.value)} />
+                <div className="field">
                     <label>Last Name</label>
-                </div>
-   
-                <div id="Data1">
-                        <input type="data" className="form-control" id="floatingInput" placeholder={datadateOfBirth} required
-                            onChange={e => setDateOfBirth(e.target.value)}/>
-                <label>Date of Birth</label>
-                    </div>
+                    <input type="text"
+                        name="last name"
+                        placeholder="Last Name"
+                        value={datalastname}
+                        onChange={e => setLastName(e.target.value)} /></div>
 
-                    <div id="Data1">
-                        <input type="text" className="form-control" id="floatingInput" placeholder={datanationality}
-                            onChange={e => setNationality(e.target.value)} />
-                        <label>Nationality</label>
-                    </div>
-
-
-                    
-                <br />
-
-                        <div id="Data3" className="d-flex justify-content-center">
-                            <button type="submit"
-                                    className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Edit Data
-                            </button>
-                        </div>
-
+                <div className="field">
+                    <label>Date of Birthday</label>
+                    <input type="text"
+                        name="date of birthday"
+                        placeholder="Day of Birthday"
+                        value={datadateOfBirth}
+                        onChange={e => setDateOfBirth(e.target.value)} /></div>
+                <div className="field">
+                    <label>Nationality</label>
+                    <input type="text"
+                        name="nationality"
+                        placeholder="Nationality"
+                        value={datanationality}
+                        onChange={e => setNationality(e.target.value)} /></div>
+                <button className="ui button" type="submit">Submit</button>
             </form>
-             </div>
-
-
-
-            <div id="EditAccount">
-                <h5>Account balance:</h5><br />
-                <h4 >   {dataPLN} PLN</h4>
-                <h4 >   {dataEUR} EUR</h4>
-                
-
             </div>
 
-            </div>
-)
-}
-export default EditUser;
+                    )
+                    }
+          export default EditUser;

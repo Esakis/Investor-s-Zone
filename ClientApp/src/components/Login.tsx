@@ -45,7 +45,7 @@ const Login = (props: { setEmail: (email: string) => void }) => {
     return (
 
         <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-            <Grid.Column style={{ maxWidth: 450 }}  >
+            <Grid.Column style={{ maxWidth: 450 }}>
                 <Header as='h2' color='teal' textAlign='center'>
                     Log-in to your account
                 </Header>
@@ -71,13 +71,11 @@ const Login = (props: { setEmail: (email: string) => void }) => {
                     </Segment>
                 </Form>
                 <Message>
-                    New to us? <Link to="/register" href="#" >Register</Link>
+                    New to us?<Link to="/register" href="#">Register</Link>
                 </Message>
             </Grid.Column>
         </Grid>
 
-
-
-    );
+);
 };
 export default Login;
