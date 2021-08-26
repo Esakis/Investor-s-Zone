@@ -41,6 +41,7 @@ var React = require("react");
 var react_router_dom_1 = require("react-router-dom");
 var semantic_ui_react_1 = require("semantic-ui-react");
 var react_router_dom_2 = require("react-router-dom");
+require("./componentsCss/CurrencyPage.css");
 var Login = function (props) {
     var _a = react_1.useState(''), email = _a[0], setEmail = _a[1];
     var _b = react_1.useState(''), password = _b[0], setPassword = _b[1];
@@ -72,19 +73,25 @@ var Login = function (props) {
         });
     }); };
     if (redirect) {
-        return React.createElement(react_router_dom_1.Redirect, { to: "/" });
+        return React.createElement(react_router_dom_1.Redirect, { to: "/Profile" });
     }
-    return (React.createElement(semantic_ui_react_1.Grid, { textAlign: 'center', style: { height: '100vh' }, verticalAlign: 'middle' },
-        React.createElement(semantic_ui_react_1.Grid.Column, { style: { maxWidth: 450 } },
-            React.createElement(semantic_ui_react_1.Header, { as: 'h2', color: 'teal', textAlign: 'center' }, "Log-in to your account"),
-            React.createElement(semantic_ui_react_1.Form, { onSubmit: submit, size: 'large' },
-                React.createElement(semantic_ui_react_1.Segment, { stacked: true },
-                    React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'user', iconPosition: 'left', placeholder: 'E-mail address', required: true, onChange: function (e) { return setEmail(e.target.value); } }),
-                    React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'lock', iconPosition: 'left', placeholder: 'Password', type: 'password', quired: true, onChange: function (e) { return setPassword(e.target.value); } }),
-                    React.createElement(semantic_ui_react_1.Button, { color: 'teal', fluid: true, size: 'large' }, "Login"))),
-            React.createElement(semantic_ui_react_1.Message, null,
-                "New to us?",
-                React.createElement(react_router_dom_2.Link, { to: "/register", href: "#" }, "Register")))));
+    return (React.createElement("div", { className: "ui inverted vertical segment " },
+        React.createElement("div", { className: "ui page grid landpage-image" },
+            React.createElement("div", { className: "column" },
+                React.createElement("h1", { className: "ui title-header" }),
+                React.createElement("div", { className: "centered grid slogan" },
+                    React.createElement("div", { className: "column" },
+                        React.createElement(semantic_ui_react_1.Grid, { textAlign: 'center', style: { height: '100vh' }, verticalAlign: 'middle' },
+                            React.createElement(semantic_ui_react_1.Grid.Column, { style: { maxWidth: 450 } },
+                                React.createElement(semantic_ui_react_1.Header, { as: 'h2', color: 'teal', textAlign: 'center' }, "Log-in to your account"),
+                                React.createElement(semantic_ui_react_1.Form, { onSubmit: submit, size: 'large' },
+                                    React.createElement(semantic_ui_react_1.Segment, { stacked: true },
+                                        React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'user', iconPosition: 'left', placeholder: 'E-mail address', required: true, onChange: function (e) { return setEmail(e.target.value); } }),
+                                        React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'lock', iconPosition: 'left', placeholder: 'Password', type: 'password', quired: true, onChange: function (e) { return setPassword(e.target.value); } }),
+                                        React.createElement(semantic_ui_react_1.Button, { color: 'teal', fluid: true, size: 'large' }, "Login"))),
+                                React.createElement(semantic_ui_react_1.Message, null,
+                                    "New to us? ",
+                                    React.createElement(react_router_dom_2.Link, { to: "/register", href: "register" }, "Register"))))))))));
 };
 exports.default = Login;
 //# sourceMappingURL=Login.js.map

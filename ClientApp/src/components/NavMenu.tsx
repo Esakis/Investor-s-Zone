@@ -56,7 +56,7 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
                 <div className="container-fluid">
 
                     <div className="ui compact menu">
-                        <div className="ui simple dropdown item inverted teal basic button" >
+                        <div className="ui simple dropdown item green basic button" >
                             My profile
                             <i className="dropdown icon"></i>
                             <div className="menu">
@@ -65,7 +65,7 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
                                 <NavLink to={"/api/account/topup/" + props.email} className="item" >Top Up Your Account</NavLink>
                                 <NavLink to={"/api/account/exchange/" + props.email} className="item" >Exchange</NavLink>
                                 <NavLink exact to="/" onClick={logout} className="item" >Logout</NavLink>
-                                <NavLink to='/forum' className="item" >Sign up</NavLink>
+                                <NavLink to='/profile' className="item" >Forum</NavLink>
                                 
                             
                             </div>
@@ -92,7 +92,8 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
         <nav className="navbar navbar-expand-md navbar-light bg-light mb-4">
             <div className="container-fluid">
 
-                <Header as="a" color='teal' to='/home'basic exact href="/" >Inwestor's Zone</Header>
+                <Link color='teal' to='/Home'  >Inwestor's Zone</Link>
+             
                 
                 <div>
                     {menu}

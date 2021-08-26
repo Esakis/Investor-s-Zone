@@ -10,12 +10,16 @@ import Profile from "./components/Profile";
 import EditUser from "./components/EditUser";
 import TopUp from "./components/TopUp";
 import Exchange from "./components/Exchange";
+import Forum from "./components/Forum";
 import { Connection } from "./utilities/Connection";
 import { CurrencyPage } from "./components/CurrencyPage";
-import { Menu, Button, Header, Grid, Form, Segment, Message } from 'semantic-ui-react';
+import { Menu, Button, Header, Grid, Form, Segment, Message, Divider, Image } from 'semantic-ui-react';
 import Layout from "./components/Layout";
 
+
 import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
+
+
 
 
 function App() {
@@ -43,12 +47,15 @@ function App() {
     });
 
     return (
-        <div >
-            <BrowserRouter>
+      <Layout>
+        <BrowserRouter>
+           
                 <NavMenu email={email} setEmail={setEmail} />
-
-                <main className="form-signin">
-                    <Route path="/" component={Home} />
+              
+            <main className="form-signin"   >
+                <Route exact path="/" component={Home} />
+                <Route exact path="/profile" component={Profile} />
+                    <Route path="/forum" component={Forum} />
                     <Route path={"/api/account/" + email} component={() => <EditUser email={email} />} />
                     <Route path={"/api/account/topup/" + email} component={() => <TopUp email={email} />} />
                     <Route path="/login" component={() => <Login setEmail={setEmail} />} />
@@ -57,8 +64,11 @@ function App() {
                     <Route path="/currency/:currency" component={CurrencyPage} />
                     
                 </main>
+          
+
             </BrowserRouter>
-        </div>
+            </Layout>
+           
     );
 }
 export default App;

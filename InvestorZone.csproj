@@ -38,9 +38,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\components\BackGround.tsx" />
     <None Remove="ClientApp\src\components\Clock.ts" />
     <None Remove="ClientApp\src\components\EditUser.ts" />
     <None Remove="ClientApp\src\components\file.tsx" />
+    <None Remove="ClientApp\src\components\Forum.tsx" />
     <None Remove="ClientApp\src\components\hoc\Profile.tsx" />
     <None Remove="ClientApp\src\components\UserProfile.tsx" />
   </ItemGroup>
@@ -49,6 +51,11 @@
     <TypeScriptCompile Include="ClientApp\src\components\Blog.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\ErrorPage.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\Profile.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\NewFolder1\" />
+    <Folder Include="ClientApp\src\NewFolder\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

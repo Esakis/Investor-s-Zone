@@ -42,11 +42,14 @@ var NavMenu_1 = require("./components/NavMenu");
 var Login_1 = require("./components/Login");
 var Home_1 = require("./components/Home");
 var Register_1 = require("./components/Register");
+var Profile_1 = require("./components/Profile");
 var EditUser_1 = require("./components/EditUser");
 var TopUp_1 = require("./components/TopUp");
 var Exchange_1 = require("./components/Exchange");
+var Forum_1 = require("./components/Forum");
 var Connection_1 = require("./utilities/Connection");
 var CurrencyPage_1 = require("./components/CurrencyPage");
+var Layout_1 = require("./components/Layout");
 var react_router_dom_1 = require("react-router-dom");
 function App() {
     var _this = this;
@@ -72,11 +75,13 @@ function App() {
         }); })();
         var connection = Connection_1.Connection.getInstance();
     });
-    return (React.createElement("div", null,
+    return (React.createElement(Layout_1.default, null,
         React.createElement(react_router_dom_1.BrowserRouter, null,
             React.createElement(NavMenu_1.default, { email: email, setEmail: setEmail }),
             React.createElement("main", { className: "form-signin" },
-                React.createElement(react_router_dom_1.Route, { path: "/", component: Home_1.default }),
+                React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: Home_1.default }),
+                React.createElement(react_router_dom_1.Route, { exact: true, path: "/profile", component: Profile_1.default }),
+                React.createElement(react_router_dom_1.Route, { path: "/forum", component: Forum_1.default }),
                 React.createElement(react_router_dom_1.Route, { path: "/api/account/" + email, component: function () { return React.createElement(EditUser_1.default, { email: email }); } }),
                 React.createElement(react_router_dom_1.Route, { path: "/api/account/topup/" + email, component: function () { return React.createElement(TopUp_1.default, { email: email }); } }),
                 React.createElement(react_router_dom_1.Route, { path: "/login", component: function () { return React.createElement(Login_1.default, { setEmail: setEmail }); } }),

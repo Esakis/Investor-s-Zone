@@ -3,7 +3,7 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import React = require("react");
 import { Redirect } from "react-router-dom";
 import './NavMenu.css';
-
+import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu, Form } from 'semantic-ui-react';
 
 const Exchange = (props: { email: string }) => {
 
@@ -72,48 +72,38 @@ const Exchange = (props: { email: string }) => {
     return (
 
 
-        <div id="Main">
 
-            <div id="EditAccount">
-                <h5>Account balance:</h5><br />
-                <h4 >   {dataPLN} PLN</h4>
-                <h4 >   {dataEUR} EUR</h4>
-                
-    
-            </div>
-
+            <div className="ui raised very padded text container segment">
+                <div className="ui bottom  labeled input">
+                    <h3>Your Account Balance:</h3>
+                    <button className="money bill alternate outline icon "> {dataPLN} PLN
+                    </button>
+                    <button className="money bill alternate outline icon"> {dataEUR} EUR
+                    </button>
 
 
+                </div>
 
-
-
-            <div id="TopUp">
-                <h5>Top up account</h5>
-                <form onSubmit={submitExchange}>
-                    <div id="Data2">
-                        <input type="text" className="form-control" id="floatingInput" placeholder={props.email} required
+                <Form onSubmit={submitExchange} unstackable>
+                    <Header as="h3">Top up your account </Header>
+                    <Form.Group widths={2}>
+                        <Form.Input label='Email' placeholder={props.email} required
                             onChange={e => setEmail(e.target.value)} />
-                        <label>Email</label>
-                    </div>
-                    <div id="Data2">
-                        <input type="number" className="form-control" id="floatingInput" placeholder="" required
+                      
+                        <Form.Input label='Ammount' placeholder='' required
                             onChange={e => setPLN(e.target.value)} />
                         <label>Exchange : {pln} * 4 </label>
                         <label>on : {eur}  </label>
-                        <br />
-                    </div>
-
-                    <div id="Data2">
-
-                        <button type="submit"
-                            className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Top up
-                            </button>
-                    </div>
-
-                </form>
+                    </Form.Group>
+                    <i className="money"></i>
+                    <Form.Checkbox label='I agree to the Terms and Conditions' />
+                    <Button type='submit'>Submit</Button>
+            </Form>
             </div>
 
-            </div>
+
+
+
 )
-}
+};
 export default Exchange;

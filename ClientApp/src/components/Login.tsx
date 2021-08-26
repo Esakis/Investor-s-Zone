@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import { Menu, Button, Header, Grid, Form, Segment, Message } from 'semantic-ui-react';
 
 import { Link } from "react-router-dom";
+import './componentsCss/CurrencyPage.css';
 
 const Login = (props: { setEmail: (email: string) => void }) => {
     const [email, setEmail] = useState('');
@@ -37,12 +38,20 @@ const Login = (props: { setEmail: (email: string) => void }) => {
     }
 
     if (redirect) {
-        return <Redirect to="/" />;
+        return <Redirect to="/Profile" />;
     }
 
 
 
     return (
+
+        <div className="ui inverted vertical segment ">
+      
+            <div className="ui page grid landpage-image">
+                <div className="column">
+                    <h1 className="ui title-header"></h1>
+                    <div className="centered grid slogan">
+                        <div className="column">
 
         <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
@@ -71,10 +80,15 @@ const Login = (props: { setEmail: (email: string) => void }) => {
                     </Segment>
                 </Form>
                 <Message>
-                    New to us?<Link to="/register" href="#">Register</Link>
+                    New to us? <Link to="/register" href="register">Register</Link>
                 </Message>
             </Grid.Column>
-        </Grid>
+                            </Grid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 );
 };

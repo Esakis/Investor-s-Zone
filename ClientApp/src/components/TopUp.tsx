@@ -2,8 +2,9 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 import React = require("react");
 import { Redirect } from "react-router-dom";
-import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu } from 'semantic-ui-react';
+import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu, Form,Image} from 'semantic-ui-react';
 
+import BackGround from './BackGround';
 
 const TopUp = (props: { email: string }) => {
 
@@ -73,43 +74,58 @@ const TopUp = (props: { email: string }) => {
 
   
     return (
-
-
-      <><div className="ui raised very padded text container segment">
-            <div className="ui right labeled input">
-                <h5>Your Account Balance:</h5>
-                <button className="money bill alternate outline icon ui basic label"> {dataPLN} PLN</button>
-                <button className="money bill alternate outline icon"> {dataEUR} EUR</button>
-
-
-            </div>
-        </div><div className="ui form center aligned container">
-                <h1>Top up account</h1>
-                <form onSubmit={submitTopUp}>
-
-                    <div className="ui right labeled input">
-                        <label htmlFor="email" className="ui  teallabel"></label>
-                        <input type="text" placeholder={props.email} required
-                            onChange={e => setEmail(e.target.value)} />
-                        <div className="ui basic label">@</div>
-                    </div>
-
-                    <div className="ui right labeled input">
-                        <label htmlFor="amount" className="ui label">$</label>
-                        <input type="text" placeholder="Amount" placeholder="amount" required
-                            onChange={e => setPLN(e.target.value)} />
-                        <div className="ui basic label">{pln}.00</div>
-                    </div>
-                    <div className="ui teal buttons">
-                        <div className="ui button">Save</div>
-                    </div>
-                </form>
-            </div></>
+        
        
-            )
+       
+        <div className="ui two column centered grid">
+            <div className="ui stacked segment">
+            <div className="column">
+                
+            <Form onSubmit={submitTopUp} unstackable>
+                <Header as="h3">Top up your account </Header>
+                <Form.Group widths={2}>
+                    <Form.Input 
+                   
+                        placeholder={ props.email }
+                        required
+                        onChange={e => setEmail(e.target.value)} />
+
+                    <Form.Input labelPosition='right' type='text'  placeholder={pln} required value={pln}
+                        onChange={e => setPLN(e.target.value)} />
+                </Form.Group>
+                <Form.Checkbox label='I agree to the Terms and Conditions' />
+                    <Button color='teal' type='submit'>Submit</Button>
+            </Form>
+            </div>
+
+            <div className="column teal">
+                <div className="ui segment">
+
+                    <div className="ui message ">
+
+                        <div className="header">
+                            Account Balance
+                        </div>
+                        <p>{dataPLN} PLN</p>
+                        <p>{dataEUR} EUR</p>
+                    </div>
+                </div>
+            </div>
+            </div >
+            </div >
+       
+
+
+            
+
+
+        
+        
+
+
+
+    )
     
-
-
 
 
 

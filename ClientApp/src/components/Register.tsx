@@ -2,7 +2,8 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 import React = require("react");
 import { Redirect } from "react-router-dom";
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react';
+import bg from "../public/bg.jpg";
 
 
 
@@ -46,11 +47,15 @@ const Register = () => {
     }
 
     return (
-        <Grid class='img' textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+        <div className='ui fluid image'>
+            <img src="https://images.unsplash.com/photo-1585914641050-fa9883c4e21c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80"/>
+        <Grid class='image'  textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as='h2' color='teal' textAlign='center'>
-                    Register account
-                </Header>
+                <Message
+                    attached
+                    header='Welcome to our site!'
+                    content='Fill out the form below to sign-up for a new account'
+                />
                 <Form onSubmit={submit} size='large'>
                     <Segment stacked>
                         <Form.Input fluid icon='user' iconPosition='left' placeholder='Email'
@@ -84,9 +89,14 @@ const Register = () => {
                         </Button>
                     </Segment>
                 </Form>
+                <Message attached='bottom' warning>
+                    <Icon name='help' />
+                    Already signed up?&nbsp;<a href='/login'>Login here</a>&nbsp;instead.
+                </Message>
 
             </Grid.Column>
-        </Grid>
+            </Grid>
+            </div>
 
 
     )

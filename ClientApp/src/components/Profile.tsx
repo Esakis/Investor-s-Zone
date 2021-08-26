@@ -1,67 +1,76 @@
 ﻿import { Link, NavLink } from "react-router-dom";
-import { Menu, Button, Icon, Header, Grid, Dropdown } from 'semantic-ui-react';
+
 import React = require("react");
 import { SyntheticEvent, useEffect, useState } from "react";
-import { Connection } from "../utilities/Connection";
 
-const Profile = () => {
-    const [email, setEmail] = useState("");
+import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu, Form,Image } from 'semantic-ui-react';
+import Segment from "semantic-ui-react/src/elements/Segment";
 
+import './componentsCss/CurrencyPage.css';
 
+let panel = (<div id="Panel">
+    <CurrencyPanel />
+</div>)
 
+const Profile= () =>{
+    return (
+        <div className="ui inverted vertical segment  ">
 
-    useEffect(() => {
-        (
-            async () => {
-                const response = await fetch('https://localhost:44349/api1/account', {
-                    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                    credentials: "include",
-
-                });
-                const content = await response.json();
-                setEmail(content.email);
-
-
-            }
-        )();
-        let connection = Connection.getInstance();
-    });
-
-
-
-    }
-
-    <div style={{ maxWidth: "550px", margin: "0px auto" }}>
-        <div style={{
-            display: "flex",
-            justifyContent: "space-around",
-            margin: "18px 0px",
-            borderBottom: "1px solid green"
-
-            ,
-        }}>
-            <div>
-                <div>
-                    <img style={{ width: "160px", height: "160px", borderRadius: "80px" }}
-                        src='' />
-
+            <div className="ui page grid landpage-image">
+            <div className="ui container " >
+        
+            <br/>
+                <div className="ui secondary menu">
+                    <div className="header item"></div>
+                    <a className="active item">
+                        Tip Of the day 
+                    </a>
+                    <a className="item">
+                       Blog
+                        </a>
+                        <a className="item currencyPanelNavbar" >
+                            
+                           Currency 
+                        </a>
+                
+                    <div className="right menu">
+                        <div className="item">
+                            <div className="ui icon input">
+                                <input type="text" placeholder="Search..."/>
+                                    <i className="search link icon"></i>
+        </div>
+                            </div>
+                    <img className="ui small circular image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc2YzpaKUyKmBzE0wPNThI8X-jtSCHaB-zng&usqp=CAU"/>
+                        </div>
+                    </div>
+                  
+                    <br/>
+                        <div className="ui grid">
+                            <div className="four wide column">
+                                <div className="ui secondary vertical pointing fluid menu"/>
+                                    Forum
+                                </div>
+                            </div>
+                            <div className="twelve wide column">
+                                <div className="ui form">
+                                    <div className="field">
+                                        <input type="text" name="first-name" placeholder="First name"/>
+        </div>
+                                        <div className="field">
+                                            <textarea placeholder="Some example text..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                 </div>
             </div>
-            <h4>Jon Smith</h4>
+
         </div>
-        <div className="gallery">
 
-
-           
-          
-
-
-
-
-    </div>
-
-}
-
+    
+         
+          )
+       
+};
 
 export default Profile;
 

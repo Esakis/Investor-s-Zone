@@ -40,6 +40,7 @@ var react_1 = require("react");
 var React = require("react");
 var react_router_dom_1 = require("react-router-dom");
 require("./NavMenu.css");
+var semantic_ui_react_1 = require("semantic-ui-react");
 var Exchange = function (props) {
     var _a = react_1.useState(''), dataPLN = _a[0], setDataPLN = _a[1];
     var _b = react_1.useState(''), dataEUR = _b[0], setDataEUR = _b[1];
@@ -97,37 +98,33 @@ var Exchange = function (props) {
     if (redirect) {
         return React.createElement(react_router_dom_1.Redirect, { to: "/api/account/" + props.email });
     }
-    return (React.createElement("div", { id: "Main" },
-        React.createElement("div", { id: "EditAccount" },
-            React.createElement("h5", null, "Account balance:"),
-            React.createElement("br", null),
-            React.createElement("h4", null,
-                "   ",
+    return (React.createElement("div", { className: "ui raised very padded text container segment" },
+        React.createElement("div", { className: "ui bottom  labeled input" },
+            React.createElement("h3", null, "Your Account Balance:"),
+            React.createElement("button", { className: "money bill alternate outline icon " },
+                " ",
                 dataPLN,
                 " PLN"),
-            React.createElement("h4", null,
-                "   ",
+            React.createElement("button", { className: "money bill alternate outline icon" },
+                " ",
                 dataEUR,
                 " EUR")),
-        React.createElement("div", { id: "TopUp" },
-            React.createElement("h5", null, "Top up account"),
-            React.createElement("form", { onSubmit: submitExchange },
-                React.createElement("div", { id: "Data2" },
-                    React.createElement("input", { type: "text", className: "form-control", id: "floatingInput", placeholder: props.email, required: true, onChange: function (e) { return setEmail(e.target.value); } }),
-                    React.createElement("label", null, "Email")),
-                React.createElement("div", { id: "Data2" },
-                    React.createElement("input", { type: "number", className: "form-control", id: "floatingInput", placeholder: "", required: true, onChange: function (e) { return setPLN(e.target.value); } }),
-                    React.createElement("label", null,
-                        "Exchange : ",
-                        pln,
-                        " * 4 "),
-                    React.createElement("label", null,
-                        "on : ",
-                        eur,
-                        "  "),
-                    React.createElement("br", null)),
-                React.createElement("div", { id: "Data2" },
-                    React.createElement("button", { type: "submit", className: "btn btn-success btn-block btn-lg gradient-custom-4 text-body" }, "Top up"))))));
+        React.createElement(semantic_ui_react_1.Form, { onSubmit: submitExchange, unstackable: true },
+            React.createElement(semantic_ui_react_1.Header, { as: "h3" }, "Top up your account "),
+            React.createElement(semantic_ui_react_1.Form.Group, { widths: 2 },
+                React.createElement(semantic_ui_react_1.Form.Input, { label: 'Email', placeholder: props.email, required: true, onChange: function (e) { return setEmail(e.target.value); } }),
+                React.createElement(semantic_ui_react_1.Form.Input, { label: 'Ammount', placeholder: '', required: true, onChange: function (e) { return setPLN(e.target.value); } }),
+                React.createElement("label", null,
+                    "Exchange : ",
+                    pln,
+                    " * 4 "),
+                React.createElement("label", null,
+                    "on : ",
+                    eur,
+                    "  ")),
+            React.createElement("i", { className: "money" }),
+            React.createElement(semantic_ui_react_1.Form.Checkbox, { label: 'I agree to the Terms and Conditions' }),
+            React.createElement(semantic_ui_react_1.Button, { type: 'submit' }, "Submit"))));
 };
 exports.default = Exchange;
 //# sourceMappingURL=Exchange.js.map

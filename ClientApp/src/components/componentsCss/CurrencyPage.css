@@ -1,3 +1,35 @@
 ﻿.currencyChart {
     border: 3px solid rgba(0,0,0, 0.7);
 }
+
+body {
+    padding: 1em;
+}
+
+.ui.image {
+    display: inline-block;
+}
+
+.ui.hover.dimmer {
+    display: flex;
+    transition: opacity .25s ease-in-out;
+}
+
+.ui:hover > .ui.hover.dimmer {
+    opacity: 1;
+}
+
+
+.landpage-image {
+    height: 55%;
+}
+
+.landpage-image {
+    min-height: 100vh;
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    background-image: url('https://images.unsplash.com/photo-1579621970795-87facc2f976d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+

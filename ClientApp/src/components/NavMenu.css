@@ -70,3 +70,21 @@ html {
     padding: 2%;
     background-color: lightskyblue;
 }
+
+
+body {
+    padding: 1em;
+}
+
+.ui.image {
+    display: inline-block;
+}
+
+.ui.hover.dimmer {
+    display: flex;
+    transition: opacity .25s ease-in-out;
+}
+
+.ui:hover > .ui.hover.dimmer {
+    opacity: 1;
+}

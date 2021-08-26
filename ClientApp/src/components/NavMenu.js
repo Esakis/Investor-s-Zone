@@ -69,7 +69,7 @@ var NavMenu = function (props) {
         menu = (React.createElement("nav", { className: "navbar navbar-expand-md navbar-light bg-light mb-4" },
             React.createElement("div", { className: "container-fluid" },
                 React.createElement("div", { className: "ui compact menu" },
-                    React.createElement("div", { className: "ui simple dropdown item inverted teal basic button" },
+                    React.createElement("div", { className: "ui simple dropdown item green basic button" },
                         "My profile",
                         React.createElement("i", { className: "dropdown icon" }),
                         React.createElement("div", { className: "menu" },
@@ -77,11 +77,11 @@ var NavMenu = function (props) {
                             React.createElement(react_router_dom_1.NavLink, { to: "/api/account/topup/" + props.email, className: "item" }, "Top Up Your Account"),
                             React.createElement(react_router_dom_1.NavLink, { to: "/api/account/exchange/" + props.email, className: "item" }, "Exchange"),
                             React.createElement(react_router_dom_1.NavLink, { exact: true, to: "/", onClick: logout, className: "item" }, "Logout"),
-                            React.createElement(react_router_dom_1.NavLink, { to: '/forum', className: "item" }, "Sign up")))))));
+                            React.createElement(react_router_dom_1.NavLink, { to: '/profile', className: "item" }, "Forum")))))));
     }
     return (React.createElement("nav", { className: "navbar navbar-expand-md navbar-light bg-light mb-4" },
         React.createElement("div", { className: "container-fluid" },
-            React.createElement(semantic_ui_react_1.Header, { as: "a", color: 'teal', to: '/home', basic: true, exact: true, href: "/" }, "Inwestor's Zone"),
+            React.createElement(react_router_dom_1.Link, { color: 'teal', to: '/Home' }, "Inwestor's Zone"),
             React.createElement("div", null, menu))));
 };
 exports.default = NavMenu;

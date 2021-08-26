@@ -77,15 +77,22 @@ var Register = function () {
     if (redirect) {
         return React.createElement(react_router_dom_1.Redirect, { to: "/login" });
     }
-    return (React.createElement(semantic_ui_react_1.Grid, { class: 'img', textAlign: 'center', style: { height: '100vh' }, verticalAlign: 'middle' },
-        React.createElement(semantic_ui_react_1.Grid.Column, { style: { maxWidth: 450 } },
-            React.createElement(semantic_ui_react_1.Header, { as: 'h2', color: 'teal', textAlign: 'center' }, "Register account"),
-            React.createElement(semantic_ui_react_1.Form, { onSubmit: submit, size: 'large' },
-                React.createElement(semantic_ui_react_1.Segment, { stacked: true },
-                    React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'user', iconPosition: 'left', placeholder: 'Email', required: true, onChange: function (e) { return setEmail(e.target.value); } }),
-                    React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'lock', iconPosition: 'left', placeholder: 'Password', type: 'password', required: true, onChange: function (e) { return setPassword(e.target.value); } }),
-                    React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'lock', iconPosition: 'left', placeholder: 'Password', type: 'password', required: true, onChange: function (e) { return setConfirmPassword(e.target.value); } }),
-                    React.createElement(semantic_ui_react_1.Button, { color: 'teal', fluid: true, size: 'large', type: "submit" }, "Register"))))));
+    return (React.createElement("div", { className: 'ui fluid image' },
+        React.createElement("img", { src: "https://images.unsplash.com/photo-1585914641050-fa9883c4e21c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80" }),
+        React.createElement(semantic_ui_react_1.Grid, { class: 'image', textAlign: 'center', style: { height: '100vh' }, verticalAlign: 'middle' },
+            React.createElement(semantic_ui_react_1.Grid.Column, { style: { maxWidth: 450 } },
+                React.createElement(semantic_ui_react_1.Message, { attached: true, header: 'Welcome to our site!', content: 'Fill out the form below to sign-up for a new account' }),
+                React.createElement(semantic_ui_react_1.Form, { onSubmit: submit, size: 'large' },
+                    React.createElement(semantic_ui_react_1.Segment, { stacked: true },
+                        React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'user', iconPosition: 'left', placeholder: 'Email', required: true, onChange: function (e) { return setEmail(e.target.value); } }),
+                        React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'lock', iconPosition: 'left', placeholder: 'Password', type: 'password', required: true, onChange: function (e) { return setPassword(e.target.value); } }),
+                        React.createElement(semantic_ui_react_1.Form.Input, { fluid: true, icon: 'lock', iconPosition: 'left', placeholder: 'Password', type: 'password', required: true, onChange: function (e) { return setConfirmPassword(e.target.value); } }),
+                        React.createElement(semantic_ui_react_1.Button, { color: 'teal', fluid: true, size: 'large', type: "submit" }, "Register"))),
+                React.createElement(semantic_ui_react_1.Message, { attached: 'bottom', warning: true },
+                    React.createElement(semantic_ui_react_1.Icon, { name: 'help' }),
+                    "Already signed up?\u00A0",
+                    React.createElement("a", { href: '/login' }, "Login here"),
+                    "\u00A0instead.")))));
 };
 exports.default = Register;
 //# sourceMappingURL=Register.js.map

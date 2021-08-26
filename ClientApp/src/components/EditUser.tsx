@@ -77,51 +77,77 @@ const EditUser = (props: { email: string }) => {
    
   
     return (
-        <div className="ui raised very padded text container segment"> 
-            <form onSubmit={submit} className="ui form">
-                <h4 className="ui dividing header">User Account</h4>
-            <div className="field">
-                <label>Email</label>
-                <input type="text"
-                    name="email"
-                    placeholder="Email"
-                    value={dataemail}
-                    onChange={e => setEmail(e.target.value)}/></div>
+    
+          
 
-                <div className="field">
-                    <label>First Name</label>
-                    <input type="text"
-                        name="first name"
-                        placeholder="First Name"
-                        value={datafirstname}
-                        onChange={e => setFirstName(e.target.value)} /></div>
 
-                <div className="field">
-                    <label>Last Name</label>
-                    <input type="text"
-                        name="last name"
-                        placeholder="Last Name"
-                        value={datalastname}
-                        onChange={e => setLastName(e.target.value)} /></div>
 
-                <div className="field">
-                    <label>Date of Birthday</label>
-                    <input type="text"
-                        name="date of birthday"
-                        placeholder="Day of Birthday"
-                        value={datadateOfBirth}
-                        onChange={e => setDateOfBirth(e.target.value)} /></div>
-                <div className="field">
-                    <label>Nationality</label>
-                    <input type="text"
-                        name="nationality"
-                        placeholder="Nationality"
-                        value={datanationality}
-                        onChange={e => setNationality(e.target.value)} /></div>
-                <button className="ui button" type="submit">Submit</button>
-            </form>
+        <div className="ui two column centered grid">
+                                <div className="column teal">
+                                    <div className="ui segment">
+                    <div className="ui message ">
+                                           
+                                            <div className="header">
+                                                 Account Balance
+                                            </div>
+                                            <p>{dataPLN} PLN</p>
+                                            <p>{dataEUR} EUR</p>
+                                        </div>
+                                    </div>
+                                </div>
+            <div className=" four column centered row">
+                                    <div className="ui segment">
+                                        <div className="ui raised very padded text container segment">
+                                            <form onSubmit={submit} className="ui form">
+
+                                                <form onSubmit={submit} className="ui form">
+                                                    <h4 className="ui dividing header">User Account</h4>
+                                                    <div className="field">
+                                                        <label>Email</label>
+                                                        <input type="text"
+                                                            name="email"
+                                                            placeholder={props.email}
+                                                            value={dataemail}
+                                                            onChange={e => setEmail(e.target.value)} /></div>
+
+                                                    <div className="field">
+                                                        <label>First Name</label>
+                                                        <input type="text"
+                                                            name="first name"
+                                                            placeholder={datafirstname}
+                                                            value={datafirstname}
+                                                            onChange={e => setFirstName(e.target.value)} /></div>
+
+                                                    <div className="field">
+                                                        <label>Last Name</label>
+                                                        <input type="text"
+                                                            name="last name"
+                                                            placeholder={datalastname}
+                                                            value={datalastname}
+                                                            onChange={e => setLastName(e.target.value)} /></div>
+
+                                                    <div className="field">
+                                                        <label>Date of Birthday</label>
+                                                        <input type="text"
+                                                            name="date of birthday"
+                                                            placeholder={datadateOfBirth}
+                                                            value={datadateOfBirth}
+                                                            onChange={e => setDateOfBirth(e.target.value)} /></div>
+                                                    <div className="field">
+                                                        <label>Nationality</label>
+                                                        <input type="text"
+                                                            name="nationality"
+                                                            placeholder={datanationality}
+                                                            value={datanationality}
+                                                            onChange={e => setNationality(e.target.value)} /></div>
+                                                    <button className="ui button" type="submit" color="tail">Submit</button>
+                            </form>
+                        </form>
+                                    </div>
+                                </div>
+                                
             </div>
-
-                    )
-                    }
+        </div>
+                    );
+                    };
           export default EditUser;
