@@ -50,6 +50,7 @@ var ForumMain_1 = require("./components/forum/ForumMain");
 var CurrencyPage_1 = require("./components/CurrencyPage");
 var Layout_1 = require("./components/Layout");
 var react_router_dom_1 = require("react-router-dom");
+var Clock_1 = require("./components/Clock");
 var react_bootstrap_1 = require("react-bootstrap");
 function App() {
     var _this = this;
@@ -78,6 +79,7 @@ function App() {
     return (React.createElement(Layout_1.default, null,
         React.createElement(react_router_dom_1.BrowserRouter, null,
             React.createElement(NavMenu_1.default, { email: email, setEmail: setEmail }),
+            React.createElement(react_router_dom_1.Route, { exact: true, path: "/clock", component: Clock_1.default }),
             React.createElement(react_bootstrap_1.Modal, null),
             React.createElement("main", { className: "form-signin" },
                 React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: Home_1.default }),

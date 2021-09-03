@@ -61,6 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\components\Clock.tsx" />
     <TypeScriptCompile Remove="ClientApp\src\components\forum\ForumMain.tsx" />
     <TypeScriptCompile Remove="ClientApp\src\components\Modal.tsx" />
     <TypeScriptCompile Remove="ClientApp\src\components\user\Exchange.tsx" />

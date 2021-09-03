@@ -9,7 +9,7 @@ namespace InvestorZone.Entities
     public class UserDbContext:DbContext
     {
         private string _connectionString =
-            "Server=DESKTOP-ANMM7DC\\SQLEXPRESS;Database=StrefaInwestora12;Trusted_Connection =True;";
+            "Server=DESKTOP-J80FT93\\SQLEXPRESS01;Database=StrefaInwestora12;Trusted_Connection =True;";
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }

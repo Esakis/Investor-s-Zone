@@ -13,7 +13,7 @@ import { Connection } from "./utilities/Connection";
 import { CurrencyPage } from "./components/CurrencyPage";
 import Layout from "./components/Layout";
 import { BrowserRouter, Route } from "react-router-dom";
-
+import Clock from "./components/Clock";
 import ModalExampleBasic  from "./components/Modal";
 import { Modal } from "react-bootstrap";
 
@@ -47,6 +47,7 @@ function App() {
         <BrowserRouter>
            
                 <NavMenu email={email} setEmail={setEmail} />
+                <Route exact path="/clock" component={Clock} />
               <Modal/>
                 <main className="form-signin"   >
                     

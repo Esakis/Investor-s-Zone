@@ -140,17 +140,18 @@ type tableCurrencyRow = {
         render() {
 
 
+
             if (this.state.rows.length < 1)
                 return null;
             else {
 
                 return (
-                    <Segment placeholder>
+                    <Segment placeholder inverted color='grey'>
                         <Grid columns={2} stackable textAlign='center'>
                             <Divider></Divider>
 
                             <Grid.Row verticalAlign='middle'>
-                                <Grid.Column>
+                                <Grid.Column >
                                     <Form unstackable>
                                         <Header as="h3"> Exchange </Header>
                                         <div className="ui bottom  labeled input">
@@ -170,20 +171,25 @@ type tableCurrencyRow = {
                                                 type='password'
                                                 onChange={e => this.setPassword(e.target.value)} required />
 
-
+                                        </Form.Group>
+                                        <Form.Group widths={1}>
                                             <Form.Input type="number" onChange={e => this.calculateValue(e.target.value)} name='Ammount' placeholder='' id="valueLabel" required />
 
 
-                                            <select id="currencySelector" class="form-select" onChange={e => this.setCurrency(e.target.value)} aria-label="Default select example" >
+                                            <select id="currencySelector" className="form-select" onChange={e => this.setCurrency(e.target.value)} aria-label="Default select example" >
                                                 <option selected>Currency</option>
                                                 {this.state.rows.map((row: tableCurrencyRow) => (
                                                     <option value={row.average_rate}>{row.currency} {row.average_rate}</option>
                                                 ))}
                                             </select>
-                                            <div id="finalValueLabel" style={{ color: "black", width: "360px", height: "50" }}>
+
+                                        </Form.Group>
+                                        <Form.Group >
+                                            <Button inverted color='teal' icon labelPosition='left' >
+                                                <Icon name='shopping cart' />
                                                 {this.state.currentExchangeValue}
 
-                                            </div>
+                                            </Button>
 
 
 
@@ -193,7 +199,7 @@ type tableCurrencyRow = {
 
 
 
-                                        
+
 
                                     </Form>
 
@@ -227,7 +233,6 @@ type tableCurrencyRow = {
                             </Grid.Row>
                         </Grid>
                     </Segment>
-
 
 
 

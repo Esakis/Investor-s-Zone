@@ -101,7 +101,10 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
                
             <Menu.Item as={NavLink} to="/">
                     <Icon name="balance scale" />Investor's Zone
-            </Menu.Item>
+                </Menu.Item>
+                <Menu.Item >
+                    <Clock />
+                </Menu.Item>
                 
                 <div>
                     {menu}
