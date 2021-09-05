@@ -196,7 +196,7 @@ namespace InvestorZone.Controllers
         }
 
 
-        [HttpPut("exchange")]
+        [HttpPut("exchange/{email}")]
         public ActionResult<LoginDto> UpdateExchange(User data)
         {
             if (!ModelState.IsValid)

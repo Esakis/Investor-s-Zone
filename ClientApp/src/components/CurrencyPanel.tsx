@@ -118,19 +118,25 @@ type tableCurrencyRow = {
 
 
         private putExchangeValue() {
-            const formData = new FormData();
+            const formData = 
+          
+            {
+                email: this.state.selectEmail,
+                password: this.state.selectPassword,
+                pln: this.state.selectedCurrencyValue,
+               eur: this.state.currentExchangeValue,
+            }
 
-            formData.append('email', this.state.selectEmail);
-            formData.append('password', this.state.selectPassword);
-            formData.append('pln', this.state.selectedCurrencyValue);
-            formData.append('eur', this.state.currentExchangeValue);
-
+        //        formData.append('email', this.state.selectEmail);
+       //     formData.append('password', this.state.selectPassword);
+       //     formData.append('pln', this.state.selectedCurrencyValue);
+       //     formData.append('eur', this.state.currentExchangeValue);
 
             const promise = async () => {
-                const response = await fetch('https://localhost:44349/api/account/exchange', {
+                const response = await fetch('https://localhost:44349/api/account/exchange/' + this.state.selectEmail, {
                     method: 'PUT',
                     mode: 'cors',
-                    body: formData,
+                    body: JSON.stringify(formData),
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -138,7 +144,7 @@ type tableCurrencyRow = {
 
                 return response.json()
             }
-
+            console.log(formData);
             promise().then(data => { console.log(data) });
         }
 
@@ -158,7 +164,7 @@ type tableCurrencyRow = {
 
                             <Grid.Row verticalAlign='middle'>
                                 <Grid.Column >
-                                    <Form onSubmit={this.putExchangeValue()} unstackable>
+                                    <Form onSubmit={this.putExchangeValue} unstackable>
                                         <Header as="h3"> Exchange </Header>
                                         <div className="ui bottom  labeled input">
                                         </div>
@@ -174,7 +180,7 @@ type tableCurrencyRow = {
 
                                             <Form.Input
                                                 placeholder='Password'
-                                                type='text'
+                                                type='password'
                                                 onChange={e => this.setPassword(e.target.value)} />
 
                                         </Form.Group>
@@ -189,28 +195,19 @@ type tableCurrencyRow = {
                                                 ))}
                                             </select>
 
+
+
+                                            
                                         </Form.Group>
-                                        <Form.Group >
-                                            <Button type="submit" inverted color='teal' icon labelPosition='left' >
-                                                <Icon name='shopping cart' />
-                                                {this.state.currentExchangeValue}
 
-                                            </Button>
+                                        <Button type="submit" inverted color='teal' icon labelPosition='left' >
+                                            <Icon name='shopping cart' />
 
+                                            {this.state.currentExchangeValue}
 
-
-
-                                        </Form.Group>
-                                        <i className="money"></i>
-
-
-
-
+                                        </Button>
 
                                     </Form>
-
-                                    <Form.Checkbox label='I agree to the Terms and Conditions' />
-                                    <Button type='submit'>Submit</Button>
 
 
                                 </Grid.Column>
