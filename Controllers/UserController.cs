@@ -212,14 +212,9 @@ namespace InvestorZone.Controllers
                     existingUser.Email = data.Email;
                     existingUser.PasswordHash = existingUser.PasswordHash;
                    // existingUser.Id = existingUser.Id;
-                    if (existingUser.PLN < data.PLN)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        existingUser.PLN = existingUser.PLN - data.PLN;
-                    }
+                    
+                    existingUser.PLN = existingUser.PLN - data.PLN;
+                    
                     if (data.EUR == null)
                     {
                         existingUser.EUR = existingUser.EUR;

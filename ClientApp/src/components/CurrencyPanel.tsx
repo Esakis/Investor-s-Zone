@@ -40,7 +40,11 @@ type tableCurrencyRow = {
                 currentExchangeValue: "",
                 selectedCurrencyValue: "1",
                 email: "",
-                password:""
+                password:"",
+                eur: 0,
+                selectEmail: "",
+                selectPassword: "",
+                pln: 0,
             }
         }
 
@@ -107,12 +111,15 @@ type tableCurrencyRow = {
 
         private setCurrency(value: string) {
             this.setState({ selectedCurrencyValue: value });
+            console.log(this.state);
         }
         private setEmail(value: string) {
             this.setState({ selectEmail: value });
+            console.log(this.state);
         }
         private setPassword(value: string) {
             this.setState({ selectPassword: value });
+            console.log(this.state);
         }
 
 
@@ -122,10 +129,12 @@ type tableCurrencyRow = {
           
             {
                 email: this.state.selectEmail,
+               
                 password: this.state.selectPassword,
-                pln: this.state.selectedCurrencyValue,
-               eur: this.state.currentExchangeValue,
+                pln: parseInt(this.state.selectedCurrencyValue),
+                eur: this.state.currentExchangeValue,
             }
+            console.log(formData);
 
         //        formData.append('email', this.state.selectEmail);
        //     formData.append('password', this.state.selectPassword);
@@ -164,7 +173,7 @@ type tableCurrencyRow = {
 
                             <Grid.Row verticalAlign='middle'>
                                 <Grid.Column >
-                                    <Form onSubmit={this.putExchangeValue} unstackable>
+                                    <Form onSubmit={this.putExchangeValue.bind(this)} unstackable>
                                         <Header as="h3"> Exchange </Header>
                                         <div className="ui bottom  labeled input">
                                         </div>
