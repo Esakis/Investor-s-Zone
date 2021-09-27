@@ -1,0 +1,35 @@
+﻿.currencyChart {
+    border: 3px solid rgba(0,0,0, 0.7);
+}
+
+body {
+    padding: 1em;
+}
+
+.ui.image {
+    display: inline-block;
+}
+
+.ui.hover.dimmer {
+    display: flex;
+    transition: opacity .25s ease-in-out;
+}
+
+.ui:hover > .ui.hover.dimmer {
+    opacity: 1;
+}
+
+
+.landpage-image {
+    height: 55%;
+}
+
+.landpage-image {
+    min-height: 100vh;
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    background-image: url('https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F6102e47a9d6f9a3e2a1e6208%2Fplant-seeding-growing-step--concept-agriculture%2F1960x0.jpg%3Ffit%3Dscale');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
