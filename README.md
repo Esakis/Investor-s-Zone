@@ -1,12 +1,7 @@
 # Investor-s-Zone
 Final project
 
-Luk
-=====================
-1. Sprawdzam scie¿ke bazy danych i poprawiam na moja w³asciw¹
-2. Wchodze w Tool, menadzer pakietow wybieram opcje z konsola
-3. W konsoli wpisuje add-migration Init 
-4. W tej samej konsoli wpisuje update-database
-
+Interetowy kantor wymiany walut. 
+Uzyte technologie .Net, TS, React, JS, MSQL, Node.js, 
 
 
