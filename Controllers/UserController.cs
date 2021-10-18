@@ -211,10 +211,10 @@ namespace InvestorZone.Controllers
                 {
                     existingUser.Email = data.Email;
                     existingUser.PasswordHash = existingUser.PasswordHash;
-                   // existingUser.Id = existingUser.Id;
-                    
+                    // existingUser.Id = existingUser.Id;
+
                     existingUser.PLN = existingUser.PLN - data.PLN;
-                    
+
                     if (data.EUR == null)
                     {
                         existingUser.EUR = existingUser.EUR;
@@ -235,6 +235,44 @@ namespace InvestorZone.Controllers
 
             return Ok();
         }
+        [HttpPut("exchangePLN/{email}")]
+        public ActionResult<LoginDto> UpdateExchangePLN(User data)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Not a valid model");
 
+            using (var ctx = new UserDbContext())
+            {
+                var existingUser = ctx.Users.Where(p => p.Email == data.Email)
+                    .FirstOrDefault<User>();
+
+                if (existingUser != null)
+                {
+                    existingUser.Email = data.Email;
+                    existingUser.PasswordHash = existingUser.PasswordHash;
+                    // existingUser.Id = existingUser.Id;
+
+                    existingUser.PLN = existingUser.PLN + data.PLN;
+
+                    if (data.PLN == null)
+                    {
+                        existingUser.EUR = existingUser.EUR;
+                    }
+                    else
+                    {
+                        existingUser.EUR = existingUser.EUR - data.EUR;
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+                else
+                {
+                    return NotFound();
+                }
+            }
+
+            return Ok();
+        }
     }
 }
