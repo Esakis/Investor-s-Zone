@@ -327,7 +327,9 @@ select.form-select {
 }
 
 .ui.form .field input:focus,
-.ui.form .field textarea:focus {
+.ui.form .field textarea:focus,
+.ui.form select:focus,
+select.form-select:focus {
     border-color: var(--accent) !important;
     background: rgba(14,165,233,0.07) !important;
 }
@@ -341,6 +343,14 @@ select.form-select {
     font-size: 0.82rem !important;
     font-weight: 500 !important;
     margin-bottom: 4px !important;
+}
+
+/* Select dropdown options */
+.ui.form select option,
+select.form-select option {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    padding: 8px 12px !important;
 }
 
 /* Input with icon */
