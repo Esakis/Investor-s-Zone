@@ -26,10 +26,8 @@ export class SimpleStockChart extends Component<chartProps> {
             }
         };
         const containerProps = {
-            background: "yellow",
-            width: "80%",
-            height: "450px",
-            margin: "auto"
+            width: "100%",
+            height: "400px",
         };
         return (
             <div>

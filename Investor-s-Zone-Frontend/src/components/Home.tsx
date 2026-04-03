@@ -1,73 +1,44 @@
-﻿import * as React from 'react';
-import './componentsCss/NavMenu.css';
-import Clock from './Clock';
-import CurrencyPanel from "./CurrencyPanel";
-import "./user/NavMenu.css";
-import { Button, Grid, Modal, Header, Popup } from 'semantic-ui-react';
-import './componentsCss/CurrencyPage.css';
+import { Link } from 'react-router-dom';
+import { Icon } from 'semantic-ui-react';
+import CurrencyPanel from './CurrencyPanel';
 
-
-
-const Home = () => {
-    const [open, setOpen] = React.useState(false)
- 
-    const style = {
-        borderRadius: 0,
-        opacity: 0.7,
-        padding: '2em',
-        backGround: 'teal',
-
-    }
+const Home = ({ email }: { email: string }) => {
     return (
-           
-      
-      
+        <div className="landpage-image">
+            <div className="hero">
+                <h1 className="hero__title">
+                    Investor's <span>Zone</span>
+                </h1>
+                <p className="hero__sub">
+                    Aktualne kursy walut NBP. Wymieniaj PLN na waluty obce i śledź historię kursów w czasie rzeczywistym.
+                </p>
+                <div className="hero__cta">
+                    {email ? (
+                        <Link to={`/account/exchange/${email}`} className="btn-primary">
+                            <Icon name="exchange" /> Wymień walutę
+                        </Link>
+                    ) : (
+                        <>
+                            <Link to="/login" className="btn-primary">Zaloguj się</Link>
+                            <Link to="/register" className="btn-outline">Zarejestruj</Link>
+                        </>
+                    )}
+                </div>
+            </div>
 
-        <div className="ui page grid landpage-image">
-            <div className="column">
-                <h1 className="ui title-header"></h1>
-                <div className="centered grid slogan">
-                    <div className="column">
-                        <Header>
-                            <Popup
-                                trigger={<Button><Clock /></Button>}
-                                content='There is never bad time for good investment! '
-                                style={style}
-                                inverted
-                            /></Header>
-                        <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-                            <Grid.Column style={{ maxWidth: 450 }}>
-                                <Header>We're better than the rest</Header>
-
-                                <Modal
-
-                                    centered={false}
-                                    open={open}
-                                    onClose={() => setOpen(false)}
-                                    onOpen={() => setOpen(true)}
-                                    trigger={<Button>Welcome</Button>}
-                                >
-                                    <Modal.Header>Welcome to Investor's Zone </Modal.Header>
-                                    <Modal.Content>
-                                        <Modal.Description>
-                                            <CurrencyPanel />
-
-                                        </Modal.Description>
-                                    </Modal.Content>
-                                    <Modal.Actions>
-                                        <Button onClick={() => setOpen(false)}>OK</Button>
-                                    </Modal.Actions>
-                                </Modal>
-                            </Grid.Column>
-                        </Grid>
-                    </div>
+            <div className="rates-panel">
+                <div className="rates-panel__header">
+                    <span className="rates-panel__title">
+                        <Icon name="globe" /> Kursy walut NBP — Tabela C
+                    </span>
+                    <span className="rates-panel__note">Kliknij walutę → wykres historyczny</span>
+                </div>
+                <div className="card-dark">
+                    <CurrencyPanel hideExchangeForm />
                 </div>
             </div>
         </div>
-
-
-
-    )
-                      
+    );
 };
+
 export default Home;

@@ -10,51 +10,55 @@ import Exchange from "./components/user/Exchange";
 import ForumMain from "./components/forum/ForumMain";
 import { CurrencyPageWrapper as CurrencyPage } from "./components/CurrencyPage";
 import Layout from "./components/Layout";
+import ProtectedRoute from "./components/hoc/ProtectedRoute";
 import { Route, Routes } from "react-router-dom";
-import Clock from "./components/Clock";
-import ModalExampleBasic from "./components/Modal";
-
 
 function App() {
-
     const [email, setEmail] = useState("");
 
     useEffect(() => {
-        (
-            async () => {
-                try {
-                    const response = await fetch('https://localhost:44349/api/account', {
-                        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                        credentials: "include",
-                    });
-                    const content = await response.json();
-                    setEmail(content.email);
-                } catch (e) {
-                    // backend not available
-                }
+        (async () => {
+            try {
+                const response = await fetch('https://localhost:44349/api/account', {
+                    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                    credentials: "include",
+                });
+                const content = await response.json();
+                setEmail(content.email);
+            } catch (_e) {
+                // backend not available
             }
-        )();
+        })();
     }, []);
 
     return (
         <Layout>
             <NavMenu email={email} setEmail={setEmail} />
-            <ModalExampleBasic />
-            <main className="form-signin">
+            <main>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/clock" element={<Clock />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/forum" element={<ForumMain />} />
-                    <Route path="/account/:email" element={<EditUser email={email} />} />
-                    <Route path="/account/topup/:email" element={<TopUp email={email} />} />
+                    <Route path="/" element={<Home email={email} />} />
                     <Route path="/login" element={<Login setEmail={setEmail} />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/account/exchange/:email" element={<Exchange email={email} />} />
                     <Route path="/currency/:currency" element={<CurrencyPage />} />
+                    <Route path="/profile" element={
+                        <ProtectedRoute email={email}><Profile /></ProtectedRoute>
+                    } />
+                    <Route path="/forum" element={
+                        <ProtectedRoute email={email}><ForumMain /></ProtectedRoute>
+                    } />
+                    <Route path="/account/:email" element={
+                        <ProtectedRoute email={email}><EditUser email={email} /></ProtectedRoute>
+                    } />
+                    <Route path="/account/topup/:email" element={
+                        <ProtectedRoute email={email}><TopUp email={email} /></ProtectedRoute>
+                    } />
+                    <Route path="/account/exchange/:email" element={
+                        <ProtectedRoute email={email}><Exchange email={email} /></ProtectedRoute>
+                    } />
                 </Routes>
             </main>
         </Layout>
     );
 }
+
 export default App;

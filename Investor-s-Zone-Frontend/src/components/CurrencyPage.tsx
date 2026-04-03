@@ -1,149 +1,158 @@
-﻿import { SimpleStockChart } from './StockChart'
-import CurrencyPanel from "./CurrencyPanel";
+import { SimpleStockChart } from './StockChart';
 import { Component } from "react";
 import { Connection } from "../utilities/Connection";
 import { useParams } from 'react-router-dom';
+import { Icon } from 'semantic-ui-react';
 
-//wyswietlanie wykresow
-
-const baseCurrencyCredentialsStartValues: { currency: string, timePeriod: string, typeOfData: string } = {
-    currency: 'EUR', timePeriod: '1year', typeOfData: 'avg'
-}
-
-type currencyPageProps = {
-    currency: string,
-}
+type currencyPageProps = { currency: string }
 
 type currencyPageState = {
     responseData: any,
     title: string,
-    currency: string,
     dataPoints: any[],
-    startData: number,
     stockChartData: stockDataTypes,
     chartDataReady: boolean,
-    chart?: any
+    selectedPeriod: string,
+    isLoading: boolean,
 }
 
 type stockDataTypes = {
     title: string,
     dataPoints: any[],
-    startData: number,
-    endData: number
+    startData: Date,
+    endData: Date,
 }
 
+const PERIODS = [
+    { label: '1T',  value: '1week' },
+    { label: '1M',  value: '1month' },
+    { label: '3M',  value: '3months' },
+    { label: '6M',  value: '6months' },
+    { label: '1R',  value: '1year' },
+];
+
+const PERIOD_MAP: Record<string, number> = {
+    '1week': 7, '1month': 22, '3months': 65, '6months': 130, '1year': 252,
+};
+
 export class CurrencyPage extends Component<currencyPageProps, currencyPageState> {
-    private baseCurrencyCredentials: { currency: string, timePeriod: string, typeOfData: string } = baseCurrencyCredentialsStartValues;
     private connection: Connection = Connection.getInstance();
 
     constructor(props: currencyPageProps) {
         super(props);
         this.state = {
             stockChartData: undefined as any,
-            currency: props.currency,
-            title: props.currency + "/PLN",
+            title: props.currency + " / PLN",
             dataPoints: [],
-            startData: Date.now(),
             responseData: [],
             chartDataReady: false,
-            chart: undefined
-        }
+            selectedPeriod: '1year',
+            isLoading: true,
+        };
     }
 
     componentDidMount() {
-        this.setEventListeners();
-        this.getCurrencyChartData(this.state.currency);
+        this.fetchChart(this.props.currency, this.state.selectedPeriod);
     }
 
-    // componentDidUpdate(prevProps: Readonly<currencyPageProps>, prevState: Readonly<currencyPageState>, snapshot?: any) {
-    //     this.getCurrencyChartData(this.state.currency);
-    // }
-
-    private setEventListeners() {
-        // @ts-ignore
-        window.addEventListener("stockChartDataDataUpdated", (event: CustomEvent) => {
-         //   console.log("stockChartDataDataUpdated detail", event.detail)
-        });
+    componentDidUpdate(prevProps: currencyPageProps) {
+        if (prevProps.currency !== this.props.currency) {
+            this.setState({ chartDataReady: false, isLoading: true, title: this.props.currency + " / PLN" });
+            this.fetchChart(this.props.currency, this.state.selectedPeriod);
+        }
     }
 
-
-    private getChartDataPoints(data: any) {
-        if (!data?.rates) return [];
-        return data.rates.map((r: any) => ({
-            x: new Date(r.effectiveDate),
-            y: r.mid,
-        }));
-    }
-
-    private timePeriodToCount(timePeriod: string): number {
-        const map: Record<string, number> = {
-            '1day': 3, '1week': 7, '1month': 22,
-            '3months': 65, '6months': 130, '1year': 252,
-        };
-        return map[timePeriod] ?? 252;
-    }
-
-    private getCurrencyChartData(
-        currency: string = this.baseCurrencyCredentials.currency,
-        timePeriod: string = this.baseCurrencyCredentials.timePeriod,
-        typeOfValues: string = this.baseCurrencyCredentials.typeOfData
-    ) {
-        const count = this.timePeriodToCount(timePeriod);
+    private fetchChart(currency: string, period: string) {
+        const count = PERIOD_MAP[period] ?? 252;
         const url = `https://api.nbp.pl/api/exchangerates/rates/a/${currency.toLowerCase()}/last/${count}/?format=json`;
 
+        this.setState({ isLoading: true });
         fetch(url)
             .then(r => r.json())
             .then(data => {
-                const dataPoints = this.getChartDataPoints(data);
-                this.setState({ responseData: data, dataPoints });
-                this.connection.setCurrencyFetchData(currency, timePeriod, typeOfValues);
-                if (dataPoints.length > 0) this.updateDataChart();
+                if (!data?.rates) { this.setState({ isLoading: false }); return; }
+                const dataPoints = data.rates.map((r: any) => ({
+                    x: new Date(r.effectiveDate),
+                    y: r.mid,
+                }));
+                this.connection.setCurrencyFetchData(currency, period, 'avg');
+                this.setState({
+                    responseData: data,
+                    dataPoints,
+                    stockChartData: {
+                        title: currency + " / PLN",
+                        dataPoints,
+                        startData: dataPoints[0].x,
+                        endData: dataPoints[dataPoints.length - 1].x,
+                    },
+                    chartDataReady: dataPoints.length > 0,
+                    isLoading: false,
+                });
             })
-            .catch(() => { /* NBP not available */ });
+            .catch(() => this.setState({ isLoading: false }));
     }
 
-    private updateDataChart() {
-        let stockChartData = {
-            title: this.state.title,
-            dataPoints: this.state.dataPoints,
-            startData: this.state.dataPoints[0].x,
-            endData: this.state.dataPoints[this.state.dataPoints.length - 1].x
-        };
-        this.setState({ stockChartData: stockChartData, chartDataReady: true })
-       // console.log("state CHARRT DATA ", this.state.stockChartData, this.state.chartDataReady)
+    private handlePeriod(period: string) {
+        this.setState({ selectedPeriod: period, chartDataReady: false });
+        this.fetchChart(this.props.currency, period);
     }
 
     render() {
-     //   console.log("stockchartData", this.state.stockChartData)
-        // let renderedChart = this.state.chartDataReady ? this.state.chart : null;
-        // console.log("renderedChart", renderedChart)
+        const { currency } = this.props;
+        const { chartDataReady, stockChartData, selectedPeriod, isLoading } = this.state;
+
         return (
-           
-            <div style={{ width: '70%', height: '70%', backgroundColor:"lightgrey"}}>
-                
-                    <div className=" currencyChart ui segment right  floated ">
+            <div className="chart-page">
+                <div className="chart-card">
+                    <div className="chart-card__header">
+                        <div>
+                            <h2 className="chart-card__title">
+                                <Icon name="chart line" />{currency} / PLN
+                            </h2>
+                            <p className="chart-card__sub">Źródło: Narodowy Bank Polski (NBP) — Tabela A, kurs średni</p>
+                        </div>
+                    </div>
 
-                    {this.state.chartDataReady === true && <SimpleStockChart
-                        title={this.state.stockChartData.title}
-                        dataPoints={this.state.stockChartData.dataPoints}
-                        startData={this.state.stockChartData.startData}
-                        endData={this.state.stockChartData.endData} />}
+                    <div className="period-bar">
+                        {PERIODS.map(p => (
+                            <button
+                                key={p.value}
+                                className={`period-btn${selectedPeriod === p.value ? ' active' : ''}`}
+                                onClick={() => this.handlePeriod(p.value)}
+                            >
+                                {p.label}
+                            </button>
+                        ))}
+                    </div>
 
+                    {isLoading && (
+                        <div className="loading-box">
+                            <Icon name="circle notch" loading />
+                            Ładowanie danych…
+                        </div>
+                    )}
 
+                    {!isLoading && chartDataReady && (
+                        <SimpleStockChart
+                            title={stockChartData.title}
+                            dataPoints={stockChartData.dataPoints}
+                            startData={stockChartData.startData as any}
+                            endData={stockChartData.endData as any}
+                        />
+                    )}
+
+                    {!isLoading && !chartDataReady && (
+                        <div className="loading-box">
+                            <Icon name="warning sign" /> Brak danych dla tej waluty.
+                        </div>
+                    )}
                 </div>
-                <nav className="currencyPanelNavbar ">
-                    <CurrencyPanel />
-                </nav>
-                </div>
-         
-           
+            </div>
         );
     }
 }
 
 export function CurrencyPageWrapper() {
     const { currency } = useParams();
-    return <CurrencyPageInner currency={currency || 'EUR'} />;
+    return <CurrencyPage currency={currency || 'EUR'} />;
 }
-
-const CurrencyPageInner = CurrencyPage;

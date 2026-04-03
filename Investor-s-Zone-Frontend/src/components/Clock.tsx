@@ -14,9 +14,9 @@ const Clock = () => {
     }, []);
 
     return (
-        <div className="clock">
-            <h1>{time}</h1>
-            <h2>{date}</h2>
+        <div className="clock-compact">
+            <span className="clock-time">{time}</span>
+            <span className="clock-date">{date}</span>
         </div>
     );
 }

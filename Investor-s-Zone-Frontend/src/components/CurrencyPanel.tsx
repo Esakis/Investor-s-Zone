@@ -1,14 +1,7 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { currencyList } from "../constants/ConstantLocalValues";
 import { Button, Icon, Header, Grid, Form, Segment, Divider } from 'semantic-ui-react';
-
-
-//tabelka
-
-type currencyPanelProps = {
-    data: []
-}
 
 type tableCurrencyRow = {
     currency: string,
@@ -17,56 +10,76 @@ type tableCurrencyRow = {
     buying_rate: string,
 }
 
+type CurrencyPanelProps = {
+    email?: string,
+    hideExchangeForm?: boolean,
+}
 
+type CurrencyPanelState = {
+    rows: tableCurrencyRow[],
+    isLoading: boolean,
+    selectEmail: string,
+    selectPassword: string,
+    selectedCurrencyValue: string,
+    selectedCurrencyValuePLN: string,
+    selectCalculateValue: string,
+    selectCalculateValuePLN: string,
+    currentExchangeValue: string,
+    currentExchangeValuePLN: string,
+}
 
+class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
 
-class CurrencyPanel extends Component<any, any> {
-    constructor(props: currencyPanelProps) {
+    private currenciesListener: ((e: Event) => void) | null = null;
+
+    constructor(props: CurrencyPanelProps) {
         super(props);
-
-
-
         this.state = {
             rows: [],
-            valueInput: null,
-            currentExchangeValue: "",
-            selectedCurrencyValue: "",
-            email: "",
-            password: "",
-            eur: 0,
-            selectEmail: "",
-            selectPassword: "",
-            selectCalculateValue: "",
-            selectCalculateValuePLN: "",
-            currentExchangeValuePLN: "",
-            selectedCurrencyValuePLN: "",
-            pln: 0,
-           
-
-        }
+            isLoading: true,
+            selectEmail: props.email ?? '',
+            selectPassword: '',
+            selectedCurrencyValue: '',
+            selectedCurrencyValuePLN: '',
+            selectCalculateValue: '',
+            selectCalculateValuePLN: '',
+            currentExchangeValue: '',
+            currentExchangeValuePLN: '',
+        };
     }
 
-
-
-
     componentDidMount() {
-        this.setEventListeners();
+        this.currenciesListener = (e: Event) => {
+            this.setTable((e as CustomEvent).detail.data);
+        };
+        window.addEventListener('currenciesDataUpdated', this.currenciesListener);
+
         fetch('https://api.nbp.pl/api/exchangerates/tables/C/?format=json')
             .then(r => r.json())
             .then(data => {
                 dispatchEvent(new CustomEvent('currenciesDataUpdated', { detail: { data } }));
                 this.setTable(data);
             })
-            .catch(() => { /* NBP not available */ });
+            .catch(() => this.setState({ isLoading: false }));
+    }
+
+    componentWillUnmount() {
+        if (this.currenciesListener) {
+            window.removeEventListener('currenciesDataUpdated', this.currenciesListener);
+        }
+    }
+
+    componentDidUpdate(prevProps: CurrencyPanelProps) {
+        if (prevProps.email !== this.props.email && this.props.email) {
+            this.setState({ selectEmail: this.props.email });
+        }
     }
 
     private setTable(data: any) {
-        // NBP Table C format: [{rates: [{code, bid, ask}, ...]}]
         const nbpRates: any[] = Array.isArray(data) ? (data[0]?.rates ?? []) : [];
         const rateMap: Record<string, any> = {};
-        for (const r of nbpRates) {
-            rateMap[r.code] = r;
-        }
+        for (const r of nbpRates) rateMap[r.code] = r;
+
         const rows: tableCurrencyRow[] = [];
         for (const currency of currencyList) {
             const r = rateMap[currency];
@@ -79,64 +92,42 @@ class CurrencyPanel extends Component<any, any> {
                 });
             }
         }
-        this.setState({ rows });
-    }
-
-    private setEventListeners() {
-        // @ts-ignore
-        window.addEventListener("currenciesDataUpdated", (event: CustomEvent) => {
-            // console.log("detail", event.detail, "rates", event.detail.data)
-            this.setTable(event.detail.data)
-        });
-    }
-
-   
-
-
-    private setEmail(value: string) {
-        this.setState({ selectEmail: value });
-        console.log(this.state);
-    }
-    private setPassword(value: string) {
-        this.setState({ selectPassword: value });
-        console.log(this.state);
+        this.setState({ rows, isLoading: false });
     }
 
     private setCurrency(value: string) {
         this.setState({ selectedCurrencyValue: value });
-        console.log(this.state);
-    }
-    private setCalculateValue(value: string) {
-        this.setState({ selectCalculateValue: value });
-        let calculatedValue: number = parseFloat(value) / parseFloat(this.state.selectedCurrencyValue);
-        this.setState({ currentExchangeValue: calculatedValue.toFixed(2) });
-        console.log(calculatedValue);
     }
 
+    private setCalculateValue(value: string) {
+        this.setState({ selectCalculateValue: value });
+        const rate = parseFloat(this.state.selectedCurrencyValue);
+        if (rate > 0) {
+            this.setState({ currentExchangeValue: (parseFloat(value) / rate).toFixed(2) });
+        }
+    }
 
     private setCurrencyPLN(value: string) {
         this.setState({ selectedCurrencyValuePLN: value });
-        console.log(this.state);
     }
+
     private setCalculateValuePLN(value: string) {
         this.setState({ selectCalculateValuePLN: value });
-        let calculatedValuePLN: number = parseFloat(value) * parseFloat(this.state.selectedCurrencyValue);
-        this.setState({ currentExchangeValuePLN: calculatedValuePLN.toFixed(2) });
+        const rate = parseFloat(this.state.selectedCurrencyValuePLN); // bugfix: was selectedCurrencyValue
+        if (rate > 0) {
+            this.setState({ currentExchangeValuePLN: (parseFloat(value) * rate).toFixed(2) });
+        }
     }
-
-
-    //---------------------------------------------------------------------------
-
 
     private putExchangeValue(e: React.FormEvent) {
         e.preventDefault();
         const formData = {
-            email: this.state.selectEmail,
+            email: this.state.selectEmail || this.props.email,
             password: this.state.selectPassword,
             pln: parseFloat(this.state.selectCalculateValue),
             eur: parseFloat(this.state.currentExchangeValue),
         };
-        fetch('https://localhost:44349/api/account/exchange/' + this.state.selectEmail, {
+        fetch('https://localhost:44349/api/account/exchange/' + formData.email, {
             method: 'PUT',
             mode: 'cors',
             credentials: 'include',
@@ -144,18 +135,16 @@ class CurrencyPanel extends Component<any, any> {
             headers: { 'Content-Type': 'application/json' },
         }).catch(() => { /* backend not available */ });
     }
-
-    //---------------------------------------------------------------------------
 
     private putExchangeValuePLN(e: React.FormEvent) {
         e.preventDefault();
         const formData = {
-            email: this.state.selectEmail,
+            email: this.state.selectEmail || this.props.email,
             password: this.state.selectPassword,
             pln: parseFloat(this.state.currentExchangeValuePLN),
             eur: parseFloat(this.state.selectCalculateValuePLN),
         };
-        fetch('https://localhost:44349/api/account/exchangePLN/' + this.state.selectEmail, {
+        fetch('https://localhost:44349/api/account/exchangePLN/' + formData.email, {
             method: 'PUT',
             mode: 'cors',
             credentials: 'include',
@@ -163,157 +152,192 @@ class CurrencyPanel extends Component<any, any> {
             headers: { 'Content-Type': 'application/json' },
         }).catch(() => { /* backend not available */ });
     }
-    
-
-    //---------------------------------------------------------------------------
 
     render() {
+        const { hideExchangeForm, email: propEmail } = this.props;
+        const { rows, isLoading, currentExchangeValue, currentExchangeValuePLN } = this.state;
 
-
-
-        if (this.state.rows.length < 1)
-            return null;
-        else {
-           
-
-
-                return (
-                    <Segment inverted color='grey'>
-                        <Grid columns={2} stackable textAlign='center'>
-                            <Divider></Divider>
-
-                            <Grid.Row verticalAlign='middle'>
-                                <Grid.Column >
-                                    <Grid.Row verticalAlign='middle'>
-                                        <Form onSubmit={this.putExchangeValue.bind(this)} unstackable>
-                                            <Header as="h3"> Exchange PLN on Currency  </Header>
-                                            <div className="ui bottom  labeled input">
-                                            </div>
-
-
-                                            <Form.Group widths={1}>
-                                                <Form.Input
-                                                    type="email"
-                                                    onChange={e => this.setEmail(e.target.value)}
-                                                    name='Email'
-                                                    placeholder='email'
-                                                    id="email" required />
-
-                                                <Form.Input
-                                                    placeholder='Password'
-                                                    type='password'
-                                                    onChange={e => this.setPassword(e.target.value)} />
-
-                                            </Form.Group>
-                                            <Form.Group widths={1}>
-                                                <Form.Input type="number" onChange={e => this.setCalculateValue(e.target.value)} name='Ammount' id="valueLabel" required />
-
-
-                                                <select id="currencySelector" className="form-select" onChange={e => this.setCurrency(e.target.value)} aria-label="Default select example" >
-                                                    <option selected>Currency</option>
-                                                    {this.state.rows.map((row: tableCurrencyRow) => (
-                                                        <option value={row.selling_rate}>{row.currency} {row.selling_rate}</option>
-                                                    ))}
-                                                </select>
-                                            </Form.Group>
-
-                                            <Button type="submit" inverted color='teal' icon labelPosition='left' >
-                                                <Icon name='shopping cart' />
-
-                                                {this.state.currentExchangeValue}
-
-                                            </Button>
-                                        </Form>
-                                    </Grid.Row>
-
-
-
-
-
-
-                                    <Grid.Row verticalAlign='middle'>
-                                        <p>  </p>
-                                        <Form onSubmit={this.putExchangeValuePLN.bind(this)} unstackable>
-
-                                            <Header as="h3">Exchange Currency on PLN </Header>
-                                            <div className="ui bottom  labeled input">
-                                            </div>
-
-
-                                            <Form.Group widths={1}>
-                                                <Form.Input
-                                                    type="email"
-                                                    onChange={e => this.setEmail(e.target.value)}
-                                                    name='Email'
-                                                    placeholder='email'
-                                                    id="email" required />
-
-                                                <Form.Input
-                                                    placeholder='Password'
-                                                    type='password'
-                                                    onChange={e => this.setPassword(e.target.value)} />
-
-                                            </Form.Group>
-                                            <Form.Group widths={1}>
-                                                <Form.Input type="number" onChange={e => this.setCalculateValuePLN(e.target.value)} name='Ammount' id="valueLabel" required />
-
-
-                                                <select id="currencySelector" className="form-select" onChange={e => this.setCurrencyPLN(e.target.value)} aria-label="Default select example" >
-                                                    <option selected>Currency</option>
-                                                    {this.state.rows.map((row: tableCurrencyRow) => (
-                                                        <option value={row.buying_rate}>{row.currency} {row.buying_rate}</option>
-                                                    ))}
-                                                </select>
-
-                                            </Form.Group>
-
-                                            <Button type="submit" inverted color='teal' icon labelPosition='left' >
-                                                <Icon name='shopping cart' />
-
-                                                {this.state.currentExchangeValuePLN}
-
-                                            </Button>
-                                        </Form>
-
-                                    </Grid.Row>
-                                </Grid.Column>
-
-
-
-
-
-                                <Grid.Column>
-                                    <table>
-                                        <thead>
-                                            <th>Currency</th>
-                                            <th>Average rate</th>
-                                            <th>Selling rate</th>
-                                            <th>Buying rate</th>
-                                        </thead>
-                                        <tbody>
-                                            {this.state.rows.map((row: tableCurrencyRow) => (
-
-                                                <tr key={row.currency}>
-                                                    <td><Link to={`/currency/${row.currency}`}>{row.currency}</Link></td>
-                                                    <td>{row.average_rate}</td>
-                                                    <td>{row.selling_rate}</td>
-                                                    <td>{row.buying_rate}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
-                    </Segment>
-
-
-
-                )
-            }
+        if (isLoading) {
+            return (
+                <div className="loading-box">
+                    <Icon name="circle notch" loading />
+                    Pobieranie kursów NBP…
+                </div>
+            );
         }
+
+        if (rows.length === 0) {
+            return (
+                <div className="loading-box">
+                    <Icon name="warning sign" /> Brak danych. Sprawdź połączenie.
+                </div>
+            );
+        }
+
+        const ratesTable = (
+            <table className="rates-table">
+                <thead>
+                    <tr>
+                        <th>Waluta</th>
+                        <th>Kurs średni</th>
+                        <th>Kurs sprzedaży</th>
+                        <th>Kurs kupna</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row) => (
+                        <tr key={row.currency}>
+                            <td><Link to={`/currency/${row.currency}`}>{row.currency}</Link></td>
+                            <td>{row.average_rate}</td>
+                            <td>{row.selling_rate}</td>
+                            <td>{row.buying_rate}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        );
+
+        if (hideExchangeForm) {
+            return ratesTable;
+        }
+
+        return (
+            <Segment inverted color='grey'>
+                <Grid columns={2} stackable textAlign='center'>
+                    <Divider />
+                    <Grid.Row verticalAlign='middle'>
+
+                        {/* ---- Exchange forms ---- */}
+                        <Grid.Column>
+                            <Grid.Row verticalAlign='middle'>
+                                <Form onSubmit={this.putExchangeValue.bind(this)} unstackable>
+                                    <Header as="h3">PLN → Waluta</Header>
+
+                                    {!propEmail && (
+                                        <Form.Group widths={1}>
+                                            <Form.Input
+                                                type="email"
+                                                label="Email"
+                                                placeholder="email"
+                                                required
+                                                onChange={e => this.setState({ selectEmail: e.target.value })}
+                                            />
+                                        </Form.Group>
+                                    )}
+
+                                    <Form.Group widths={1}>
+                                        <Form.Input
+                                            label="Hasło"
+                                            placeholder="hasło"
+                                            type="password"
+                                            required
+                                            onChange={e => this.setState({ selectPassword: e.target.value })}
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group widths={2}>
+                                        <Form.Input
+                                            label="Kwota PLN"
+                                            type="number"
+                                            min="0.01"
+                                            step="0.01"
+                                            required
+                                            onChange={e => this.setCalculateValue(e.target.value)}
+                                        />
+                                        <Form.Field>
+                                            <label>Waluta</label>
+                                            <select
+                                                className="form-select"
+                                                defaultValue=""
+                                                onChange={e => this.setCurrency(e.target.value)}
+                                            >
+                                                <option value="" disabled>Wybierz walutę</option>
+                                                {rows.map(row => (
+                                                    <option key={row.currency} value={row.selling_rate}>
+                                                        {row.currency} — {row.selling_rate}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </Form.Field>
+                                    </Form.Group>
+
+                                    <Button type="submit" inverted color="teal" icon labelPosition="left">
+                                        <Icon name="shopping cart" />
+                                        {currentExchangeValue ? `Otrzymasz: ${currentExchangeValue}` : 'Kup'}
+                                    </Button>
+                                </Form>
+                            </Grid.Row>
+
+                            <Grid.Row verticalAlign='middle' style={{ marginTop: '28px' }}>
+                                <Form onSubmit={this.putExchangeValuePLN.bind(this)} unstackable>
+                                    <Header as="h3">Waluta → PLN</Header>
+
+                                    {!propEmail && (
+                                        <Form.Group widths={1}>
+                                            <Form.Input
+                                                type="email"
+                                                label="Email"
+                                                placeholder="email"
+                                                required
+                                                onChange={e => this.setState({ selectEmail: e.target.value })}
+                                            />
+                                        </Form.Group>
+                                    )}
+
+                                    <Form.Group widths={1}>
+                                        <Form.Input
+                                            label="Hasło"
+                                            placeholder="hasło"
+                                            type="password"
+                                            required
+                                            onChange={e => this.setState({ selectPassword: e.target.value })}
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group widths={2}>
+                                        <Form.Input
+                                            label="Kwota waluty"
+                                            type="number"
+                                            min="0.01"
+                                            step="0.01"
+                                            required
+                                            onChange={e => this.setCalculateValuePLN(e.target.value)}
+                                        />
+                                        <Form.Field>
+                                            <label>Waluta</label>
+                                            <select
+                                                className="form-select"
+                                                defaultValue=""
+                                                onChange={e => this.setCurrencyPLN(e.target.value)}
+                                            >
+                                                <option value="" disabled>Wybierz walutę</option>
+                                                {rows.map(row => (
+                                                    <option key={row.currency} value={row.buying_rate}>
+                                                        {row.currency} — {row.buying_rate}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </Form.Field>
+                                    </Form.Group>
+
+                                    <Button type="submit" inverted color="teal" icon labelPosition="left">
+                                        <Icon name="shopping cart" />
+                                        {currentExchangeValuePLN ? `Otrzymasz: ${currentExchangeValuePLN} PLN` : 'Sprzedaj'}
+                                    </Button>
+                                </Form>
+                            </Grid.Row>
+                        </Grid.Column>
+
+                        {/* ---- Rates table ---- */}
+                        <Grid.Column>
+                            {ratesTable}
+                        </Grid.Column>
+
+                    </Grid.Row>
+                </Grid>
+            </Segment>
+        );
     }
-
-
+}
 
 export default CurrencyPanel;
