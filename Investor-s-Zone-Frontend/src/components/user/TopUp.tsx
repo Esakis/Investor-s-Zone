@@ -1,7 +1,5 @@
-﻿import * as react from "react";
-import { SyntheticEvent, useEffect, useState } from "react";
-import React = require("react");
-import { Redirect } from "react-router-dom";
+﻿import React, { SyntheticEvent, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu, Form,Image} from 'semantic-ui-react';
 import BackGround from '../BackGround';
 
@@ -65,7 +63,7 @@ const TopUp = (props: { email: string }) => {
     }
 
     if (redirect) {
-        return <Redirect to={"/api/account/" + props.email} />;
+        return <Navigate to={"/account/" + props.email} replace />;
     }
 
  

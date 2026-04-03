@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { currencyList } from "../constants/ConstantLocalValues";
 import { Menu, Button, Icon, Header, Grid, Form, Segment, Divider } from 'semantic-ui-react';
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 
 //tabelka
@@ -338,7 +338,7 @@ class CurrencyPanel extends Component<any, any> {
                                             {this.state.rows.map((row: tableCurrencyRow) => (
 
                                                 <tr key={row.currency}>
-                                                    <td><Link to={{ pathname: `/currency/${row.currency}`, currency: row.currency }}>{row.currency}</Link></td>
+                                                    <td><Link to={`/currency/${row.currency}`}>{row.currency}</Link></td>
                                                     <td>{row.average_rate}</td>
                                                     <td>{row.selling_rate}</td>
                                                     <td>{row.buying_rate}</td>

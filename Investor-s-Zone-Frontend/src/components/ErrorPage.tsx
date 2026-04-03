@@ -1,7 +1,6 @@
-import * as react from "react";
+import React from "react";
 import { SyntheticEvent, useEffect, useState } from "react";
-import React = require("react");
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export default function () {
     return (

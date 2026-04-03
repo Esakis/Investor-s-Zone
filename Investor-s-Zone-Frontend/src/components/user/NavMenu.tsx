@@ -1,6 +1,7 @@
-﻿import { Link,NavLink } from "react-router-dom";
-import {Menu, Button, Icon, Header, Grid, Divider, DropdownMenu } from 'semantic-ui-react';
-import React = require("react");
+﻿import { Link, NavLink } from "react-router-dom";
+import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu } from 'semantic-ui-react';
+import React from "react";
+import Clock from "../Clock";
 
 
 
@@ -69,10 +70,10 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
                             
                             <div className="menu">
                                 <NavLink to="/profile" className="nav-link active grey" ><Icon name="bell outline" />   Profile</NavLink>
-                                <NavLink to={"/api/account/" + props.email} className="nav-link active grey"><Icon name="edit outline" />   Edit </NavLink>
-                                <NavLink to={"/api/account/topup/" + props.email} className="nav-link active grey" ><Icon name="upload" />  Top Up </NavLink>
-                                <NavLink to={"/api/account/exchange/" + props.email} className="nav-link active grey" ><Icon name="money bill alternate outline" />   Exchange</NavLink>
-                                <NavLink exact to="/" onClick={logout} className="nav-link active grey" ><Icon name="power off" />   Logout</NavLink>
+                                <NavLink to={"/account/" + props.email} className="nav-link active grey"><Icon name="edit outline" />   Edit </NavLink>
+                                <NavLink to={"/account/topup/" + props.email} className="nav-link active grey" ><Icon name="upload" />  Top Up </NavLink>
+                                <NavLink to={"/account/exchange/" + props.email} className="nav-link active grey" ><Icon name="money bill alternate outline" />   Exchange</NavLink>
+                                <NavLink to="/" onClick={logout} className="nav-link active grey" ><Icon name="power off" />   Logout</NavLink>
                             
                             </div>
                         </div>

@@ -1,8 +1,6 @@
 ﻿import { Data } from "popper.js";
-import * as react from "react";
-import { SyntheticEvent, useEffect, useState, Component } from "react";
-import React = require("react");
-import { Redirect } from "react-router-dom";
+import React, { SyntheticEvent, useEffect, useState, Component } from "react";
+import { Navigate } from "react-router-dom";
 import { Button, Message, Form, Header, Container, Segment, Grid } from "semantic-ui-react";
 
 
@@ -76,7 +74,7 @@ const EditUser = (props: { email: string }) => {
     }
 
     if (redirect) {
-        return <Redirect to="/" />;
+        return <Navigate to="/" replace />;
     }
 
 

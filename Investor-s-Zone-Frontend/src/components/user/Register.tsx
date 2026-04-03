@@ -1,6 +1,5 @@
-﻿import { SyntheticEvent, useEffect, useState } from "react";
-import React = require("react");
-import { Redirect } from "react-router-dom";
+﻿import React, { SyntheticEvent, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react';
 
 
@@ -33,7 +32,7 @@ const Register = () => {
     }
 
     if (redirect) {
-        return <Redirect to="/login" />;
+        return <Navigate to="/login" replace />;
     }
 
     return (

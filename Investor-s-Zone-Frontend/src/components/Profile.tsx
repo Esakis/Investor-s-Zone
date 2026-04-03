@@ -1,10 +1,5 @@
-﻿import { Link, NavLink, Route } from "react-router-dom";
-import CurrencyPanel from './CurrencyPanel';
-import React = require("react");
-import { SyntheticEvent, useEffect, useState } from "react";
-
-import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu, Form,Image,Popup } from 'semantic-ui-react';
-import Segment from "semantic-ui-react/src/elements/Segment";
+﻿import CurrencyPanel from './CurrencyPanel';
+import { Icon, Popup } from 'semantic-ui-react';
 
 import './componentsCss/CurrencyPage.css';
 

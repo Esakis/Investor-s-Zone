@@ -8,9 +8,9 @@ https://canvasjs.com/license/
 
 */
 
-var React = require('react');
-var CanvasJS = require('./canvasjs.stock.min');
-CanvasJS = CanvasJS.Chart ? CanvasJS : window.CanvasJS;
+import React from 'react';
+import './canvasjs.stock.min';
+var CanvasJS = window.CanvasJS;
 
 class CanvasJSChart extends React.Component {
 	static _cjsContainerId = 0

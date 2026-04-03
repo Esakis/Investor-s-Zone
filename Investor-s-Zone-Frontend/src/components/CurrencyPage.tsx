@@ -3,8 +3,7 @@ import { SimpleStockChart } from './StockChart'
 import CurrencyPanel from "./CurrencyPanel";
 import { Component } from "react";
 import { Connection } from "../utilities/Connection";
-import { valueTypes } from "../constants/ConstantLocalValues";
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 //wyswietlanie wykresow
 
@@ -13,11 +12,7 @@ const baseCurrencyCredentialsStartValues: { currency: string, timePeriod: string
 }
 
 type currencyPageProps = {
-    location: {
-        currency: string,
-    }
-    // timePeriod: string,
-    // typeOfValues: string
+    currency: string,
 }
 
 type currencyPageState = {
@@ -44,13 +39,10 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
 
     constructor(props: currencyPageProps, state: currencyPageState) {
         super(props);
-        // const { routeCurrency } = useParams()
-
-      //  console.log("brobps", props, "and params"); //routeCurrency
         this.state = {
-            stockChartData: undefined,
-            currency: props.location.currency,
-            title: props.location.currency + "/PLN",
+            stockChartData: undefined as any,
+            currency: props.currency,
+            title: props.currency + "/PLN",
             dataPoints: [],
             startData: Date.now(),
             responseData: [],
@@ -153,3 +145,10 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
         );
     }
 }
+
+export function CurrencyPageWrapper() {
+    const { currency } = useParams();
+    return <CurrencyPageInner currency={currency || 'EUR'} />;
+}
+
+const CurrencyPageInner = CurrencyPage;

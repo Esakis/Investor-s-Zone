@@ -1,6 +1,5 @@
-﻿import * as React from 'react';
-import { SyntheticEvent, useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+﻿import React, { SyntheticEvent, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu, Form } from 'semantic-ui-react';
 import "./NavMenu.css";
 import '../componentsCss/NavMenu.css';

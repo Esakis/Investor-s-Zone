@@ -1,7 +1,5 @@
-﻿import * as react from "react";
-import { SyntheticEvent, useEffect, useState } from "react";
-import React = require("react");
-import { Redirect } from "react-router-dom";
+﻿import React, { SyntheticEvent, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Menu, Button, Header, Grid, Form, Segment, Message } from 'semantic-ui-react';
 
 import { Link } from "react-router-dom";
@@ -38,7 +36,7 @@ const Login = (props: { setEmail: (email: string) => void }) => {
     }
 
     if (redirect) {
-        return <Redirect to="/Profile" />;
+        return <Navigate to="/profile" replace />;
     }
 
 
@@ -80,7 +78,7 @@ const Login = (props: { setEmail: (email: string) => void }) => {
                     </Segment>
                 </Form>
                 <Message>
-                    New to us? <Link to="/register" href="register">Register</Link>
+                    New to us? <Link to="/register">Register</Link>
                 </Message>
             </Grid.Column>
                             </Grid>
