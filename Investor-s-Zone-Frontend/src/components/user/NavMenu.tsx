@@ -64,16 +64,16 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
                 <div className="container-fluid">
                  
                     <div className="ui compact menu">
-                        <div className="ui simple dropdown item inverted basic button">{props.email}
-                            <i className="user outline">Me</i>
+                        <div className="ui simple dropdown item inverted basic button" style={{position: 'relative', cursor: 'pointer'}}>
+                            {props.email}
+                            <i className="user outline"></i>
                             
-                            <div className="menu">
-                                <NavLink to="/profile" className="nav-link active grey" ><Icon name="bell outline" />   Profile</NavLink>
-                                <NavLink to={"/account/" + props.email} className="nav-link active grey"><Icon name="edit outline" />   Edit </NavLink>
-                                <NavLink to={"/account/topup/" + props.email} className="nav-link active grey" ><Icon name="upload" />  Top Up </NavLink>
-                                <NavLink to={"/account/exchange/" + props.email} className="nav-link active grey" ><Icon name="money bill alternate outline" />   Exchange</NavLink>
-                                <NavLink to="/" onClick={logout} className="nav-link active grey" ><Icon name="power off" />   Logout</NavLink>
-                            
+                            <div className="custom-dropdown-menu">
+                                <NavLink to="/profile" className="custom-nav-link"><Icon name="bell outline" />Profile</NavLink>
+                                <NavLink to={"/account/" + props.email} className="custom-nav-link"><Icon name="edit outline" />Edit</NavLink>
+                                <NavLink to={"/account/topup/" + props.email} className="custom-nav-link"><Icon name="upload" />Top Up</NavLink>
+                                <NavLink to={"/account/exchange/" + props.email} className="custom-nav-link"><Icon name="money bill alternate outline" />Exchange</NavLink>
+                                <NavLink to="/" onClick={logout} className="custom-nav-link"><Icon name="power off" />Logout</NavLink>
                             </div>
                         </div>
                     </div>
