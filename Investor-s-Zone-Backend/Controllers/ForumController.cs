@@ -2,6 +2,7 @@ using InvestorZone.API.Entities;
 using InvestorZone.API.Exceptions;
 using InvestorZone.API.Models;
 using InvestorZone.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvestorZone.API.Controllers;
@@ -17,6 +18,19 @@ public class ForumController : ControllerBase
     {
         _accountService = accountService;
         _context = context;
+    }
+
+    [HttpPost("forum")]
+    [AllowAnonymous]
+    public ActionResult<Forum> CreatePost([FromBody] Forum post)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest("Not a valid model");
+
+        _context.Forum.Add(post);
+        _context.SaveChanges();
+
+        return CreatedAtAction(nameof(GetById), new { id = post.Id }, post);
     }
 
     [HttpPut("{id}")]
@@ -45,6 +59,7 @@ public class ForumController : ControllerBase
     }
 
     [HttpGet("forum")]
+    [AllowAnonymous]
     public ActionResult<IEnumerable<LoginDto>> GetAll()
     {
         var forum = _context.Forum.ToList();
@@ -52,7 +67,8 @@ public class ForumController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public ActionResult<LoginDto> GetById([FromRoute] int id)
+    [AllowAnonymous]
+    public ActionResult<Forum> GetById([FromRoute] int id)
     {
         var forum = _context
             .Forum
