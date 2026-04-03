@@ -1,22 +1,21 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
+import configureStore from './store/configureStore';
 
 it('renders without crashing', () => {
-    const storeFake = (state: any) => ({
-        default: () => {},
-        subscribe: () => {},
-        dispatch: () => {},
-        getState: () => ({ ...state })
-    });
-    const store = storeFake({}) as any;
+    const store = configureStore();
+    const div = document.createElement('div');
+    const root = createRoot(div);
 
-    ReactDOM.render(
+    root.render(
         <Provider store={store}>
             <MemoryRouter>
-                <App/>
+                <App />
             </MemoryRouter>
-        </Provider>, document.createElement('div'));
+        </Provider>
+    );
+
+    root.unmount();
 });

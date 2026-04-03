@@ -115,7 +115,7 @@ export class Connection {
         typeOfData: string = this.currencyCredentials.typeOfData) {
         this.currencyCredentials.currency = currency || this.currencyCredentials.currency;
         this.currencyCredentials.timePeriod = timePeriod || this.currencyCredentials.timePeriod;
-        this.currencyCredentials.typeOfData = typeOfData || this.currencyCredentials.timePeriod;
+        this.currencyCredentials.typeOfData = typeOfData || this.currencyCredentials.typeOfData;
     }
 }
 

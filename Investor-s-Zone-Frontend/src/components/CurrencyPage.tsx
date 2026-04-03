@@ -1,5 +1,4 @@
-﻿import * as React from 'react';
-import { SimpleStockChart } from './StockChart'
+﻿import { SimpleStockChart } from './StockChart'
 import CurrencyPanel from "./CurrencyPanel";
 import { Component } from "react";
 import { Connection } from "../utilities/Connection";
@@ -19,11 +18,11 @@ type currencyPageState = {
     responseData: any,
     title: string,
     currency: string,
-    dataPoints: [],
+    dataPoints: any[],
     startData: number,
     stockChartData: stockDataTypes,
     chartDataReady: boolean,
-    chart: any
+    chart?: any
 }
 
 type stockDataTypes = {
@@ -37,7 +36,7 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
     private baseCurrencyCredentials: { currency: string, timePeriod: string, typeOfData: string } = baseCurrencyCredentialsStartValues;
     private connection: Connection = Connection.getInstance();
 
-    constructor(props: currencyPageProps, state: currencyPageState) {
+    constructor(props: currencyPageProps) {
         super(props);
         this.state = {
             stockChartData: undefined as any,
@@ -113,7 +112,6 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
             startData: this.state.dataPoints[0].x,
             endData: this.state.dataPoints[this.state.dataPoints.length - 1].x
         };
-        this.setState({ chart: new SimpleStockChart(stockChartData, {}) })
         this.setState({ stockChartData: stockChartData, chartDataReady: true })
        // console.log("state CHARRT DATA ", this.state.stockChartData, this.state.chartDataReady)
     }
@@ -128,7 +126,7 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
                 
                     <div className=" currencyChart ui segment right  floated ">
 
-                    {this.state.chartDataReady == true && <SimpleStockChart
+                    {this.state.chartDataReady === true && <SimpleStockChart
                         title={this.state.stockChartData.title}
                         dataPoints={this.state.stockChartData.dataPoints}
                         startData={this.state.stockChartData.startData}

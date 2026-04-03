@@ -1,12 +1,6 @@
-﻿import CurrencyPanel from './CurrencyPanel';
-import { Icon, Popup } from 'semantic-ui-react';
+﻿import { Icon, Popup } from 'semantic-ui-react';
 
 import './componentsCss/CurrencyPage.css';
-
-let panel = (<div id="Panel">
-    <CurrencyPanel />
-</div>)
-
 
 const Profile = () => {
 

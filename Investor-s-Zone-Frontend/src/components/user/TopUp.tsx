@@ -1,19 +1,14 @@
-﻿import React, { SyntheticEvent, useEffect, useState } from "react";
+﻿import { SyntheticEvent, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu, Form,Image} from 'semantic-ui-react';
-import BackGround from '../BackGround';
+import { Button, Header, Form } from 'semantic-ui-react';
 
 const TopUp = (props: { email: string }) => {
 
 
-     const [dataemail, setDataemail] = useState('');
      const [dataPLN, setDataPLN] = useState('');
      const [dataEUR, setDataEUR] = useState('');
-    // const [dataUSD, setDataUSD] = useState('');
      const [email, setEmail] = useState('');
      const [pln, setPLN] = useState('');
-     const [eur, setEUR] = useState('');
-    // const [usd, setUSD] = useState('');
     
      const [redirect, setRedirect] = useState(false);
  
@@ -28,15 +23,12 @@ const TopUp = (props: { email: string }) => {
 
                 });
                 const content = await response.json();
-                setDataemail(content.email);
                 setDataPLN(content.pln);
                 setDataEUR(content.eur);
-                //setDataUSD(content.usd);
-                console.log(eur)
             }
         )();
 
-    });
+    }, [props.email]);
 
 
 

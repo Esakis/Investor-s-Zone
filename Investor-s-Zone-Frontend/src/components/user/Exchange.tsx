@@ -1,14 +1,6 @@
-﻿import React, { SyntheticEvent, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu, Form } from 'semantic-ui-react';
-import "./NavMenu.css";
-import '../componentsCss/NavMenu.css';
-import { connect } from 'react-redux';
-import { Connection } from "../../utilities/Connection";
-import { Component } from "react";
-import CurrencyPanel from "../CurrencyPanel";
+﻿import CurrencyPanel from "../CurrencyPanel";
 
-const Exchange = (props: { email: string }) => {
+const Exchange = (_props: { email: string }) => {
 
 
     
@@ -28,4 +20,4 @@ const Exchange = (props: { email: string }) => {
             </div>
         );
     }
-export default connect()(Exchange);
+export default Exchange;

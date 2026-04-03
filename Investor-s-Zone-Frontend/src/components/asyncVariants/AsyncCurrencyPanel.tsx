@@ -1,5 +1,4 @@
-﻿import React from 'react';
-import asyncComponent from '../hoc/asyncComponent'
+﻿import asyncComponent from '../hoc/asyncComponent'
 
 const AsyncCurrencyPanel = asyncComponent(() => {
     return import('../CurrencyPanel');

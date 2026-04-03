@@ -1,46 +1,28 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ApplicationState } from '../store';
 import * as WeatherForecastsStore from '../store/WeatherForecasts';
 
-// At runtime, Redux will merge together...
 type WeatherForecastProps =
-    WeatherForecastsStore.WeatherForecastsState // ... state we've requested from the Redux store
-    & typeof WeatherForecastsStore.actionCreators // ... plus action creators we've requested
-    & RouteComponentProps<{ startDateIndex: string }>; // ... plus incoming routing parameters
+    WeatherForecastsStore.WeatherForecastsState
+    & typeof WeatherForecastsStore.actionCreators;
 
+const FetchData = (props: WeatherForecastProps) => {
+    const { startDateIndex: startDateIndexParam } = useParams<{ startDateIndex: string }>();
+    const startDateIndex = parseInt(startDateIndexParam || '0', 10) || 0;
 
-class FetchData extends React.PureComponent<WeatherForecastProps> {
-    // This method is called when the component is first added to the document
-    public componentDidMount() {
-        this.ensureDataFetched();
-    }
+    useEffect(() => {
+        props.requestWeatherForecasts(startDateIndex);
+    }, [startDateIndex]);
 
-    // This method is called when the route parameters change
-    public componentDidUpdate() {
-        this.ensureDataFetched();
-    }
+    const prevStartDateIndex = (props.startDateIndex || 0) - 5;
+    const nextStartDateIndex = (props.startDateIndex || 0) + 5;
 
-    public render() {
-        return (
-            <React.Fragment>
-                <h1 id="tabelLabel">Weather forecast</h1>
-                <p>This component demonstrates fetching data from the server and working with URL parameters.</p>
-                {this.renderForecastsTable()}
-                {this.renderPagination()}
-            </React.Fragment>
-        );
-    }
-
-    private ensureDataFetched() {
-        const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
-        this.props.requestWeatherForecasts(startDateIndex);
-    }
-
-    private renderForecastsTable() {
-        return (
+    return (
+        <>
+            <h1 id="tabelLabel">Weather forecast</h1>
+            <p>This component demonstrates fetching data from the server and working with URL parameters.</p>
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
@@ -51,7 +33,7 @@ class FetchData extends React.PureComponent<WeatherForecastProps> {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.forecasts.map((forecast: WeatherForecastsStore.WeatherForecast) =>
+                    {props.forecasts.map((forecast: WeatherForecastsStore.WeatherForecast) =>
                         <tr key={forecast.date}>
                             <td>{forecast.date}</td>
                             <td>{forecast.temperatureC}</td>
@@ -61,24 +43,16 @@ class FetchData extends React.PureComponent<WeatherForecastProps> {
                     )}
                 </tbody>
             </table>
-        );
-    }
-
-    private renderPagination() {
-        const prevStartDateIndex = (this.props.startDateIndex || 0) - 5;
-        const nextStartDateIndex = (this.props.startDateIndex || 0) + 5;
-
-        return (
             <div className="d-flex justify-content-between">
                 <Link className='btn btn-outline-secondary btn-sm' to={`/fetch-data/${prevStartDateIndex}`}>Previous</Link>
-                {this.props.isLoading && <span>Loading...</span>}
+                {props.isLoading && <span>Loading...</span>}
                 <Link className='btn btn-outline-secondary btn-sm' to={`/fetch-data/${nextStartDateIndex}`}>Next</Link>
             </div>
-        );
-    }
-}
+        </>
+    );
+};
 
 export default connect(
-    (state: ApplicationState) => state.weatherForecasts, // Selects which state properties are merged into the component's props
-    WeatherForecastsStore.actionCreators // Selects which action creators are merged into the component's props
-)(FetchData as any); // eslint-disable-line @typescript-eslint/no-explicit-any
+    (state: ApplicationState) => state.weatherForecasts,
+    WeatherForecastsStore.actionCreators
+)(FetchData as any);

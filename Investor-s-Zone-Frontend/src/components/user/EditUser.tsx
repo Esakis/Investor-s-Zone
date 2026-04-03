@@ -1,13 +1,10 @@
-﻿import { Data } from "popper.js";
-import React, { SyntheticEvent, useEffect, useState, Component } from "react";
+﻿import { SyntheticEvent, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { Button, Message, Form, Header, Container, Segment, Grid } from "semantic-ui-react";
 
 
 const EditUser = (props: { email: string }) => {
 
 
-    const [dataemail, setDataemail] = useState('');
     const [datafirstname, setDatafirstname] = useState('');
     const [datalastname, setDatalastname] = useState('');
     const [datadateOfBirth, setDatadateOfBirth] = useState('');
@@ -38,7 +35,6 @@ const EditUser = (props: { email: string }) => {
                 });
                 const content = await response.json();
                 console.log(content);
-                setDataemail(content.email);
                 setDatafirstname(content.firstName);
                 setDatalastname(content.lastName);
                 setDatadateOfBirth(content.dateOfBirth);
@@ -49,7 +45,7 @@ const EditUser = (props: { email: string }) => {
             }
         )();
 
-    });
+    }, [props.email]);
 
 
 
@@ -124,7 +120,7 @@ const EditUser = (props: { email: string }) => {
                         <div className=" six wide field">
                             <label>Date of Birthday</label>
                             <div className="ui left icon input">
-                                <input type="data"
+                                <input type="date"
                                     name="date of birthday"
                                     placeholder={datadateOfBirth.slice(0, 10)}
                                     onChange={e => setDateOfBirth(e.target.value)} />

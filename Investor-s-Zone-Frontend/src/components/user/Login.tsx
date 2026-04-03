@@ -1,6 +1,6 @@
-﻿import React, { SyntheticEvent, useEffect, useState } from "react";
+﻿import { SyntheticEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { Menu, Button, Header, Grid, Form, Segment, Message } from 'semantic-ui-react';
+import { Button, Header, Grid, Form, Segment, Message } from 'semantic-ui-react';
 
 import { Link } from "react-router-dom";
 import '../componentsCss/CurrencyPage.css';
@@ -67,7 +67,7 @@ const Login = (props: { setEmail: (email: string) => void }) => {
                             iconPosition='left'
                             placeholder='Password'
                             type='password'
-                            quired
+                            required
                             onChange={e => setPassword(e.target.value)} />
 
 

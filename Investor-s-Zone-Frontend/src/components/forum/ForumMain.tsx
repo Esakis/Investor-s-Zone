@@ -1,18 +1,9 @@
-﻿//import { data } from "jquery";
-import React, { SyntheticEvent, useEffect, useState } from "react";
-//import { Redirect } from "react-router-dom";
+﻿import { useEffect, useState } from "react";
 import '../user/NavMenu.css';
 
 
 const ForumMain = () => {
-
-
-    const [dataid, setDataid] = useState('');
-
     const [forumData, setForumData] = useState([]);
-    // const [redirect, setRedirect] = useState(false);
-
-    var stringPostTable = "";
 
     useEffect(() => {
         (
@@ -30,7 +21,7 @@ const ForumMain = () => {
             }
         )();
 
-    });
+    }, []);
 
     return (
         <table>
@@ -42,8 +33,9 @@ const ForumMain = () => {
             </thead>
 
 
-            {forumData.map((row) => (
-                <tr>
+            <tbody>
+            {forumData.map((row: any, index: number) => (
+                <tr key={index}>
                     <td>
                         {row.title}
                     </td>
@@ -52,6 +44,7 @@ const ForumMain = () => {
                     </td>
                 </tr>
             ))}
+            </tbody>
         </table>
     )
 }

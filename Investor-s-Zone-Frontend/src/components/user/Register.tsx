@@ -1,6 +1,6 @@
-﻿import React, { SyntheticEvent, useState, useEffect } from "react";
+﻿import { SyntheticEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react';
+import { Button, Form, Grid, Message, Segment, Icon } from 'semantic-ui-react';
 
 
 

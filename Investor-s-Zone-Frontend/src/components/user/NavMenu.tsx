@@ -1,6 +1,5 @@
 ﻿import { Link, NavLink } from "react-router-dom";
-import { Menu, Button, Icon, Header, Grid, Divider, DropdownMenu } from 'semantic-ui-react';
-import React from "react";
+import { Menu, Button, Icon } from 'semantic-ui-react';
 import Clock from "../Clock";
 
 

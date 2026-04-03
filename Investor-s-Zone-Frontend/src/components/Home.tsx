@@ -1,10 +1,7 @@
 ﻿import * as React from 'react';
 import './componentsCss/NavMenu.css';
 import Clock from './Clock';
-import { connect } from 'react-redux';
 import CurrencyPanel from "./CurrencyPanel";
-import AsyncCurrencyPanelElement from "./asyncVariants/AsyncCurrencyPanel";
-import { SimpleStockChart } from './StockChart'
 import "./user/NavMenu.css";
 import { Button, Grid, Modal, Header, Popup } from 'semantic-ui-react';
 import './componentsCss/CurrencyPage.css';
@@ -40,7 +37,7 @@ const Home = () => {
                             /></Header>
                         <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                             <Grid.Column style={{ maxWidth: 450 }}>
-                                <Header>We�re better than the rest</Header>
+                                <Header>We're better than the rest</Header>
 
                                 <Modal
 
@@ -73,4 +70,4 @@ const Home = () => {
     )
                       
 };
-export default connect()(Home);
+export default Home;

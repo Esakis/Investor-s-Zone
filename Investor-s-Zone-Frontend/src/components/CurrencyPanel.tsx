@@ -1,8 +1,7 @@
-﻿import React, { Component, useState, useEffect, SyntheticEvent } from 'react';
+﻿import { Component } from 'react';
 import { Link } from "react-router-dom";
 import { currencyList } from "../constants/ConstantLocalValues";
-import { Menu, Button, Icon, Header, Grid, Form, Segment, Divider } from 'semantic-ui-react';
-import { Navigate } from "react-router-dom";
+import { Button, Icon, Header, Grid, Form, Segment, Divider } from 'semantic-ui-react';
 
 
 //tabelka
@@ -10,12 +9,6 @@ import { Navigate } from "react-router-dom";
 type currencyPanelProps = {
     data: []
 }
-
-type currencyPanelState = {
-    response: []
-}
-
-//const [ammount, setAmmount] = useState('');
 
 type tableCurrencyRow = {
     currency: string,
@@ -28,14 +21,14 @@ type tableCurrencyRow = {
 
 
 class CurrencyPanel extends Component<any, any> {
-    constructor(props: currencyPanelProps, state: currencyPanelState) {
+    constructor(props: currencyPanelProps) {
         super(props);
 
 
 
         this.state = {
             rows: [],
-            valueInput: HTMLElement,
+            valueInput: null,
             currentExchangeValue: "",
             selectedCurrencyValue: "",
             email: "",
@@ -86,19 +79,16 @@ class CurrencyPanel extends Component<any, any> {
         })
     }
 
-    private setTable(dataObject) {
-        // console.log("TABLE DATA rates", dataObject.rates, dataObject["rates"])
+    private setTable(dataObject: any) {
         let rates = dataObject.rates;
-        let rows = [];
+        let rows: tableCurrencyRow[] = [];
         for (let currency of currencyList) {
             if (rates[currency]) {
                 let { average_rate, selling_rate, buying_rate } = rates[currency];
-                // console.log("row data:", currency, average_rate, selling_rate, buying_rate)
                 rows.push({ currency, average_rate, selling_rate, buying_rate })
-                this.setState({ rows: rows })
             }
         }
-        console.log("RATES AFTER LOOP", this.state.rows)
+        this.setState({ rows: rows });
     }
 
     private setEventListeners() {
