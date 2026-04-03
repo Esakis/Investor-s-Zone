@@ -68,41 +68,38 @@ export class CurrencyPage extends Component<currencyPageProps, currencyPageState
 
 
     private getChartDataPoints(data: any) {
-        let filtered: any = [];
-        for (let element of data) {
-          //  console.log(data)
-            let date = new Date(parseInt(element.window_closed))
-            filtered.push({ x: date, y: parseFloat(element[this.baseCurrencyCredentials.typeOfData]) })
-        }
-        return filtered;
+        if (!data?.rates) return [];
+        return data.rates.map((r: any) => ({
+            x: new Date(r.effectiveDate),
+            y: r.mid,
+        }));
     }
 
-    private getCurrencyChartData(currency: string = this.baseCurrencyCredentials.currency,
+    private timePeriodToCount(timePeriod: string): number {
+        const map: Record<string, number> = {
+            '1day': 3, '1week': 7, '1month': 22,
+            '3months': 65, '6months': 130, '1year': 252,
+        };
+        return map[timePeriod] ?? 252;
+    }
+
+    private getCurrencyChartData(
+        currency: string = this.baseCurrencyCredentials.currency,
         timePeriod: string = this.baseCurrencyCredentials.timePeriod,
-        typeOfValues: string = this.baseCurrencyCredentials.typeOfData) {  //get data on request / on interval refresh
-       // console.log('currency', currency, "timePeriod", timePeriod, "typeOfValues", typeOfValues)
-        let timestamp = Date.now();
-        let url = `https://serene-sierra-46576.herokuapp.com/https://internetowykantor.pl/cms/currency_chart/${currency}/${timePeriod}/${typeOfValues}/?t=${timestamp - 1}`;
-       // console.log("url", url)
-        const promise = async () => {
-            const response = await fetch(url, {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
+        typeOfValues: string = this.baseCurrencyCredentials.typeOfData
+    ) {
+        const count = this.timePeriodToCount(timePeriod);
+        const url = `https://api.nbp.pl/api/exchangerates/rates/a/${currency.toLowerCase()}/last/${count}/?format=json`;
 
-            return response.json();
-        }
-
-        promise().then(data => {
-          //  console.log("DATA FETCH SUCCESFULL AAAAAAAAAAAAAAAAAAAAAA")
-            this.setState({ responseData: data, dataPoints: this.getChartDataPoints(data) });
-           // console.log("CHART DATA POINT IN CURRENCY PAGE", this.state);
-            this.connection.setCurrencyFetchData(currency, timePeriod, typeOfValues)
-            this.updateDataChart();
-        })
+        fetch(url)
+            .then(r => r.json())
+            .then(data => {
+                const dataPoints = this.getChartDataPoints(data);
+                this.setState({ responseData: data, dataPoints });
+                this.connection.setCurrencyFetchData(currency, timePeriod, typeOfValues);
+                if (dataPoints.length > 0) this.updateDataChart();
+            })
+            .catch(() => { /* NBP not available */ });
     }
 
     private updateDataChart() {

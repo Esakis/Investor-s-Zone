@@ -6,21 +6,19 @@ const ForumMain = () => {
     const [forumData, setForumData] = useState([]);
 
     useEffect(() => {
-        (
-            async () => {
+        (async () => {
+            try {
                 const response = await fetch('https://localhost:44349/api/forum/forum', {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                     credentials: "include",
-
                 });
                 const content = await response.json();
-                console.log(content);
                 setForumData(content);
-
+            } catch (_e) {
+                // backend not available
             }
-        )();
-
+        })();
     }, []);
 
     return (

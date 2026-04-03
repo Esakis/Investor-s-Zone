@@ -14,43 +14,35 @@ const TopUp = (props: { email: string }) => {
  
 
     useEffect(() => {
-        (
-            async () => {
+        (async () => {
+            try {
                 const response = await fetch('https://localhost:44349/api/account/topup/' + props.email, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                     credentials: "include",
-
                 });
                 const content = await response.json();
                 setDataPLN(content.pln);
                 setDataEUR(content.eur);
+            } catch (_e) {
+                // backend not available
             }
-        )();
-
+        })();
     }, [props.email]);
 
 
 
     const submitTopUp = async (e: SyntheticEvent) => {
-
         e.preventDefault();
-
-        await fetch('https://localhost:44349/api/account/topup/' + props.email, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({
-                email,
-                pln
-             //   eur
-                //usd
-              
-                
-               
-
-            })
-        });
-
+        try {
+            await fetch('https://localhost:44349/api/account/topup/' + props.email, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                body: JSON.stringify({ email, pln })
+            });
+        } catch (_e) {
+            // backend not available
+        }
         setRedirect(true);
     }
 

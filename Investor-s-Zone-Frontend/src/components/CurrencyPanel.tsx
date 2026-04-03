@@ -51,44 +51,35 @@ class CurrencyPanel extends Component<any, any> {
 
     componentDidMount() {
         this.setEventListeners();
-        let array: any[] = [];
-        const promise = async () => {
-            let response = await fetch(`https://serene-sierra-46576.herokuapp.com/https://internetowykantor.pl/cms/currency_money/?last-update=${Date.now() - 1}`, {
-                method: 'GET',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-
-            return response.json()
-        }
-
-        promise().then(data => {
-            dispatchEvent(new CustomEvent("currenciesDataUpdated", {
-                detail: {
-                    data: data
-                }
-            }));
-
-            this.setState({
-                response: array
+        fetch('https://api.nbp.pl/api/exchangerates/tables/C/?format=json')
+            .then(r => r.json())
+            .then(data => {
+                dispatchEvent(new CustomEvent('currenciesDataUpdated', { detail: { data } }));
+                this.setTable(data);
             })
-            // console.log('DATA FROM GET CURRENCY DISPLAY', data)
-            this.setTable(data);
-        })
+            .catch(() => { /* NBP not available */ });
     }
 
-    private setTable(dataObject: any) {
-        let rates = dataObject.rates;
-        let rows: tableCurrencyRow[] = [];
-        for (let currency of currencyList) {
-            if (rates[currency]) {
-                let { average_rate, selling_rate, buying_rate } = rates[currency];
-                rows.push({ currency, average_rate, selling_rate, buying_rate })
+    private setTable(data: any) {
+        // NBP Table C format: [{rates: [{code, bid, ask}, ...]}]
+        const nbpRates: any[] = Array.isArray(data) ? (data[0]?.rates ?? []) : [];
+        const rateMap: Record<string, any> = {};
+        for (const r of nbpRates) {
+            rateMap[r.code] = r;
+        }
+        const rows: tableCurrencyRow[] = [];
+        for (const currency of currencyList) {
+            const r = rateMap[currency];
+            if (r) {
+                rows.push({
+                    currency,
+                    average_rate: ((r.bid + r.ask) / 2).toFixed(4),
+                    selling_rate: r.ask.toFixed(4),
+                    buying_rate: r.bid.toFixed(4),
+                });
             }
         }
-        this.setState({ rows: rows });
+        this.setState({ rows });
     }
 
     private setEventListeners() {
@@ -149,53 +140,30 @@ class CurrencyPanel extends Component<any, any> {
         console.log(formData);
 
 
-        const promise = async () => {
-            const response = await fetch('https://localhost:44349/api/account/exchange/' + this.state.selectEmail, {
-                method: 'PUT',
-                mode: 'cors',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-
-            return response.json()
-        }
-        console.log(formData);
-        promise().then(data => { console.log(data) });
-
+        fetch('https://localhost:44349/api/account/exchange/' + this.state.selectEmail, {
+            method: 'PUT',
+            mode: 'cors',
+            body: JSON.stringify(formData),
+            headers: { 'Content-Type': 'application/json' },
+        }).catch(() => { /* backend not available */ });
     }
 
     //---------------------------------------------------------------------------
 
-
     private putExchangeValuePLN() {
-        const formData =
-
-        {
+        const formData = {
             email: this.state.selectEmail,
             password: this.state.selectPassword,
             pln: parseFloat(this.state.currentExchangeValuePLN),
             eur: parseFloat(this.state.selectCalculateValuePLN),
         }
-        console.log(formData);
 
-
-        const promise = async () => {
-            const response = await fetch('https://localhost:44349/api/account/exchangePLN/' + this.state.selectEmail, {
-                method: 'PUT',
-                mode: 'cors',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-
-            return response.json()
-        }
-        console.log(formData);
-        promise().then(data => { console.log(data) });
-        
+        fetch('https://localhost:44349/api/account/exchangePLN/' + this.state.selectEmail, {
+            method: 'PUT',
+            mode: 'cors',
+            body: JSON.stringify(formData),
+            headers: { 'Content-Type': 'application/json' },
+        }).catch(() => { /* backend not available */ });
     }
     
 
@@ -212,7 +180,7 @@ class CurrencyPanel extends Component<any, any> {
 
 
                 return (
-                    <Segment placeholder inverted color='grey'>
+                    <Segment inverted color='grey'>
                         <Grid columns={2} stackable textAlign='center'>
                             <Divider></Divider>
 

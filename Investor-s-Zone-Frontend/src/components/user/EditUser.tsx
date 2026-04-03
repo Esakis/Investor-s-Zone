@@ -27,21 +27,22 @@ const EditUser = (props: { email: string }) => {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('https://localhost:44349/api/account/' + props.email, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                    credentials: "include",
-
-                });
-                const content = await response.json();
-                console.log(content);
-                setDatafirstname(content.firstName);
-                setDatalastname(content.lastName);
-                setDatadateOfBirth(content.dateOfBirth);
-                setDatanationality(content.nationality);
-                setDataPLN(content.pln);
-                setDataEUR(content.eur);
-
+                try {
+                    const response = await fetch('https://localhost:44349/api/account/' + props.email, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                        credentials: "include",
+                    });
+                    const content = await response.json();
+                    setDatafirstname(content.firstName);
+                    setDatalastname(content.lastName);
+                    setDatadateOfBirth(content.dateOfBirth);
+                    setDatanationality(content.nationality);
+                    setDataPLN(content.pln);
+                    setDataEUR(content.eur);
+                } catch (_e) {
+                    // backend not available
+                }
             }
         )();
 
@@ -51,21 +52,16 @@ const EditUser = (props: { email: string }) => {
 
 
     const submit = async (e: SyntheticEvent) => {
-
         e.preventDefault();
-
-        await fetch('https://localhost:44349/api/account/' + props.email, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({
-                email,
-                firstname,
-                lastname,
-                dateOfBirth,
-                nationality
-            })
-        });
-
+        try {
+            await fetch('https://localhost:44349/api/account/' + props.email, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                body: JSON.stringify({ email, firstname, lastname, dateOfBirth, nationality })
+            });
+        } catch (_e) {
+            // backend not available
+        }
         setRedirect(true);
     }
 
@@ -77,7 +73,7 @@ const EditUser = (props: { email: string }) => {
 
     return (
 
-        <div className="ui placeholder segment">
+        <div className="ui segment">
 
             <div className="ui two column very relaxed stackable grid landpage-image">
                 <div className="column">

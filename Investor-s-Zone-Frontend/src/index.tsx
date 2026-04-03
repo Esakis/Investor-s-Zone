@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 // semantic-ui-react v2 uses deprecated React 18 APIs (findDOMNode, defaultProps on function components).

@@ -10,16 +10,17 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
 
 
     const logout = async () => {
-
+        try {
             await fetch('https://localhost:44349/api/account/logout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                 credentials: "include",
-
             });
-            props.setEmail('');
-
+        } catch (_e) {
+            // backend not available
         }
+        props.setEmail('');
+    }
 
 
     let menu;
