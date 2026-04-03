@@ -57,7 +57,14 @@ const EditUser = (props: { email: string }) => {
             await fetch('https://localhost:44349/api/account/' + props.email, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                body: JSON.stringify({ email, firstname, lastname, dateOfBirth, nationality })
+                credentials: 'include',
+                body: JSON.stringify({
+                    email: email || props.email,
+                    firstName: firstname,
+                    lastName: lastname,
+                    dateOfBirth,
+                    nationality,
+                })
             });
         } catch (_e) {
             // backend not available

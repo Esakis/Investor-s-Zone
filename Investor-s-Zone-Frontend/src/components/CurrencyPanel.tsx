@@ -1,4 +1,4 @@
-﻿import { Component } from 'react';
+﻿import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { currencyList } from "../constants/ConstantLocalValues";
 import { Button, Icon, Header, Grid, Form, Segment, Divider } from 'semantic-ui-react';
@@ -128,21 +128,18 @@ class CurrencyPanel extends Component<any, any> {
     //---------------------------------------------------------------------------
 
 
-    private putExchangeValue() {
-        const formData =
-
-        {
+    private putExchangeValue(e: React.FormEvent) {
+        e.preventDefault();
+        const formData = {
             email: this.state.selectEmail,
             password: this.state.selectPassword,
             pln: parseFloat(this.state.selectCalculateValue),
             eur: parseFloat(this.state.currentExchangeValue),
-        }
-        console.log(formData);
-
-
+        };
         fetch('https://localhost:44349/api/account/exchange/' + this.state.selectEmail, {
             method: 'PUT',
             mode: 'cors',
+            credentials: 'include',
             body: JSON.stringify(formData),
             headers: { 'Content-Type': 'application/json' },
         }).catch(() => { /* backend not available */ });
@@ -150,17 +147,18 @@ class CurrencyPanel extends Component<any, any> {
 
     //---------------------------------------------------------------------------
 
-    private putExchangeValuePLN() {
+    private putExchangeValuePLN(e: React.FormEvent) {
+        e.preventDefault();
         const formData = {
             email: this.state.selectEmail,
             password: this.state.selectPassword,
             pln: parseFloat(this.state.currentExchangeValuePLN),
             eur: parseFloat(this.state.selectCalculateValuePLN),
-        }
-
+        };
         fetch('https://localhost:44349/api/account/exchangePLN/' + this.state.selectEmail, {
             method: 'PUT',
             mode: 'cors',
+            credentials: 'include',
             body: JSON.stringify(formData),
             headers: { 'Content-Type': 'application/json' },
         }).catch(() => { /* backend not available */ });
