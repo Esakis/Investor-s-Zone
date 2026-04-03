@@ -29,31 +29,31 @@ const Profile = () => {
                             </button>
                         </a>
 
-                        <a className="active item">
+                        <div className="active item">
                             <button className="ui basic button inverted">
                                 <i className="newspaper outline icon"></i>
 
                                 <a href="https://businessinsider.com.pl/gielda" target="_blank">WGI</a>
                             </button>
-                        </a>
+                        </div>
 
-                        <a className="active item">
+                        <div className="active item">
                             <button className="ui basic button inverted">
                                 <i className="newspaper outline icon"></i>
 
 
                                 <a href="https://www.wsj.com/market-data/stocks" target="_blank">WSJ</a>
                             </button>
-                        </a>
+                        </div>
 
 
-                        <a className="item" >
+                        <div className="item" >
 
                             <button className="ui basic inverted button  ">
                                 <i className="icon user"></i>
                                 Add Friend
                             </button>
-                        </a>
+                        </div>
 
 
                         <img className="ui small circular image float right" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc2YzpaKUyKmBzE0wPNThI8X-jtSCHaB-zng&usqp=CAU" />

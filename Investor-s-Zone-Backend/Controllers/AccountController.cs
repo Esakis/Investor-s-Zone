@@ -81,6 +81,27 @@ public class AccountController : ControllerBase
         }
     }
 
+    [HttpGet]
+    public ActionResult GetCurrentAccount()
+    {
+        // Try to get user from JWT token
+        var token = Request.Cookies["jwt"];
+        if (string.IsNullOrEmpty(token))
+        {
+            return Ok(new { email = (string)null });
+        }
+
+        try
+        {
+            // For now, just return success - token validation would go here
+            return Ok(new { email = "user@example.com" });
+        }
+        catch
+        {
+            return Ok(new { email = (string)null });
+        }
+    }
+
     [HttpPost("logout")]
     public ActionResult Logout()
     {
