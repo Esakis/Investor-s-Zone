@@ -98,23 +98,53 @@ html {
     cursor: pointer !important;
 }
 
-.custom-dropdown-menu {
-    position: absolute !important;
-    top: 100% !important;
-    left: 0 !important;
-    background: white !important;
-    border: 1px solid #ddd !important;
-    border-radius: 4px !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
-    z-index: 1000 !important;
-    min-width: 200px !important;
+.ui.simple.dropdown.item .menu {
     display: none !important;
-    padding: 8px 0 !important;
-    margin: 0 !important;
 }
 
-.ui.simple.dropdown.item:hover .custom-dropdown-menu {
-    display: block !important;
+.ui.simple.dropdown.item.active .menu {
+    display: none !important;
+}
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.custom-dropdown-toggle:hover,
+.custom-dropdown-toggle.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.custom-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    min-width: 200px;
+    display: none;
+    padding: 8px 0;
+    margin: 0;
+}
+
+.custom-dropdown-toggle.active .custom-dropdown-menu {
+    display: block;
 }
 
 .custom-nav-link {

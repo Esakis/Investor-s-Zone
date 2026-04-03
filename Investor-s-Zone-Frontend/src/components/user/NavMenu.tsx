@@ -1,12 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
 import { Menu, Button, Icon } from 'semantic-ui-react';
 import Clock from "../Clock";
-import '../componentsCss/NavMenu.css';
+import "./NavMenu.css";
+import { useState, useEffect, useRef } from 'react';
 
 
 
 
 const NavMenu = (props: { email: string, setEmail: (email: string) => void }) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
 
     const logout = async () => {
@@ -21,6 +24,19 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
         }
         props.setEmail('');
     }
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
 
     let menu;
@@ -51,12 +67,12 @@ const NavMenu = (props: { email: string, setEmail: (email: string) => void }) =>
                     <Icon name="comment alternate outline" />Forum
                 </Link>
 
-                <div className="ui compact menu inverted">
-                    <div className="ui simple dropdown item" style={{position: 'relative', cursor: 'pointer'}}>
+                <div className="custom-dropdown" ref={dropdownRef} onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
+                    <div className={`custom-dropdown-toggle ${isDropdownOpen ? 'active' : ''}`} style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', background: 'transparent', border: 'none', color: 'white', cursor: 'pointer', borderRadius: '4px'}}>
                         <Icon name="user circle outline" />
                         {props.email}
                         <Icon name="dropdown" />
-                        <div className="custom-dropdown-menu">
+                        <div className="custom-dropdown-menu" style={{position: 'absolute', top: '100%', left: '0', background: 'white', border: '1px solid #ddd', borderRadius: '4px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', zIndex: '1000', minWidth: '200px', display: isDropdownOpen ? 'block' : 'none', padding: '8px 0', margin: '0'}}>
                             <NavLink to="/profile" className="custom-nav-link"><Icon name="bell outline" />Profile</NavLink>
                             <NavLink to={"/account/" + props.email} className="custom-nav-link"><Icon name="edit outline" />Edit</NavLink>
                             <NavLink to={"/account/topup/" + props.email} className="custom-nav-link"><Icon name="upload" />Top Up</NavLink>
