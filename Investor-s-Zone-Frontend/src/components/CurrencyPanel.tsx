@@ -168,8 +168,8 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
         const formData = {
             email,
             password: selectPassword,
-            pln: parseFloat(selectCalculateValue),
-            eur: parseFloat(currentExchangeValue),
+            pln: parseFloat(selectCalculateValue) || 0,
+            eur: parseFloat(currentExchangeValue) || 0,
         };
         try {
             const response = await fetch(`https://localhost:44349/api/account/exchange/${email}`, {
@@ -200,8 +200,8 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
         const formData = {
             email,
             password: selectPassword,
-            pln: parseFloat(currentExchangeValuePLN),
-            eur: parseFloat(selectCalculateValuePLN),
+            pln: parseFloat(currentExchangeValuePLN) || 0,
+            eur: parseFloat(selectCalculateValuePLN) || 0,
         };
         try {
             const response = await fetch(`https://localhost:44349/api/account/exchangePLN/${email}`, {
@@ -277,7 +277,7 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                 {propEmail && (
                     <div className="balance-bar">
                         <span className="balance-bar__label">
-                            <Icon name="wallet" /> Stan konta
+                            <Icon name="credit card" /> Stan konta
                         </span>
                         {balanceLoading ? (
                             <span className="balance-bar__item"><Icon name="circle notch" loading /> ładowanie…</span>
