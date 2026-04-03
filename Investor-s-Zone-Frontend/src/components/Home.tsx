@@ -30,7 +30,7 @@ const Home = () => {
                     <div className="column">
                         <Header>
                             <Popup
-                                trigger={<Button icon='eye'> <Clock /></Button>}
+                                trigger={<Button><Clock /></Button>}
                                 content='There is never bad time for good investment! '
                                 style={style}
                                 inverted

@@ -46,7 +46,7 @@ const Register = () => {
                     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                         <Grid.Column style={{ maxWidth: 450 }}>
                 <Message
-                    as='h4' color='grey' textAlign='center'
+                    color='grey'
                     header='Welcome to our site!'
                     content='Fill out the form below to sign-up for a new account'
                 />
