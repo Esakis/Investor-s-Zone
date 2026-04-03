@@ -23,30 +23,62 @@ public class AccountController : ControllerBase
     [HttpPost("register")]
     public ActionResult RegisterUser([FromBody] RegisterUserDto dto)
     {
-        _accountService.RegisterUser(dto);
-        return Ok();
+        try
+        {
+            _accountService.RegisterUser(dto);
+            return Ok(new { message = "User registered successfully" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
     }
 
     [HttpPost("login")]
     public ActionResult Login([FromBody] LoginDto dto)
     {
-        var user = _context.Users
-            .Include(u => u.Role)
-            .FirstOrDefault(u => u.Email == dto.Email);
-
-        if (user is null)
+        try
         {
-            throw new BadRequestException("Invalid username or password");
+            var user = _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefault(u => u.Email == dto.Email);
+
+            if (user is null)
+            {
+                return BadRequest(new { error = "Invalid username or password" });
+            }
+
+            string token = _accountService.GenerateJwt(dto);
+
+            Response.Cookies.Append("jwt", token, new CookieOptions
+            {
+                HttpOnly = true
+            });
+
+            return Ok(new { 
+                message = "Login successful",
+                user = new {
+                    user.Id,
+                    user.Email,
+                    user.FirstName,
+                    user.LastName,
+                    user.RoleId,
+                    user.PLN,
+                    user.EUR,
+                    user.GBP,
+                    user.DateOfBirth,
+                    user.Nationality,
+                    Role = new {
+                        user.Role.Id,
+                        user.Role.Name
+                    }
+                }
+            });
         }
-
-        string token = _accountService.GenerateJwt(dto);
-
-        Response.Cookies.Append("jwt", token, new CookieOptions
+        catch (Exception ex)
         {
-            HttpOnly = true
-        });
-
-        return Ok(user);
+            return BadRequest(new { error = ex.Message });
+        }
     }
 
     [HttpPost("logout")]
@@ -182,11 +214,7 @@ public class AccountController : ControllerBase
 
             existingUser.PLN = existingUser.PLN - data.PLN;
 
-            if (data.EUR == null)
-            {
-                existingUser.EUR = existingUser.EUR;
-            }
-            else
+            if (data.EUR > 0)
             {
                 existingUser.EUR = existingUser.EUR + data.EUR;
             }
@@ -217,11 +245,7 @@ public class AccountController : ControllerBase
 
             existingUser.PLN = existingUser.PLN + data.PLN;
 
-            if (data.PLN == null)
-            {
-                existingUser.EUR = existingUser.EUR;
-            }
-            else
+            if (data.PLN > 0)
             {
                 existingUser.EUR = existingUser.EUR - data.EUR;
             }

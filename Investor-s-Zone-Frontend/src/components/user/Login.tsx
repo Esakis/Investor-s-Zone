@@ -14,25 +14,35 @@ const Login = (props: { setEmail: (email: string) => void }) => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        const response = await fetch('https://localhost:44349/api/account/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            credentials: "include",
-            body: JSON.stringify({
-                email,
-                password,
+        try {
+            const response = await fetch('http://localhost:5122/api/account/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                credentials: "include",
+                body: JSON.stringify({
+                    email,
+                    password,
+                })
+            });
 
+            if (!response.ok) {
+                const errorData = await response.json();
+                let errorMessage = 'Login failed';
+                
+                if (errorData.error) {
+                    errorMessage = errorData.error;
+                }
+                
+                alert(errorMessage);
+                return;
+            }
 
-            })
-        });
-
-
-
-        const content = await response.json();
-        setRedirect(true);
-        props.setEmail(content.email);
-
-
+            const content = await response.json();
+            setRedirect(true);
+            props.setEmail(content.user.email);
+        } catch (err) {
+            alert('Login failed: ' + (err as Error).message);
+        }
     }
 
     if (redirect) {

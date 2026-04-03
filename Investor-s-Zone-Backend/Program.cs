@@ -64,7 +64,7 @@ try
 
     builder.Services.AddDbContext<UserDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") 
-            ?? "Server=DESKTOP-ANMM7DC\\SQLEXPRESS;Database=StrefaInwestora123;Trusted_Connection=True;TrustServerCertificate=True;"));
+            ?? "Server=(local)\\SQLEXPRESS;Database=StrefaInwestora123;Trusted_Connection=True;TrustServerCertificate=True;"));
 
     builder.Services.AddScoped<UserSeeder>();
     builder.Services.AddScoped<IAccountService, AccountService>();
@@ -92,6 +92,23 @@ try
     app.UseCors();
     app.UseAuthentication();
     app.UseAuthorization();
+
+    // Add exception handling middleware
+    app.UseExceptionHandler(errorApp =>
+    {
+        errorApp.Run(async context =>
+        {
+            context.Response.StatusCode = 500;
+            context.Response.ContentType = "application/json";
+            
+            var exception = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>();
+            if (exception != null)
+            {
+                var error = new { error = exception.Error.Message };
+                await context.Response.WriteAsJsonAsync(error);
+            }
+        });
+    });
     app.MapControllers();
 
     app.Run();

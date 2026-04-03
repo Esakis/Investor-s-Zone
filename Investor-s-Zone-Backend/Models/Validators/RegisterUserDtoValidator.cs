@@ -9,11 +9,20 @@ public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
     {
         RuleFor(x => x.Email)
             .NotEmpty()
-            .EmailAddress();
+            .WithMessage("Email is required.")
+            .EmailAddress()
+            .WithMessage("Invalid email format.");
 
-        RuleFor(x => x.Password).MinimumLength(6);
+        RuleFor(x => x.Password)
+            .NotEmpty()
+            .WithMessage("Password is required.")
+            .MinimumLength(6)
+            .WithMessage("Password must be at least 6 characters long.");
 
-        RuleFor(x => x.ConfirmPassword).Equal(e => e.Password);
+        RuleFor(x => x.ConfirmPassword)
+            .NotEmpty()
+            .WithMessage("Password confirmation is required.")
+            .Equal(x => x.Password).WithMessage("Passwords must match.");
 
         RuleFor(x => x.Email)
             .Custom((value, context) =>
