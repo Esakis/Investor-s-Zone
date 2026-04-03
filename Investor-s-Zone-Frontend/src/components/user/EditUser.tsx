@@ -16,6 +16,8 @@ const EditUser = (props: { email: string }) => {
     const [lastname, setLastName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [nationality, setNationality] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [message, setMessage] = useState('');
 
     const [redirect, setRedirect] = useState(false);
 
@@ -34,12 +36,19 @@ const EditUser = (props: { email: string }) => {
                         credentials: "include",
                     });
                     const content = await response.json();
-                    setDatafirstname(content.firstName);
-                    setDatalastname(content.lastName);
-                    setDatadateOfBirth(content.dateOfBirth);
-                    setDatanationality(content.nationality);
-                    setDataPLN(content.pln);
-                    setDataEUR(content.eur);
+                    setDatafirstname(content.firstName || '');
+                    setDatalastname(content.lastName || '');
+                    setDatadateOfBirth(content.dateOfBirth || '');
+                    setDatanationality(content.nationality || '');
+                    setDataPLN(content.pln || 0);
+                    setDataEUR(content.eur || 0);
+                    
+                    // Set form values
+                    setEmail(content.email || props.email);
+                    setFirstName(content.firstName || '');
+                    setLastName(content.lastName || '');
+                    setDateOfBirth(content.dateOfBirth ? content.dateOfBirth.slice(0, 10) : '');
+                    setNationality(content.nationality || '');
                 } catch (_e) {
                     // backend not available
                 }
@@ -53,8 +62,11 @@ const EditUser = (props: { email: string }) => {
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
+        setIsLoading(true);
+        setMessage('');
+        
         try {
-            await fetch('https://localhost:44349/api/account/' + props.email, {
+            const response = await fetch('https://localhost:44349/api/account/' + props.email, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                 credentials: 'include',
@@ -66,10 +78,19 @@ const EditUser = (props: { email: string }) => {
                     nationality,
                 })
             });
+            
+            if (response.ok) {
+                setMessage('Dane zaktualizowane pomyślnie!');
+                setTimeout(() => setRedirect(true), 1500);
+            } else {
+                const error = await response.json().catch(() => ({}));
+                setMessage(`Błąd: ${error.message || 'Nie udało się zapisać danych'}`);
+            }
         } catch (_e) {
-            // backend not available
+            setMessage('Brak połączenia z serwerem.');
+        } finally {
+            setIsLoading(false);
         }
-        setRedirect(true);
     }
 
     if (redirect) {
@@ -87,12 +108,20 @@ const EditUser = (props: { email: string }) => {
 
                     <form onSubmit={submit} className="ui form">
                         <h3 className="header grey centered"> Edit User Info</h3>
+                        
+                        {/* Message feedback */}
+                        {message && (
+                            <div className={`ui message ${message.includes('Błąd') || message.includes('Brak') ? 'negative' : 'positive'}`}>
+                                {message}
+                            </div>
+                        )}
+                        
                         <div className=" six wide field">
                             <label>Email</label>
                             <div className="ui left icon input">
                                 <input type="email"
                                     name="email"
-                                    placeholder={props.email}
+                                    value={email}
                                     onChange={e => setEmail(e.target.value)} />
                                 <i className="email icon"></i>
                             </div>
@@ -103,7 +132,7 @@ const EditUser = (props: { email: string }) => {
                             <div className="ui left icon input">
                                 <input type="text"
                                     name="first name"
-                                    placeholder={datafirstname}
+                                    value={firstname}
                                     onChange={e => setFirstName(e.target.value)} />
                                 <i className="user icon"></i>
                             </div>
@@ -114,7 +143,7 @@ const EditUser = (props: { email: string }) => {
                             <div className="ui left icon input">
                                 <input type="text"
                                     name="last name"
-                                    placeholder={datalastname}
+                                    value={lastname}
                                     onChange={e => setLastName(e.target.value)} />
                                 <i className="user icon"></i>
                             </div>
@@ -125,7 +154,7 @@ const EditUser = (props: { email: string }) => {
                             <div className="ui left icon input">
                                 <input type="date"
                                     name="date of birthday"
-                                    placeholder={datadateOfBirth.slice(0, 10)}
+                                    value={dateOfBirth}
                                     onChange={e => setDateOfBirth(e.target.value)} />
                                 <i className="email icon"></i>
                             </div>
@@ -136,15 +165,16 @@ const EditUser = (props: { email: string }) => {
                             <div className="ui left icon input">
                                 <input type="text"
                                     name="nationality"
-                                    placeholder={datanationality}
-
+                                    value={nationality}
                                     onChange={e => setNationality(e.target.value)} />
                                 <i className="user icon"></i>
                             </div>
                         </div>
 
 
-                        <button className="ui button" type="submit" color="tail">Submit</button>
+                        <button className="ui button" type="submit" disabled={isLoading}>
+                            {isLoading ? 'Zapisywanie...' : 'Submit'}
+                        </button>
                     </form>
                 </div>
                 <div className="middle aligned column">
