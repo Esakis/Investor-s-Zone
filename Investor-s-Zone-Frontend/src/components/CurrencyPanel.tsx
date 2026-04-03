@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { currencyList } from "../constants/ConstantLocalValues";
-import { Button, Icon, Header, Grid, Form, Segment, Divider } from 'semantic-ui-react';
+import { Button, Icon, Header, Grid, Form, Segment, Divider, Message } from 'semantic-ui-react';
 
 type tableCurrencyRow = {
     currency: string,
@@ -9,6 +9,16 @@ type tableCurrencyRow = {
     selling_rate: string,
     buying_rate: string,
 }
+
+type Notification = {
+    type: 'success' | 'error';
+    message: string;
+} | null;
+
+type Balance = {
+    pln: string;
+    eur: string;
+} | null;
 
 type CurrencyPanelProps = {
     email?: string,
@@ -26,11 +36,16 @@ type CurrencyPanelState = {
     selectCalculateValuePLN: string,
     currentExchangeValue: string,
     currentExchangeValuePLN: string,
+    txLoading: boolean,
+    notification: Notification,
+    balance: Balance,
+    balanceLoading: boolean,
 }
 
 class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
 
     private currenciesListener: ((e: Event) => void) | null = null;
+    private notifTimer: ReturnType<typeof setTimeout> | null = null;
 
     constructor(props: CurrencyPanelProps) {
         super(props);
@@ -45,6 +60,10 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
             selectCalculateValuePLN: '',
             currentExchangeValue: '',
             currentExchangeValuePLN: '',
+            txLoading: false,
+            notification: null,
+            balance: null,
+            balanceLoading: false,
         };
     }
 
@@ -61,18 +80,42 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                 this.setTable(data);
             })
             .catch(() => this.setState({ isLoading: false }));
+
+        if (this.props.email) this.fetchBalance();
     }
 
     componentWillUnmount() {
-        if (this.currenciesListener) {
+        if (this.currenciesListener)
             window.removeEventListener('currenciesDataUpdated', this.currenciesListener);
-        }
+        if (this.notifTimer) clearTimeout(this.notifTimer);
     }
 
     componentDidUpdate(prevProps: CurrencyPanelProps) {
         if (prevProps.email !== this.props.email && this.props.email) {
             this.setState({ selectEmail: this.props.email });
+            this.fetchBalance();
         }
+    }
+
+    private fetchBalance() {
+        const email = this.props.email;
+        if (!email) return;
+        this.setState({ balanceLoading: true });
+        fetch(`https://localhost:44349/api/account/topup/${email}`, {
+            credentials: 'include',
+        })
+            .then(r => r.json())
+            .then(data => this.setState({
+                balance: { pln: parseFloat(data.pln ?? 0).toFixed(2), eur: parseFloat(data.eur ?? 0).toFixed(2) },
+                balanceLoading: false,
+            }))
+            .catch(() => this.setState({ balanceLoading: false }));
+    }
+
+    private showNotif(type: 'success' | 'error', message: string) {
+        if (this.notifTimer) clearTimeout(this.notifTimer);
+        this.setState({ notification: { type, message } });
+        this.notifTimer = setTimeout(() => this.setState({ notification: null }), 5000);
     }
 
     private setTable(data: any) {
@@ -102,9 +145,8 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
     private setCalculateValue(value: string) {
         this.setState({ selectCalculateValue: value });
         const rate = parseFloat(this.state.selectedCurrencyValue);
-        if (rate > 0) {
-            this.setState({ currentExchangeValue: (parseFloat(value) / rate).toFixed(2) });
-        }
+        if (rate > 0)
+            this.setState({ currentExchangeValue: (parseFloat(value) / rate).toFixed(4) });
     }
 
     private setCurrencyPLN(value: string) {
@@ -113,55 +155,84 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
 
     private setCalculateValuePLN(value: string) {
         this.setState({ selectCalculateValuePLN: value });
-        const rate = parseFloat(this.state.selectedCurrencyValuePLN); // bugfix: was selectedCurrencyValue
-        if (rate > 0) {
+        const rate = parseFloat(this.state.selectedCurrencyValuePLN);
+        if (rate > 0)
             this.setState({ currentExchangeValuePLN: (parseFloat(value) * rate).toFixed(2) });
+    }
+
+    private async putExchangeValue(e: React.FormEvent) {
+        e.preventDefault();
+        this.setState({ txLoading: true });
+        const { selectCalculateValue, currentExchangeValue, selectPassword } = this.state;
+        const email = this.state.selectEmail || this.props.email;
+        const formData = {
+            email,
+            password: selectPassword,
+            pln: parseFloat(selectCalculateValue),
+            eur: parseFloat(currentExchangeValue),
+        };
+        try {
+            const response = await fetch(`https://localhost:44349/api/account/exchange/${email}`, {
+                method: 'PUT',
+                mode: 'cors',
+                credentials: 'include',
+                body: JSON.stringify(formData),
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (response.ok) {
+                this.showNotif('success', `✓ Transakcja zakończona! Kupiono ${currentExchangeValue} EUR za ${selectCalculateValue} PLN.`);
+                this.fetchBalance();
+            } else {
+                const err = await response.json().catch(() => ({}));
+                this.showNotif('error', `✗ Błąd: ${err.message ?? err.title ?? 'Transakcja nie powiodła się.'}`);
+            }
+        } catch (_e) {
+            this.showNotif('error', '✗ Brak połączenia z serwerem backendu.');
         }
+        this.setState({ txLoading: false });
     }
 
-    private putExchangeValue(e: React.FormEvent) {
+    private async putExchangeValuePLN(e: React.FormEvent) {
         e.preventDefault();
+        this.setState({ txLoading: true });
+        const { selectCalculateValuePLN, currentExchangeValuePLN, selectPassword } = this.state;
+        const email = this.state.selectEmail || this.props.email;
         const formData = {
-            email: this.state.selectEmail || this.props.email,
-            password: this.state.selectPassword,
-            pln: parseFloat(this.state.selectCalculateValue),
-            eur: parseFloat(this.state.currentExchangeValue),
+            email,
+            password: selectPassword,
+            pln: parseFloat(currentExchangeValuePLN),
+            eur: parseFloat(selectCalculateValuePLN),
         };
-        fetch('https://localhost:44349/api/account/exchange/' + formData.email, {
-            method: 'PUT',
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify(formData),
-            headers: { 'Content-Type': 'application/json' },
-        }).catch(() => { /* backend not available */ });
-    }
-
-    private putExchangeValuePLN(e: React.FormEvent) {
-        e.preventDefault();
-        const formData = {
-            email: this.state.selectEmail || this.props.email,
-            password: this.state.selectPassword,
-            pln: parseFloat(this.state.currentExchangeValuePLN),
-            eur: parseFloat(this.state.selectCalculateValuePLN),
-        };
-        fetch('https://localhost:44349/api/account/exchangePLN/' + formData.email, {
-            method: 'PUT',
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify(formData),
-            headers: { 'Content-Type': 'application/json' },
-        }).catch(() => { /* backend not available */ });
+        try {
+            const response = await fetch(`https://localhost:44349/api/account/exchangePLN/${email}`, {
+                method: 'PUT',
+                mode: 'cors',
+                credentials: 'include',
+                body: JSON.stringify(formData),
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (response.ok) {
+                this.showNotif('success', `✓ Transakcja zakończona! Sprzedano ${selectCalculateValuePLN} waluty, otrzymano ${currentExchangeValuePLN} PLN.`);
+                this.fetchBalance();
+            } else {
+                const err = await response.json().catch(() => ({}));
+                this.showNotif('error', `✗ Błąd: ${err.message ?? err.title ?? 'Transakcja nie powiodła się.'}`);
+            }
+        } catch (_e) {
+            this.showNotif('error', '✗ Brak połączenia z serwerem backendu.');
+        }
+        this.setState({ txLoading: false });
     }
 
     render() {
         const { hideExchangeForm, email: propEmail } = this.props;
-        const { rows, isLoading, currentExchangeValue, currentExchangeValuePLN } = this.state;
+        const { rows, isLoading, currentExchangeValue, currentExchangeValuePLN,
+            txLoading, notification, balance, balanceLoading } = this.state;
 
         if (isLoading) {
             return (
                 <div className="loading-box">
-                    <Icon name="circle notch" loading />
-                    Pobieranie kursów NBP…
+                    <Icon name="circle notch" loading /> Pobieranie kursów NBP…
                 </div>
             );
         }
@@ -169,7 +240,7 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
         if (rows.length === 0) {
             return (
                 <div className="loading-box">
-                    <Icon name="warning sign" /> Brak danych. Sprawdź połączenie.
+                    <Icon name="warning sign" /> Brak danych. Sprawdź połączenie z internetem.
                 </div>
             );
         }
@@ -180,8 +251,8 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                     <tr>
                         <th>Waluta</th>
                         <th>Kurs średni</th>
-                        <th>Kurs sprzedaży</th>
-                        <th>Kurs kupna</th>
+                        <th>Sprzedaż</th>
+                        <th>Kupno</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -197,17 +268,55 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
             </table>
         );
 
-        if (hideExchangeForm) {
-            return ratesTable;
-        }
+        if (hideExchangeForm) return ratesTable;
 
         return (
             <Segment inverted color='grey'>
+
+                {/* === Stan konta === */}
+                {propEmail && (
+                    <div className="balance-bar">
+                        <span className="balance-bar__label">
+                            <Icon name="wallet" /> Stan konta
+                        </span>
+                        {balanceLoading ? (
+                            <span className="balance-bar__item"><Icon name="circle notch" loading /> ładowanie…</span>
+                        ) : balance ? (
+                            <>
+                                <span className="balance-bar__item balance-bar__item--pln">
+                                    PLN: <strong>{balance.pln}</strong>
+                                </span>
+                                <span className="balance-bar__item balance-bar__item--eur">
+                                    EUR: <strong>{balance.eur}</strong>
+                                </span>
+                            </>
+                        ) : (
+                            <span className="balance-bar__item balance-bar__item--na">
+                                <Icon name="warning sign" /> niedostępny (backend offline)
+                            </span>
+                        )}
+                    </div>
+                )}
+
+                {/* === Powiadomienie o transakcji === */}
+                {notification && (
+                    <Message
+                        positive={notification.type === 'success'}
+                        negative={notification.type === 'error'}
+                        onDismiss={() => this.setState({ notification: null })}
+                    >
+                        <Message.Header>
+                            {notification.type === 'success' ? 'Transakcja udana' : 'Błąd transakcji'}
+                        </Message.Header>
+                        <p>{notification.message}</p>
+                    </Message>
+                )}
+
                 <Grid columns={2} stackable textAlign='center'>
                     <Divider />
                     <Grid.Row verticalAlign='middle'>
 
-                        {/* ---- Exchange forms ---- */}
+                        {/* ---- Formularze wymiany ---- */}
                         <Grid.Column>
                             <Grid.Row verticalAlign='middle'>
                                 <Form onSubmit={this.putExchangeValue.bind(this)} unstackable>
@@ -216,10 +325,7 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                                     {!propEmail && (
                                         <Form.Group widths={1}>
                                             <Form.Input
-                                                type="email"
-                                                label="Email"
-                                                placeholder="email"
-                                                required
+                                                type="email" label="Email" placeholder="email" required
                                                 onChange={e => this.setState({ selectEmail: e.target.value })}
                                             />
                                         </Form.Group>
@@ -227,30 +333,20 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
 
                                     <Form.Group widths={1}>
                                         <Form.Input
-                                            label="Hasło"
-                                            placeholder="hasło"
-                                            type="password"
-                                            required
+                                            label="Hasło" placeholder="hasło" type="password" required
                                             onChange={e => this.setState({ selectPassword: e.target.value })}
                                         />
                                     </Form.Group>
 
                                     <Form.Group widths={2}>
                                         <Form.Input
-                                            label="Kwota PLN"
-                                            type="number"
-                                            min="0.01"
-                                            step="0.01"
-                                            required
+                                            label="Kwota PLN" type="number" min="0.01" step="0.01" required
                                             onChange={e => this.setCalculateValue(e.target.value)}
                                         />
                                         <Form.Field>
-                                            <label>Waluta</label>
-                                            <select
-                                                className="form-select"
-                                                defaultValue=""
-                                                onChange={e => this.setCurrency(e.target.value)}
-                                            >
+                                            <label>Waluta (kurs sprzedaży)</label>
+                                            <select className="form-select" defaultValue=""
+                                                onChange={e => this.setCurrency(e.target.value)}>
                                                 <option value="" disabled>Wybierz walutę</option>
                                                 {rows.map(row => (
                                                     <option key={row.currency} value={row.selling_rate}>
@@ -261,24 +357,28 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                                         </Form.Field>
                                     </Form.Group>
 
-                                    <Button type="submit" inverted color="teal" icon labelPosition="left">
+                                    {currentExchangeValue && (
+                                        <div className="exchange-preview">
+                                            Otrzymasz: <strong>{currentExchangeValue}</strong> walut
+                                        </div>
+                                    )}
+
+                                    <Button type="submit" inverted color="teal" loading={txLoading}
+                                        icon labelPosition="left" disabled={txLoading}>
                                         <Icon name="shopping cart" />
-                                        {currentExchangeValue ? `Otrzymasz: ${currentExchangeValue}` : 'Kup'}
+                                        Kup walutę
                                     </Button>
                                 </Form>
                             </Grid.Row>
 
-                            <Grid.Row verticalAlign='middle' style={{ marginTop: '28px' }}>
+                            <Grid.Row verticalAlign='middle' style={{ marginTop: '32px' }}>
                                 <Form onSubmit={this.putExchangeValuePLN.bind(this)} unstackable>
                                     <Header as="h3">Waluta → PLN</Header>
 
                                     {!propEmail && (
                                         <Form.Group widths={1}>
                                             <Form.Input
-                                                type="email"
-                                                label="Email"
-                                                placeholder="email"
-                                                required
+                                                type="email" label="Email" placeholder="email" required
                                                 onChange={e => this.setState({ selectEmail: e.target.value })}
                                             />
                                         </Form.Group>
@@ -286,30 +386,20 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
 
                                     <Form.Group widths={1}>
                                         <Form.Input
-                                            label="Hasło"
-                                            placeholder="hasło"
-                                            type="password"
-                                            required
+                                            label="Hasło" placeholder="hasło" type="password" required
                                             onChange={e => this.setState({ selectPassword: e.target.value })}
                                         />
                                     </Form.Group>
 
                                     <Form.Group widths={2}>
                                         <Form.Input
-                                            label="Kwota waluty"
-                                            type="number"
-                                            min="0.01"
-                                            step="0.01"
-                                            required
+                                            label="Kwota waluty" type="number" min="0.01" step="0.01" required
                                             onChange={e => this.setCalculateValuePLN(e.target.value)}
                                         />
                                         <Form.Field>
-                                            <label>Waluta</label>
-                                            <select
-                                                className="form-select"
-                                                defaultValue=""
-                                                onChange={e => this.setCurrencyPLN(e.target.value)}
-                                            >
+                                            <label>Waluta (kurs kupna)</label>
+                                            <select className="form-select" defaultValue=""
+                                                onChange={e => this.setCurrencyPLN(e.target.value)}>
                                                 <option value="" disabled>Wybierz walutę</option>
                                                 {rows.map(row => (
                                                     <option key={row.currency} value={row.buying_rate}>
@@ -320,15 +410,22 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                                         </Form.Field>
                                     </Form.Group>
 
-                                    <Button type="submit" inverted color="teal" icon labelPosition="left">
+                                    {currentExchangeValuePLN && (
+                                        <div className="exchange-preview">
+                                            Otrzymasz: <strong>{currentExchangeValuePLN} PLN</strong>
+                                        </div>
+                                    )}
+
+                                    <Button type="submit" inverted color="teal" loading={txLoading}
+                                        icon labelPosition="left" disabled={txLoading}>
                                         <Icon name="shopping cart" />
-                                        {currentExchangeValuePLN ? `Otrzymasz: ${currentExchangeValuePLN} PLN` : 'Sprzedaj'}
+                                        Sprzedaj walutę
                                     </Button>
                                 </Form>
                             </Grid.Row>
                         </Grid.Column>
 
-                        {/* ---- Rates table ---- */}
+                        {/* ---- Tabela kursów ---- */}
                         <Grid.Column>
                             {ratesTable}
                         </Grid.Column>

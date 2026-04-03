@@ -415,3 +415,131 @@ h1,h2,h3,h4,h5,h6 { color: var(--text-primary); }
     color: var(--text-sub) !important;
     margin-bottom: 24px !important;
 }
+
+/* === BALANCE BAR (Exchange page) === */
+.balance-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(14,165,233,0.06);
+    border: 1px solid rgba(14,165,233,0.15);
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.balance-bar__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+.balance-bar__item {
+    font-size: 0.92rem;
+    color: var(--text-sub);
+    white-space: nowrap;
+}
+
+.balance-bar__item strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.balance-bar__item--pln strong { color: #fbbf24; }
+.balance-bar__item--eur strong { color: var(--accent); }
+
+.balance-bar__item--na {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+/* === EXCHANGE PREVIEW === */
+.exchange-preview {
+    background: rgba(16,185,129,0.08);
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 6px;
+    padding: 8px 14px;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: var(--text-sub);
+}
+
+.exchange-preview strong {
+    color: var(--green);
+    font-weight: 700;
+}
+
+/* Positive message (missing from Semantic UI dark overrides) */
+.ui.positive.message {
+    background: rgba(16,185,129,0.1) !important;
+    border-color: rgba(16,185,129,0.3) !important;
+    color: #6ee7b7 !important;
+}
+.ui.positive.message .header { color: #a7f3d0 !important; }
+
+/* === FORUM === */
+.forum-page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+}
+
+.forum-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    transition: border-color 0.15s;
+}
+
+.forum-card:hover {
+    border-color: rgba(14,165,233,0.25);
+}
+
+.forum-card__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px;
+}
+
+.forum-card__body {
+    font-size: 0.9rem;
+    color: var(--text-sub);
+    line-height: 1.65;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.forum-card__meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+.forum-compose {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 28px;
+}
+
+.forum-compose__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-sub);
+    margin: 0 0 14px;
+}
+
+.forum-empty {
+    text-align: center;
+    padding: 56px 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}

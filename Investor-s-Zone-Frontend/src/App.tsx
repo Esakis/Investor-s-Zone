@@ -44,7 +44,7 @@ function App() {
                         <ProtectedRoute email={email}><Profile /></ProtectedRoute>
                     } />
                     <Route path="/forum" element={
-                        <ProtectedRoute email={email}><ForumMain /></ProtectedRoute>
+                        <ProtectedRoute email={email}><ForumMain email={email} /></ProtectedRoute>
                     } />
                     <Route path="/account/:email" element={
                         <ProtectedRoute email={email}><EditUser email={email} /></ProtectedRoute>
