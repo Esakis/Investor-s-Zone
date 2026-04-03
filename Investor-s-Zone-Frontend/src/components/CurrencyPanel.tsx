@@ -17,7 +17,7 @@ type Notification = {
 
 type Balance = {
     pln: string;
-    eur: string;
+    [key: string]: string;
 } | null;
 
 type CurrencyPanelProps = {
@@ -40,6 +40,10 @@ type CurrencyPanelState = {
     notification: Notification,
     balance: Balance,
     balanceLoading: boolean,
+    selectedFromCurrency: string,
+    selectedToCurrency: string,
+    selectedFromCurrencyPLN: string,
+    selectedToCurrencyPLN: string,
 }
 
 class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
@@ -64,6 +68,10 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
             notification: null,
             balance: null,
             balanceLoading: false,
+            selectedFromCurrency: '',
+            selectedToCurrency: '',
+            selectedFromCurrencyPLN: '',
+            selectedToCurrencyPLN: '',
         };
     }
 
@@ -101,15 +109,49 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
         const email = this.props.email;
         if (!email) return;
         this.setState({ balanceLoading: true });
-        fetch(`https://localhost:44349/api/account/topup/${email}`, {
+        
+        // Debug current path
+        console.log('Current pathname:', window.location.pathname);
+        
+        // Use exchange endpoint for exchange page, topup endpoint for other pages
+        const isExchangePage = window.location.pathname.includes('exchange');
+        const endpoint = isExchangePage 
+            ? `https://localhost:44349/api/account/exchange/${email}`
+            : `https://localhost:44349/api/account/topup/${email}`;
+            
+        console.log('Using endpoint:', endpoint, 'isExchangePage:', isExchangePage);
+            
+        fetch(endpoint, {
             credentials: 'include',
         })
             .then(r => r.json())
-            .then(data => this.setState({
-                balance: { pln: parseFloat(data.pln ?? 0).toFixed(2), eur: parseFloat(data.eur ?? 0).toFixed(2) },
-                balanceLoading: false,
-            }))
-            .catch(() => this.setState({ balanceLoading: false }));
+            .then(data => {
+                console.log('=== FULL RAW DATA ===');
+                console.log(JSON.stringify(data, null, 2));
+                console.log('EUR value check:', data.eur, data.EUR);
+                console.log('=== END RAW DATA ===');
+                
+                const balance: Balance = {
+                    pln: parseFloat(data.pln ?? 0).toFixed(2),
+                };
+                
+                // Add all currencies - use camelCase from backend
+                currencyList.forEach(currency => {
+                    const camelCaseKey = currency.toLowerCase();
+                    balance[currency] = parseFloat(data[camelCaseKey] ?? 0).toFixed(2);
+                });
+                
+                console.log('Processed balance:', balance);
+                
+                this.setState({
+                    balance,
+                    balanceLoading: false,
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching balance:', error);
+                this.setState({ balanceLoading: false });
+            });
     }
 
     private showNotif(type: 'success' | 'error', message: string) {
@@ -138,6 +180,22 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
         this.setState({ rows, isLoading: false });
     }
 
+    private setFromCurrency(currency: string) {
+        this.setState({ selectedFromCurrency: currency });
+    }
+
+    private setToCurrency(currency: string) {
+        this.setState({ selectedToCurrency: currency });
+    }
+
+    private setFromCurrencyPLN(currency: string) {
+        this.setState({ selectedFromCurrencyPLN: currency });
+    }
+
+    private setToCurrencyPLN(currency: string) {
+        this.setState({ selectedToCurrencyPLN: currency });
+    }
+
     private setCurrency(value: string) {
         this.setState({ selectedCurrencyValue: value });
     }
@@ -145,7 +203,7 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
     private setCalculateValue(value: string) {
         this.setState({ selectCalculateValue: value });
         const rate = parseFloat(this.state.selectedCurrencyValue);
-        if (rate > 0)
+        if (rate > 0 && value)
             this.setState({ currentExchangeValue: (parseFloat(value) / rate).toFixed(4) });
     }
 
@@ -163,14 +221,37 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
     private async putExchangeValue(e: React.FormEvent) {
         e.preventDefault();
         this.setState({ txLoading: true });
-        const { selectCalculateValue, currentExchangeValue, selectPassword } = this.state;
+        const { selectCalculateValue, currentExchangeValue, selectPassword, selectedToCurrency } = this.state;
         const email = this.state.selectEmail || this.props.email;
-        const formData = {
+        
+        // Debug logging
+        console.log('=== PUT Exchange Debug ===');
+        console.log('selectCalculateValue:', selectCalculateValue);
+        console.log('currentExchangeValue:', currentExchangeValue);
+        console.log('selectedToCurrency:', selectedToCurrency);
+        console.log('selectPassword:', selectPassword);
+        console.log('email:', email);
+        
+        // Build exchange data dynamically
+        const formData: any = {
             email,
             password: selectPassword,
-            pln: parseFloat(selectCalculateValue) || 0,
-            eur: parseFloat(currentExchangeValue) || 0,
         };
+        
+        // Set PLN amount (from input)
+        formData.pln = parseFloat(selectCalculateValue) || 0;
+        
+        // Set target currency amount
+        if (selectedToCurrency) {
+            formData[selectedToCurrency.toLowerCase()] = parseFloat(currentExchangeValue) || 0;
+            console.log('Setting', selectedToCurrency.toLowerCase(), 'to:', formData[selectedToCurrency.toLowerCase()]);
+        } else {
+            formData.eur = parseFloat(currentExchangeValue) || 0;
+            console.log('Setting eur to:', formData.eur);
+        }
+        
+        console.log('Final formData:', formData);
+        
         try {
             const response = await fetch(`https://localhost:44349/api/account/exchange/${email}`, {
                 method: 'PUT',
@@ -180,29 +261,39 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) {
-                this.showNotif('success', `✓ Transakcja zakończona! Kupiono ${currentExchangeValue} EUR za ${selectCalculateValue} PLN.`);
-                this.fetchBalance();
+                const targetCurrency = selectedToCurrency || 'EUR';
+                this.showNotif('success', `✓ Transakcja zakończona! Kupiono ${currentExchangeValue} ${targetCurrency} za ${selectCalculateValue} PLN.`);
+                setTimeout(() => this.fetchBalance(), 500); // Opóźnienie 0.5s
             } else {
                 const err = await response.json().catch(() => ({}));
                 this.showNotif('error', `✗ Błąd: ${err.message ?? err.title ?? 'Transakcja nie powiodła się.'}`);
             }
         } catch (_e) {
             this.showNotif('error', '✗ Brak połączenia z serwerem backendu.');
+        } finally {
+            this.setState({ txLoading: false });
         }
-        this.setState({ txLoading: false });
     }
 
     private async putExchangeValuePLN(e: React.FormEvent) {
         e.preventDefault();
         this.setState({ txLoading: true });
-        const { selectCalculateValuePLN, currentExchangeValuePLN, selectPassword } = this.state;
+        const { selectCalculateValuePLN, currentExchangeValuePLN, selectPassword, selectedFromCurrencyPLN, selectedToCurrencyPLN } = this.state;
         const email = this.state.selectEmail || this.props.email;
-        const formData = {
+        
+        // Build exchange data dynamically
+        const formData: any = {
             email,
             password: selectPassword,
-            pln: parseFloat(currentExchangeValuePLN) || 0,
-            eur: parseFloat(selectCalculateValuePLN) || 0,
         };
+        
+        // Set PLN amount (to receive)
+        formData.pln = parseFloat(currentExchangeValuePLN) || 0;
+        
+        // Set source currency amount (to sell)
+        const sourceCurrency = selectedFromCurrencyPLN || 'EUR';
+        formData[sourceCurrency.toLowerCase()] = parseFloat(selectCalculateValuePLN) || 0;
+        
         try {
             const response = await fetch(`https://localhost:44349/api/account/exchangePLN/${email}`, {
                 method: 'PUT',
@@ -212,8 +303,8 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) {
-                this.showNotif('success', `✓ Transakcja zakończona! Sprzedano ${selectCalculateValuePLN} waluty, otrzymano ${currentExchangeValuePLN} PLN.`);
-                this.fetchBalance();
+                this.showNotif('success', `✓ Transakcja zakończona! Sprzedano ${selectCalculateValuePLN} ${sourceCurrency}, otrzymano ${currentExchangeValuePLN} PLN.`);
+                setTimeout(() => this.fetchBalance(), 500); // Opóźnienie 0.5s
             } else {
                 const err = await response.json().catch(() => ({}));
                 this.showNotif('error', `✗ Błąd: ${err.message ?? err.title ?? 'Transakcja nie powiodła się.'}`);
@@ -282,14 +373,34 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                         {balanceLoading ? (
                             <span className="balance-bar__item"><Icon name="circle notch" loading /> ładowanie…</span>
                         ) : balance ? (
-                            <>
-                                <span className="balance-bar__item balance-bar__item--pln">
-                                    PLN: <strong>{balance.pln}</strong>
-                                </span>
-                                <span className="balance-bar__item balance-bar__item--eur">
-                                    EUR: <strong>{balance.eur}</strong>
-                                </span>
-                            </>
+                            (() => {
+                                console.log('Rendering balance:', balance);
+                                const currenciesWithBalance = currencyList.filter(currency => {
+                                    const amount = parseFloat(balance[currency] || '0');
+                                    return amount > 0;
+                                });
+                                console.log('Currencies with balance:', currenciesWithBalance);
+                                
+                                return (
+                                    <>
+                                        <span className="balance-bar__item balance-bar__item--pln">
+                                            PLN: <strong>{balance.pln}</strong>
+                                        </span>
+                                        {currenciesWithBalance
+                                            .slice(0, 8)
+                                            .map(currency => (
+                                                <span key={currency} className="balance-bar__item">
+                                                    {currency}: <strong>{balance[currency] || '0.00'}</strong>
+                                                </span>
+                                            ))}
+                                        {currenciesWithBalance.length > 8 && (
+                                            <span className="balance-bar__item balance-bar__item--more">
+                                                +{currenciesWithBalance.length - 8} więcej
+                                            </span>
+                                        )}
+                                    </>
+                                );
+                            })()
                         ) : (
                             <span className="balance-bar__item balance-bar__item--na">
                                 <Icon name="warning sign" /> niedostępny (backend offline)
@@ -344,12 +455,25 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                                             onChange={e => this.setCalculateValue(e.target.value)}
                                         />
                                         <Form.Field>
-                                            <label>Waluta (kurs sprzedaży)</label>
+                                            <label>Waluta docelowa (kurs sprzedaży)</label>
                                             <select className="form-select" defaultValue=""
-                                                onChange={e => this.setCurrency(e.target.value)}>
+                                                onChange={e => {
+                                                    const value = e.target.value;
+                                                    const [currency, rate] = value.split('|');
+                                                    this.setState({ 
+                                                        selectedToCurrency: currency,
+                                                        selectedCurrencyValue: rate 
+                                                    });
+                                                    const amount = this.state.selectCalculateValue;
+                                                    if (rate && amount) {
+                                                        this.setState({ 
+                                                            currentExchangeValue: (parseFloat(amount) / parseFloat(rate)).toFixed(4) 
+                                                        });
+                                                    }
+                                                }}>
                                                 <option value="" disabled>Wybierz walutę</option>
                                                 {rows.map(row => (
-                                                    <option key={row.currency} value={row.selling_rate}>
+                                                    <option key={row.currency} value={`${row.currency}|${row.selling_rate}`}>
                                                         {row.currency} — {row.selling_rate}
                                                     </option>
                                                 ))}
@@ -357,9 +481,9 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                                         </Form.Field>
                                     </Form.Group>
 
-                                    {currentExchangeValue && (
+                                    {currentExchangeValue && this.state.selectedToCurrency && (
                                         <div className="exchange-preview">
-                                            Otrzymasz: <strong>{currentExchangeValue}</strong> walut
+                                            Otrzymasz: <strong>{currentExchangeValue}</strong> {this.state.selectedToCurrency}
                                         </div>
                                     )}
 
@@ -394,15 +518,37 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                                     <Form.Group widths={2}>
                                         <Form.Input
                                             label="Kwota waluty" type="number" min="0.01" step="0.01" required
-                                            onChange={e => this.setCalculateValuePLN(e.target.value)}
+                                            onChange={e => {
+                                                const value = e.target.value;
+                                                this.setState({ selectCalculateValuePLN: value });
+                                                const rate = parseFloat(this.state.selectedCurrencyValuePLN);
+                                                if (rate > 0 && value) {
+                                                    this.setState({ 
+                                                        currentExchangeValuePLN: (parseFloat(value) * rate).toFixed(2) 
+                                                    });
+                                                }
+                                            }}
                                         />
                                         <Form.Field>
-                                            <label>Waluta (kurs kupna)</label>
+                                            <label>Waluta źródłowa (kurs kupna)</label>
                                             <select className="form-select" defaultValue=""
-                                                onChange={e => this.setCurrencyPLN(e.target.value)}>
+                                                onChange={e => {
+                                                    const value = e.target.value;
+                                                    const [currency, rate] = value.split('|');
+                                                    this.setState({ 
+                                                        selectedFromCurrencyPLN: currency,
+                                                        selectedCurrencyValuePLN: rate 
+                                                    });
+                                                    const amount = this.state.selectCalculateValuePLN;
+                                                    if (rate && amount) {
+                                                        this.setState({ 
+                                                            currentExchangeValuePLN: (parseFloat(amount) * parseFloat(rate)).toFixed(2) 
+                                                        });
+                                                    }
+                                                }}>
                                                 <option value="" disabled>Wybierz walutę</option>
                                                 {rows.map(row => (
-                                                    <option key={row.currency} value={row.buying_rate}>
+                                                    <option key={row.currency} value={`${row.currency}|${row.buying_rate}`}>
                                                         {row.currency} — {row.buying_rate}
                                                     </option>
                                                 ))}
@@ -410,9 +556,9 @@ class CurrencyPanel extends Component<CurrencyPanelProps, CurrencyPanelState> {
                                         </Form.Field>
                                     </Form.Group>
 
-                                    {currentExchangeValuePLN && (
+                                    {currentExchangeValuePLN && this.state.selectedFromCurrencyPLN && (
                                         <div className="exchange-preview">
-                                            Otrzymasz: <strong>{currentExchangeValuePLN} PLN</strong>
+                                            Otrzymasz: <strong>{currentExchangeValuePLN} PLN</strong> za {this.state.selectCalculateValuePLN} {this.state.selectedFromCurrencyPLN}
                                         </div>
                                     )}
 

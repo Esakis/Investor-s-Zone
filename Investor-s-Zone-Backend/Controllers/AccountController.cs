@@ -1,6 +1,7 @@
 using InvestorZone.API.Entities;
 using InvestorZone.API.Exceptions;
 using InvestorZone.API.Models;
+using InvestorZone.API.Models.Validators;
 using InvestorZone.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -219,11 +220,56 @@ public class AccountController : ControllerBase
         return Ok(user);
     }
 
+    [HttpGet("exchange/{email}")]
+    public ActionResult<BalanceDto> GetExchangeBalance([FromRoute] string email)
+    {
+        var user = _context
+            .Users
+            .FirstOrDefault(r => r.Email == email);
+
+        if (user == null)
+            return NotFound();
+
+        // Create simple DTO with only balance data
+        var balance = new BalanceDto
+        {
+            PLN = user.PLN,
+            EUR = user.EUR,
+            USD = user.USD,
+            CHF = user.CHF,
+            GBP = user.GBP,
+            AUD = user.AUD,
+            BGN = user.BGN,
+            CAD = user.CAD,
+            CZK = user.CZK,
+            DKK = user.DKK,
+            HDK = user.HDK,
+            HRK = user.HRK,
+            MXN = user.MXN,
+            NOK = user.NOK,
+            NZD = user.NZD,
+            RON = user.RON,
+            RUB = user.RUB,
+            SEK = user.SEK,
+            SGD = user.SGD,
+            TRY = user.TRY,
+            ZAR = user.ZAR
+        };
+
+        // Debug logging
+        Console.WriteLine($"Balance DTO: PLN={balance.PLN}, EUR={balance.EUR}, USD={balance.USD}");
+
+        return Ok(balance);
+    }
+
     [HttpPut("exchange/{email}")]
     public ActionResult<LoginDto> UpdateExchange(User data)
     {
         if (!ModelState.IsValid)
             return BadRequest("Not a valid model");
+
+        // Debug logging
+        Console.WriteLine($"Received exchange data: PLN={data.PLN}, EUR={data.EUR}, USD={data.USD}");
 
         var existingUser = _context.Users.Where(p => p.Email == data.Email)
             .FirstOrDefault<User>();
@@ -233,12 +279,33 @@ public class AccountController : ControllerBase
             existingUser.Email = data.Email;
             existingUser.PasswordHash = existingUser.PasswordHash;
 
+            // Subtract PLN
             existingUser.PLN = existingUser.PLN - data.PLN;
 
-            if (data.EUR > 0)
-            {
-                existingUser.EUR = existingUser.EUR + data.EUR;
-            }
+            // Add currency amounts dynamically
+            existingUser.EUR = existingUser.EUR + data.EUR;
+            existingUser.USD = existingUser.USD + data.USD;
+            existingUser.CHF = existingUser.CHF + data.CHF;
+            existingUser.GBP = existingUser.GBP + data.GBP;
+            existingUser.AUD = existingUser.AUD + data.AUD;
+            existingUser.BGN = existingUser.BGN + data.BGN;
+            existingUser.CAD = existingUser.CAD + data.CAD;
+            existingUser.CZK = existingUser.CZK + data.CZK;
+            existingUser.DKK = existingUser.DKK + data.DKK;
+            existingUser.HDK = existingUser.HDK + data.HDK;
+            existingUser.HRK = existingUser.HRK + data.HRK;
+            existingUser.MXN = existingUser.MXN + data.MXN;
+            existingUser.NOK = existingUser.NOK + data.NOK;
+            existingUser.NZD = existingUser.NZD + data.NZD;
+            existingUser.RON = existingUser.RON + data.RON;
+            existingUser.RUB = existingUser.RUB + data.RUB;
+            existingUser.SEK = existingUser.SEK + data.SEK;
+            existingUser.SGD = existingUser.SGD + data.SGD;
+            existingUser.TRY = existingUser.TRY + data.TRY;
+            existingUser.ZAR = existingUser.ZAR + data.ZAR;
+
+            // Debug after update
+            Console.WriteLine($"After update - PLN={existingUser.PLN}, EUR={existingUser.EUR}, USD={existingUser.USD}");
 
             _context.SaveChanges();
         }
@@ -264,12 +331,30 @@ public class AccountController : ControllerBase
             existingUser.Email = data.Email;
             existingUser.PasswordHash = existingUser.PasswordHash;
 
+            // Add PLN
             existingUser.PLN = existingUser.PLN + data.PLN;
 
-            if (data.PLN > 0)
-            {
-                existingUser.EUR = existingUser.EUR - data.EUR;
-            }
+            // Subtract currency amounts dynamically
+            existingUser.EUR = existingUser.EUR - data.EUR;
+            existingUser.USD = existingUser.USD - data.USD;
+            existingUser.CHF = existingUser.CHF - data.CHF;
+            existingUser.GBP = existingUser.GBP - data.GBP;
+            existingUser.AUD = existingUser.AUD - data.AUD;
+            existingUser.BGN = existingUser.BGN - data.BGN;
+            existingUser.CAD = existingUser.CAD - data.CAD;
+            existingUser.CZK = existingUser.CZK - data.CZK;
+            existingUser.DKK = existingUser.DKK - data.DKK;
+            existingUser.HDK = existingUser.HDK - data.HDK;
+            existingUser.HRK = existingUser.HRK - data.HRK;
+            existingUser.MXN = existingUser.MXN - data.MXN;
+            existingUser.NOK = existingUser.NOK - data.NOK;
+            existingUser.NZD = existingUser.NZD - data.NZD;
+            existingUser.RON = existingUser.RON - data.RON;
+            existingUser.RUB = existingUser.RUB - data.RUB;
+            existingUser.SEK = existingUser.SEK - data.SEK;
+            existingUser.SGD = existingUser.SGD - data.SGD;
+            existingUser.TRY = existingUser.TRY - data.TRY;
+            existingUser.ZAR = existingUser.ZAR - data.ZAR;
 
             _context.SaveChanges();
         }
